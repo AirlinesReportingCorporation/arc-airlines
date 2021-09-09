@@ -1,0 +1,524 @@
+@import "../../node_modules/simplebar/dist/simplebar.min.css";
+
+.simplebar-scrollbar.simplebar-visible:before {
+  opacity: 0.9;
+}
+
+.simplebar-scrollbar::before {
+  background: #189bb0;
+}
+
+.simplebar-track.simplebar-vertical {
+  background: #dddddd;
+  background: rgba(221, 221, 221, 0.7);
+  border-radius: 7px;
+}
+
+.data-panel {
+  height: auto !important;
+  margin-top: 0;
+}
+
+.data-panel__inside {
+  display: none;
+}
+
+.data-panel .background {
+  position: relative;
+}
+
+.primary-nav__after,
+.primary-nav__before {
+  display: none;
+}
+
+.data-panel + footer {
+  margin-top: 0 !important;
+}
+
+.covidGraphContainer {
+  margin-top: 60px;
+}
+
+#app {
+  color: #414042;
+  min-height: 80vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  .loading {
+    vertical-align: middle;
+    text-align: center;
+    width: 100%;
+    .loading-icon {
+      color: #dddddd;
+      display: block;
+      font-size: 70px;
+      margin: 0 auto;
+    }
+  }
+}
+
+.airlinePartPage {
+  font-family: SourceSansPro-Regular, Arial, Helvetica, sans-serif;
+  width: 100%;
+  background: #ffffff;
+}
+
+.airlinePartJumboContainer {
+  padding: 40px 0 40px;
+  //box-shadow: 6px 10px 40px rgba(150, 150, 150, 0.3);
+}
+
+.airlinePartJumbo {
+  max-width: 900px;
+  margin: 0 auto;
+  color: #414042;
+  h1 {
+    font-family: SourceSansPro-Bold, Arial, Helvetica, sans-serif;
+    text-align: left;
+    line-height: 1.1;
+    margin-top: 50px;
+    margin-bottom: 70px;
+    max-width: 1170px;
+    font-size: 48px;
+  }
+  strong {
+    font-family: SourceSansPro-Black, Arial, Helvetica, sans-serif;
+  }
+  p {
+    font-family: SourceSansPro-Regular, Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 25px;
+  }
+  small {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  a.ctaBtn {
+    margin: 0;
+    padding: 10px;
+    min-height: auto;
+    text-decoration: none;
+  }
+}
+
+.airlinePartsTable {
+  padding: 0;
+  max-width: 1170px;
+  margin: 0 auto;
+  //box-shadow: 6px 10px 40px rgba(150, 150, 150, 0.3);
+  //border-radius: 30px;
+
+  .container {
+    //overflow-y: scroll;
+    min-height: 500px;
+  }
+}
+
+.airlinePartRow {
+  background: #f1f2f2;
+  margin: 0 0 15px;
+  border-radius: 10px;
+  /*box-shadow: 0 10px 20px rgba(200, 200, 200, 0.3),
+    0 6px 6px rgba(200, 200, 200, 0.3);*/
+  transition: background-color 0.5s, height 0.5s;
+
+  a,
+  a:focus {
+    font-family: SourceSansPro-SemiBold, Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 15px;
+  }
+
+  &.active {
+    background: #212122;
+    color: #ffffff;
+
+    .airlinePartName {
+      color: #ffffff;
+    }
+  }
+}
+
+.airlinePartRowTop {
+  font-family: SourceSansPro-Regular, Arial, Helvetica, sans-serif;
+  padding: 37px 30px;
+  transition: 0.5s;
+}
+
+.apDesignator,
+.apCode {
+  font-family: SourceSansPro-SemiBold, Arial, Helvetica, sans-serif;
+  background: #1d9cb1;
+  width: 90px;
+  font-size: 30px;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.apCode {
+  background: #c5b593;
+  margin-right: 30px;
+}
+
+.apUpdated {
+  color: #888888;
+  font-size: 14px;
+  line-height: 24px;
+  font-family: SourceSansPro-Bold, Arial, Helvetica, sans-serif;
+  margin-right: 25px;
+
+  span {
+    font-family: SourceSansPro-Regular, Arial, Helvetica, sans-serif;
+  }
+}
+
+.apProfile {
+  color: #129bb2;
+  font-family: SourceSansPro-Bold, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin-right: 25px;
+  cursor: pointer;
+
+  i {
+    font-size: 12px;
+    margin-left: 3px;
+  }
+}
+
+.apExpand {
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.apSearch {
+  max-width: 270px;
+  margin-bottom: 0;
+  height: 30px;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.apReset {
+  position: absolute;
+  right: 15px;
+  font-size: 13px;
+  line-height: 24px;
+  font-family: SourceSansPro-Black, Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  i {
+    margin-right: 5px;
+  }
+}
+
+.airlinePartRowBottom {
+  padding: 10px 25px;
+  position: relative;
+}
+
+.airlinePartRowInfo {
+  display: none;
+  word-break: break-word;
+  padding-top: 50px;
+
+  &.show {
+    display: block;
+  }
+}
+
+.apSection {
+  background: #2a2b2c;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  height: 100%;
+}
+
+.apSection.apInfo {
+  margin-top: 25px;
+  margin-bottom: 0;
+}
+
+.apSectionTop {
+  padding-bottom: 20px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #444444;
+
+  h3 {
+    color: #ffffff;
+    font-family: SourceSansPro-SemiBold, SourceSansPro-Bold, Arial, Helvetica,
+      sans-serif;
+    font-size: 18px;
+    line-height: 22px;
+    margin-right: 20px;
+    margin-bottom: 0;
+  }
+}
+
+.apPaymentSection {
+  margin-top: 30px;
+  padding: 0 15px;
+}
+
+.apDataLabel {
+  font-size: 12px;
+  line-height: 10px;
+  color: #888888;
+  margin-top: 15px;
+  margin-bottom: 3px;
+}
+
+.apDataText {
+  font-family: SourceSansPro-SemiBold, Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 15px;
+  color: #aaaaaa;
+}
+
+.apRefundsBtn {
+  background-color: #5d5e5e;
+  font-family: SourceSansPro-Bold, SourceSansPro-SemiBold, Arial, Helvetica,
+    sans-serif;
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 10px 15px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.2;
+  max-width: 180px;
+  margin-top: 15px;
+}
+
+.apProcessing {
+  color: #2a2b2c;
+  background: #ffffff;
+  height: 50px;
+  width: 50px;
+  font-size: 26px;
+  line-height: 50px;
+  text-align: center;
+  margin-right: 10px;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+.apProcessingText {
+  font-family: SourceSansPro-Regular, Arial, Helvetica, sans-serif;
+  font-size: 26px;
+  line-height: 50px;
+  color: #ffffff;
+  margin-top: 15px;
+  text-transform: uppercase;
+}
+
+.instructionsContainer {
+  padding-right: 25px;
+  padding-top: 10px;
+}
+
+.airlinePartName {
+  font-family: SourceSansPro-SemiBold, Arial, Helvetica, sans-serif;
+  color: #212122;
+  font-size: 30px;
+
+  a,
+  a:focus,
+  a:hover {
+    font-family: SourceSansPro-Bold, Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    font-size: 20px;
+  }
+}
+
+.airlinePartLabel {
+  font-family: SourceSansPro-Bold, arial, sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #989898;
+  padding-right: 7px;
+}
+
+.airlinePartPolicy {
+  font-family: SourceSansPro-SemiBold, arial, sans-serif;
+  background: #939393;
+  color: #ffffff;
+  padding: 5px 10px;
+  display: inline-block;
+  border-radius: 6px;
+  margin-top: 5px;
+  margin-right: 5px;
+  text-align: center;
+  text-transform: uppercase;
+  max-width: 200px;
+  font-size: 14px;
+}
+
+.airlinePartDownload {
+  background: #189bb0;
+  color: #ffffff;
+
+  cursor: pointer;
+  i {
+    margin-left: 5px;
+  }
+
+  &:hover {
+    background: #16bdc8;
+  }
+}
+
+.airlinePartFiltersTitle {
+  font-family: SourceSansPro-Bold, Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+}
+
+.airlinePartFiltersLabel {
+  font-family: SourceSansPro-SemiBold, Arial, Helvetica, sans-serif;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.optionGroup {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.optionGroupItem {
+  font-family: SourceSansPro-SemiBold, Arial, Helvetica, sans-serif;
+  border: 1px solid #189bb0;
+  color: #189bb0;
+  background: #ffffff;
+  display: inline-block;
+  padding: 7px 10px;
+  cursor: pointer;
+  border-right: none;
+  font-size: 14px;
+
+  &.active {
+    color: #ffffff;
+    background: #189bb0;
+  }
+
+  &:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-right: none;
+  }
+  &:last-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-right: 1px solid #189bb0;
+  }
+}
+
+.airlinePartResults {
+  min-height: 700px;
+  max-height: 850px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  align-content: flex-start;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.legaleseContainer {
+  margin-bottom: 45px;
+}
+
+.agencyResources {
+  background: #242039;
+  padding: 40px 0;
+  h2,
+  h3,
+  p {
+    color: #ffffff;
+  }
+
+  h2 {
+    margin-bottom: 40px;
+    text-align: left;
+    font-family: SourceSansPro-Bold, Arial, Helvetica, sans-serif;
+  }
+
+  a.ctaBtn {
+    margin: 0;
+    padding: 10px;
+    min-height: auto;
+  }
+}
+
+.airlinePartFilter {
+  background: #f1f2f2;
+  width: 100%;
+  max-width: 1170px;
+  margin: 0 auto;
+  border-radius: 8px;
+  padding: 25px;
+
+  .airlinePartLabel {
+    font-family: SourceSansPro-Regular, Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 24px;
+    text-transform: uppercase;
+    color: #5d5e5e;
+  }
+
+  .airlinePartFilterTop {
+    border-bottom: #bebec3 1px solid;
+    padding: 20px 0;
+  }
+
+  .airlinePartFilterBottom {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    justify-content: center;
+  }
+
+  .airlinePartFilterGroup {
+  }
+
+  .airlinePartFilterItem {
+    font-size: 13px;
+    line-height: 24px;
+    font-family: SourceSansPro-Black, Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &:hover,
+    &.active {
+      color: #1d9cb1;
+    }
+  }
+}
+
+.airlinePartsResultsTitle {
+  font-family: SourceSansPro-SemiBold, Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  padding: 70px 15px;
+  text-align: center;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
