@@ -122,6 +122,7 @@
   background: #f1f2f2;
   margin: 0 0 15px;
   border-radius: 10px;
+  overflow: hidden;
   /*box-shadow: 0 10px 20px rgba(200, 200, 200, 0.3),
     0 6px 6px rgba(200, 200, 200, 0.3);*/
   transition: background-color 0.5s, height 0.5s;
@@ -219,15 +220,23 @@
   }
 }
 
+.airlinePartRowStart {
+  position: relative;
+  z-index: 5;
+}
+
 .airlinePartRowBottom {
   padding: 10px 25px;
   position: relative;
 }
 
 .airlinePartRowInfo {
+  position: relative;
   display: none;
   word-break: break-word;
   padding-top: 50px;
+  z-index: 4;
+  transition: all 0.5s ease-in-out;
 
   &.show {
     display: block;
@@ -489,9 +498,6 @@
     padding: 20px 0;
     position: relative;
     justify-content: center;
-  }
-
-  .airlinePartFilterGroup {
   }
 
   .airlinePartFilterItem {

@@ -48,7 +48,7 @@ class RefundRow extends Component {
     return (
       <div className={"airlinePartRow" + (this.state.toggle ? " active" : "")}>
         <div className="airlinePartRowTop">
-          <div className="">
+          <div className="airlinePartRowStart">
             <div className="d-flex align-items-center">
               <div className="">
                 <div className="apDesignator">{data["Designator"]}</div>
@@ -96,7 +96,7 @@ class RefundRow extends Component {
 
           <div
             className={
-              "airlinePartRowInfo" + (this.state.toggle ? " show" : "")
+              "airlinePartRowInfo" + (this.state.toggle ? " show animated slideInDown" : "")
             }
           >
             <div className="row">
