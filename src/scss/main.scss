@@ -146,7 +146,7 @@
 
 .airlinePartRowTop {
   font-family: SourceSansPro-Regular, Arial, Helvetica, sans-serif;
-  padding: 37px 30px;
+  padding: 35px 30px;
   transition: 0.5s;
 }
 
@@ -247,8 +247,65 @@
   background: #2a2b2c;
   padding: 20px;
   border-radius: 8px;
-  margin-bottom: 30px;
+  //margin-bottom: 30px;
   height: 100%;
+}
+
+.apEdiBorder {
+  border-bottom: 1px solid #48494a;
+}
+
+.apSectionBorderNone {
+  border: 0 !important;
+}
+
+.apEdiLabel {
+  font-size: 13px;
+  color: #aaaaaa;
+  font-family: SourceSansPro-SemiBold, Arial, Helvetica, sans-serif;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.apEdiItem {
+  display: flex;
+  align-items: center;
+}
+
+.apEdiCir {
+  background: #8cc088;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.apEdiCirRed {
+  //background: #8cc088;
+  height: 8px;
+  width: 8px;
+  border: 2px #d23e3e solid;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.apEdiSup {
+  font-family: SourceSansPro-Regular, Arial, Helvetica, sans-serif;
+  color: #888888;
+  font-size: 12px;
+  line-height: 1.2;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.apEdiLegend {
+  display: flex;
+  align-items: center;
+}
+
+.apSectionMargin {
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .apSection.apInfo {
@@ -281,7 +338,7 @@
   font-size: 12px;
   line-height: 10px;
   color: #888888;
-  margin-top: 15px;
+  margin-top: 20px;
   margin-bottom: 3px;
 }
 
@@ -307,6 +364,7 @@
 }
 
 .apProcessing {
+  font-family: SourceSansPro-SemiBold, Arial, Helvetica, sans-serif;
   color: #2a2b2c;
   background: #ffffff;
   height: 50px;

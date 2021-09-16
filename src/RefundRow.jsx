@@ -96,12 +96,13 @@ class RefundRow extends Component {
 
           <div
             className={
-              "airlinePartRowInfo" + (this.state.toggle ? " show animated slideInDown" : "")
+              "airlinePartRowInfo" +
+              (this.state.toggle ? " show animated slideInDown" : "")
             }
           >
-            <div className="row">
+            <div className="row no-gutters">
               <div className="col">
-                <div className="apSection">
+                <div className="apSection apSectionMargin">
                   <div className="apSectionTop">
                     <div className="d-flex align-items-center">
                       <h3>Refunds</h3>
@@ -276,8 +277,8 @@ class RefundRow extends Component {
                 </div>
               </div>
               <div className="col">
-                <div className="apSection">
-                  <div className="apSectionTop">
+                <div className="apSection apSectionMargin">
+                  <div className="apSectionTop apSectionBorderNone">
                     <div className="d-flex align-items-center">
                       <h3>EDIFACT Support</h3>
                       <div className="ml-auto">
@@ -290,7 +291,75 @@ class RefundRow extends Component {
                       </div>
                     </div>
                   </div>
-                  <div className="apSectionBottom"></div>
+                  <div className="apSectionBottom">
+                    <div className="row apEdiBorder">
+                      <div className="col-lg-6">
+                        <div className="apEdiItem">
+                          <div className="apEdiCir"></div>
+                          <div className="apEdiLabel">
+                            <sup>1</sup>IAR ET VOID
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-lg-6">
+                        <div className="apEdiItem">
+                          <div className="apEdiCir"></div>
+                          <div className="apEdiLabel">
+                            <sup>1</sup>IAR ET VOID
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row apEdiBorder">
+                      <div className="col-lg-6">
+                        <div className="apEdiItem">
+                          <div className="apEdiCir"></div>
+                          <div className="apEdiLabel">
+                            <sup>1</sup>IAR ET VOID
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-lg-6">
+                        <div className="apEdiItem">
+                          <div className="apEdiCir"></div>
+                          <div className="apEdiLabel">
+                            <sup>1</sup>IAR ET VOID
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-lg-6">
+                        <div className="apEdiItem">
+                          <div className="apEdiCir"></div>
+                          <div className="apEdiLabel">
+                            <sup>1</sup>IAR ET VOID
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-lg-6">
+                        <div className="apEdiItem">
+                          <div className="apEdiCirRed"></div>
+                          <div className="apEdiLabel">
+                            <sup>1</sup>IAR ET VOID
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="apEdiSup">
+                      <sup>1</sup>An Electronic Settlement Authorization Code
+                      (ESAC) is provided by 1all ticketing Airlines and is
+                      required for voids and refunds.
+                    </div>
+
+                    <div className="apEdiLegend">
+                      <div className="apEdiCir"></div>
+                      <div className="apEdiLabel" style={{marginRight: "10px"}}>Supports</div>
+                      <div className="apEdiCirRed"></div>
+                      <div className="apEdiLabel">Does Not Support</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -310,10 +379,8 @@ class RefundRow extends Component {
                 </div>
               </div>
             </div>
-          
-            <div className="apSection apInfo">
-              asdf
-            </div>
+
+            <div className="apSection apInfo">asdf</div>
           </div>
         </div>
         <div style={{ display: "none" }} className="airlinePartRowBottom">

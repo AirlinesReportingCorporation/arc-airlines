@@ -324,7 +324,7 @@ class App extends Component {
           >
             <input className="apSearch" type="text" />
             <div className="apReset">
-              <i class="far fa-window-close"></i>
+              <i className="far fa-window-close"></i>
               Reset All
             </div>
           </div>
@@ -387,30 +387,7 @@ class App extends Component {
             <div className="row">
               <div className="col-lg-12">
                 <small>
-                  <strong>Disclaimer</strong>: This information is provided for
-                  informational purposes only. You shall not, without prior
-                  written consent from ARC, sell or resell any data provided, or
-                  otherwise disclose, copy, duplicate, publish, or distribute
-                  any such data for sale or resale. Unauthorized use of this
-                  data is prohibited. ARC endeavors to provide accurate data;
-                  however, the data used to compile the statistics may be
-                  subject to omissions and errors in reporting, recording and
-                  processing. ARC provides no warranties of any kind with
-                  respect to the statistics or the data. ARC shall in no way be
-                  liable to any party for any damages, costs or expenses, which
-                  may arise out of, or in any way be connected with any
-                  information furnished by ARC, including the manner or media in
-                  which the information is provided, whether or not such
-                  information, for any reason whatsoever, is erroneous or
-                  incomplete, even if ARC is advised of such possibility. The
-                  data, as well as the design, processing, and layout of the
-                  data are, and shall remain proprietary to ARC. Provision of
-                  this data shall not be construed as granting any express or
-                  implied rights, by license or otherwise, to any tangible or
-                  intangible property, including, but not necessarily limited
-                  to, any operational and sales statistics data or intellectual
-                  property, or improvement made, conceived, or acquired prior to
-                  after provision of this data.
+                  <strong>Disclaimer</strong>: This page is updated based on information ARC receives from individual airlines and global distribution systems. It may not be comprehensive and is subject to change without notice. For specific airline policies and guidelines, please visit the airline’s website or contact the airline directly. ARC uses reasonable care in compiling and presenting the hyperlinks, but ARC gives no guarantee, representation, or warranty that the content behind any of the hyperlinks is complete, accurate, error- or virus-free, or up to date. The information contained behind any hyperlink may not be the sole source of information from the airline and may not include all fare rules/ticketing rules. ARC recommends travel agents take care to read all information published by the airline and all rules for the fares being booked, ticketed and/or refunded. 
                 </small>
               </div>
             </div>
