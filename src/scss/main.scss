@@ -331,7 +331,29 @@
 
 .apPaymentSection {
   margin-top: 30px;
-  padding: 0 15px;
+}
+
+.apPaymentLabels {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #444444;
+}
+
+.apPaymentLabel {
+  display: inline-block;
+  margin-top: 15px;
+  border: 1px solid #757a7b;
+  border-radius: 30px;
+  padding: 5px 10px;
+  color: #757a7b;
+  font-size: 13px;
+  opacity: 0.5;
+  margin-right: 10px;
+
+  &.active {
+    border-color: #8cc088;
+    color: #8cc088;
+    opacity: 1;
+  }
 }
 
 .apDataLabel {

@@ -355,7 +355,12 @@ class RefundRow extends Component {
 
                     <div className="apEdiLegend">
                       <div className="apEdiCir"></div>
-                      <div className="apEdiLabel" style={{marginRight: "10px"}}>Supports</div>
+                      <div
+                        className="apEdiLabel"
+                        style={{ marginRight: "10px" }}
+                      >
+                        Supports
+                      </div>
                       <div className="apEdiCirRed"></div>
                       <div className="apEdiLabel">Does Not Support</div>
                     </div>
@@ -364,7 +369,7 @@ class RefundRow extends Component {
               </div>
             </div>
 
-            <div className="apPaymentSection">
+            <div className="apSection apPaymentSection">
               <div className="apSectionTop">
                 <div className="d-flex align-items-center">
                   <h3>Accepted Payments</h3>
@@ -378,9 +383,39 @@ class RefundRow extends Component {
                   </div>
                 </div>
               </div>
+              <div className="apSectionBottom">
+                <div className="apPaymentLabels">
+                  <div className="apPaymentLabel active">Cash</div>
+                  <div className="apPaymentLabel">American Express (AX)</div>
+                  <div className="apPaymentLabel">Diners Club Int'l (DC)</div>
+                  <div className="apPaymentLabel">Discover Card (DS)</div>
+                  <div className="apPaymentLabel">JCB (JC)</div>
+                  <div className="apPaymentLabel">Mastercard (CA)</div>
+                  <div className="apPaymentLabel">PayPal (TP)</div>
+                  <div className="apPaymentLabel">UATP (UP)</div>
+                  <div className="apPaymentLabel">UnionPay (UP)</div>
+                  <div className="apPaymentLabel">VISA (VI)</div>
+                </div>
+                <div className="row">
+                  <div className="col-lg-4">
+                    <div className="apDataLabel">Restriction</div>
+                    <div className="apDataText">
+                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    </div>
+                  </div>
+                  <div className="col-lg-8">
+                    <div className="apDataLabel">Exception</div>
+                    <div className="apDataText">
+                      Enim quis ab qui numquam assumenda sit dignissimos
+                      corrupti, vero est nam quae eligendi incidunt deleniti
+                      impedit accusamus, sapiente ea. Earum, ab.
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="apSection apInfo">asdf</div>
+            <div className="apInfo">asdf</div>
           </div>
         </div>
         <div style={{ display: "none" }} className="airlinePartRowBottom">
