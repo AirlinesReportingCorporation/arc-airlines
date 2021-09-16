@@ -1,4 +1,5 @@
 @import "../../node_modules/simplebar/dist/simplebar.min.css";
+@import "modal";
 
 .simplebar-scrollbar.simplebar-visible:before {
   opacity: 0.9;
@@ -354,6 +355,52 @@
     color: #8cc088;
     opacity: 1;
   }
+}
+
+.apInfoContainer {
+  width: 700px;
+  margin: 30px auto 0;
+  padding: 0 30px;
+}
+
+.apInfoIcon {
+  margin-right: 15px;
+}
+
+.apInfoCheck {
+  background: #8cc088;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.apNDClabel {
+  color: #8cc088;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+a.apInfoLink {
+  color: #1d9cb1;
+  font-family: SourceSansPro-Bold, Arial, Helvetica, sans-serif;
+  i {
+    font-size: 12px;
+    margin-left: 3px;
+  }
+}
+
+.apInfoPolicy {
+  background: #1d9cb1;
+  padding: 4px 7px;
+  border-radius: 5px;
+  width: 20px;
+}
+
+.apInfoLabel {
+  font-family: SourceSansPro-Bold, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
 }
 
 .apDataLabel {
