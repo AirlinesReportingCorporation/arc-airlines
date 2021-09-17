@@ -201,10 +201,29 @@
 
 .apSearch {
   max-width: 270px;
+  width: 100%;
   margin-bottom: 0;
   height: 30px;
-  border-radius: 14px;
-  background: #ffffff;
+  color: #212121;
+  position: relative;
+
+  input {
+    width: 100%;
+    height: 30px;
+    padding-left: 30px;
+    background: #ffffff;
+    border-radius: 14px;
+    border: 1px solid #bebec3;
+  }
+
+  .icon-search {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+  }
 }
 
 .apReset {
@@ -611,6 +630,7 @@ a.apInfoLink {
     line-height: 24px;
     text-transform: uppercase;
     color: #5d5e5e;
+    margin-left: 7px;
   }
 
   .airlinePartFilterTop {
@@ -634,9 +654,19 @@ a.apInfoLink {
     text-transform: uppercase;
     cursor: pointer;
 
+    i {
+      color: transparent;
+      margin-right: 2px;
+    }
+
     &:hover,
     &.active {
       color: #1d9cb1;
+
+      i {
+        color: #1d9cb1;
+        margin-right: 2px;
+      }
     }
   }
 }

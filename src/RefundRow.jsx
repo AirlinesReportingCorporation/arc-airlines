@@ -32,9 +32,18 @@ class RefundRow extends Component {
 
   render() {
     var data = this.props.data;
+    var cardData = this.props.cardData;
     var filter = this.props.filters;
 
+    var payment,
+      code,
+      exception = "";
+
     var refundClass = "refundRegular";
+
+    console.log(data);
+    console.log(cardData);
+    console.log("-------");
 
     if (
       data["Refunds"].indexOf("Managing Directly") > -1 ||
@@ -425,21 +434,21 @@ class RefundRow extends Component {
                     <div className="apPaymentLabel">VISA (VI)</div>
                   </div>
                   <div className="row">
-                    <div className="col-lg-4">
-                      <div className="apDataLabel">Restriction</div>
-                      <div className="apDataText">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing
-                        elit.
+                    {cardData["Code"] && (
+                      <div className="col-lg-4">
+                        <div className="apDataLabel">Restriction</div>
+                        <div className="apDataText">{cardData["Code"]}</div>
                       </div>
-                    </div>
-                    <div className="col-lg-8">
-                      <div className="apDataLabel">Exception</div>
-                      <div className="apDataText">
-                        Enim quis ab qui numquam assumenda sit dignissimos
-                        corrupti, vero est nam quae eligendi incidunt deleniti
-                        impedit accusamus, sapiente ea. Earum, ab.
+                    )}
+
+                    {typeof cardData["Exception"] != "undefined" && (
+                      <div className="col-lg-8">
+                        <div className="apDataLabel">Exception</div>
+                        <div className="apDataText">
+                          {cardData["Exception"]}
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </div>
               </div>

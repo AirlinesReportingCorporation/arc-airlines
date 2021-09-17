@@ -20,7 +20,12 @@ class App extends Component {
       filterObj: [],
       refundFilter: [],
       refundList: [],
-      sortType: "asc"
+      sortType: "asc",
+      jsonCardHeaders: [],
+      jsonCardData: [],
+      cardData: [],
+      cardFilter: [],
+      cardList: []
     };
     this.setFilter = this.setFilter.bind(this);
     this.setTicketFilter = this.setTicketFilter.bind(this);
@@ -98,11 +103,62 @@ class App extends Component {
 
       e.setState({ refundList: refundTypes });
       e.setState({ jsonHeaders: jsonHeadersTemp });
+      console.log(e.state.jsonData.length);
 
       e.setSort("asc");
+    });
 
-      //console.log(e.state.jsonHeaders);
-      //console.log(e.state.jsonData);
+    axios({
+      method: "get",
+      url:
+        "https://www2.arccorp.com/globalassets/support--training/agency-support/credit-card-acceptance/cchart.xlsx?" +
+        new Date().toLocaleString(),
+      responseType: "arraybuffer"
+    }).then(function(response) {
+      console.log("===== CC Chart Loaded =====");
+      var data = new Uint8Array(response.data);
+      var workbook = XLSX.read(data, { type: "array" });
+
+      var workbookData = workbook["Sheets"]["CC Acceptance Chart"];
+
+      var json = XLSX.utils.sheet_to_json(workbookData);
+
+      var cardTypes = [];
+
+      e.setState({ jsonCardData: json });
+
+      //traverseEntireWorkBook
+      for (var key in workbookData) {
+        //value in cell
+        var val = workbookData[key].w;
+
+        var str = key.match(/[a-z]+|[^a-z]+/gi);
+
+        if (str[0] === "D" && str[1] != 1) {
+          var payments = val.split("\n");
+
+          for (var i = 0; i < payments.length; i++) {
+            var paymentVal = payments[i].trim();
+
+            if (!(cardTypes.indexOf(paymentVal) > -1) && paymentVal != "") {
+              cardTypes.push(paymentVal);
+            }
+          }
+        }
+
+        if (val) {
+          if (str[1] === "1") {
+            e.state.jsonCardHeaders[key[0]] = val; ///.replace(/ /g,"_").replace(":", "");
+          }
+          //console.log(val + ":" + str);
+        }
+      }
+
+      e.setState({ cardList: cardTypes });
+
+      console.log(e.state.jsonCardHeaders);
+      console.log(e.state.cardList);
+      console.log(e.state.jsonCardData.length);
     });
 
     stickybits(".product-sticky-container");
@@ -111,7 +167,9 @@ class App extends Component {
   render() {
     const jsonHeaders = this.state.jsonHeaders;
     var filter = this.state.filter;
-    console.log(moment.utc("6 Mar 17"));
+    var cardData = this.state.jsonCardData;
+    var e = this;
+
     return (
       <div className="airlinePartPage">
         <div className="product-sticky-container" style={{ zIndex: "12" }}>
@@ -205,6 +263,7 @@ class App extends Component {
                       (this.state.sortType == "asc" ? " active" : "")
                     }
                   >
+                    <i className="fas fa-caret-right"></i>
                     Airline Name
                   </div>
                   <div
@@ -214,6 +273,7 @@ class App extends Component {
                       (this.state.sortType == "code" ? " active" : "")
                     }
                   >
+                    <i className="fas fa-caret-right"></i>
                     Airline Code
                   </div>
                   <div
@@ -223,6 +283,7 @@ class App extends Component {
                       (this.state.sortType == "recent" ? " active" : "")
                     }
                   >
+                    <i className="fas fa-caret-right"></i>
                     Recent Changes
                   </div>
                 </div>
@@ -237,6 +298,7 @@ class App extends Component {
                       (this.state.filter == "ALL" ? " active" : "")
                     }
                   >
+                    <i className="fas fa-caret-right"></i>
                     All
                   </div>
                   <div
@@ -246,6 +308,7 @@ class App extends Component {
                       (this.state.filter == "Via GDS" ? " active" : "")
                     }
                   >
+                    <i className="fas fa-caret-right"></i>
                     Via GDS
                   </div>
                   <div
@@ -257,6 +320,7 @@ class App extends Component {
                         : "")
                     }
                   >
+                    <i className="fas fa-caret-right"></i>
                     Via GDS (Reinstated)
                   </div>
                   <div
@@ -268,6 +332,7 @@ class App extends Component {
                         : "")
                     }
                   >
+                    <i className="fas fa-caret-right"></i>
                     Managing Directly
                   </div>
                 </div>
@@ -282,6 +347,7 @@ class App extends Component {
                       (this.state.filterTicket == "ALL" ? " active" : "")
                     }
                   >
+                    <i className="fas fa-caret-right"></i>
                     All
                   </div>
                   <div
@@ -291,6 +357,7 @@ class App extends Component {
                       (this.state.filterTicket == "13 Months" ? " active" : "")
                     }
                   >
+                    <i className="fas fa-caret-right"></i>
                     13 Months
                   </div>
                   <div
@@ -302,15 +369,22 @@ class App extends Component {
                         : "")
                     }
                   >
-                    > 13 Months
+                    <i className="fas fa-caret-right"></i>> 13 Months
                   </div>
                 </div>
               </div>
               <div className="col-lg-2">
                 <div className="airlinePartLabel">NDC/Direct Connect</div>
                 <div className="airlinePartFilterGroup">
-                  <div className="airlinePartFilterItem">Yes</div>
-                  <div className="airlinePartFilterItem">No</div>
+                  <div className="airlinePartFilterItem active">
+                    <i className="fas fa-caret-right"></i> All
+                  </div>
+                  <div className="airlinePartFilterItem">
+                    <i className="fas fa-caret-right"></i> Yes
+                  </div>
+                  <div className="airlinePartFilterItem">
+                    <i className="fas fa-caret-right"></i> No
+                  </div>
                 </div>
               </div>
               <div className="col-lg-4">
@@ -322,7 +396,11 @@ class App extends Component {
             className="airlinePartFilterBottom"
             style={{ paddingBottom: "0" }}
           >
-            <input className="apSearch" type="text" />
+            <div className="apSearch">
+              <input type="text" placeholder="Search Airlines" />
+              <div className="icon-search"></div>
+            </div>
+
             <div className="apReset">
               <i className="far fa-window-close"></i>
               Reset All
@@ -340,6 +418,7 @@ class App extends Component {
             <div className="row no-gutters">
               {this.state.filter &&
                 this.state.filterTicket &&
+                this.state.jsonCardData.length &&
                 this.state.jsonData.map((data, i) => {
                   var comboTruth = false;
                   var refundShow = false;
@@ -372,9 +451,30 @@ class App extends Component {
 
                   className = refundShow && ticketShow ? "show" : "hide";
 
+                  var cardRow = "";
+                  //get cardData row that matches this
+
+                  for (
+                    let index = 0;
+                    index < e.state.jsonCardData.length;
+                    index++
+                  ) {
+                    if (
+                      e.state.jsonCardData[index]["Airline Code"].indexOf(
+                        data["Numeric Code"]
+                      ) > 0
+                    ) {
+                      cardRow = e.state.jsonCardData[index];
+                    }
+                  }
+
                   return (
                     <div key={i} className={"col-lg-12 " + className}>
-                      <RefundRow data={data} filters="filter" />
+                      <RefundRow
+                        data={data}
+                        cardData={cardRow}
+                        filters="filter"
+                      />
                     </div>
                   );
                 })}
@@ -387,7 +487,21 @@ class App extends Component {
             <div className="row">
               <div className="col-lg-12">
                 <small>
-                  <strong>Disclaimer</strong>: This page is updated based on information ARC receives from individual airlines and global distribution systems. It may not be comprehensive and is subject to change without notice. For specific airline policies and guidelines, please visit the airline’s website or contact the airline directly. ARC uses reasonable care in compiling and presenting the hyperlinks, but ARC gives no guarantee, representation, or warranty that the content behind any of the hyperlinks is complete, accurate, error- or virus-free, or up to date. The information contained behind any hyperlink may not be the sole source of information from the airline and may not include all fare rules/ticketing rules. ARC recommends travel agents take care to read all information published by the airline and all rules for the fares being booked, ticketed and/or refunded. 
+                  <strong>Disclaimer</strong>: This page is updated based on
+                  information ARC receives from individual airlines and global
+                  distribution systems. It may not be comprehensive and is
+                  subject to change without notice. For specific airline
+                  policies and guidelines, please visit the airline’s website or
+                  contact the airline directly. ARC uses reasonable care in
+                  compiling and presenting the hyperlinks, but ARC gives no
+                  guarantee, representation, or warranty that the content behind
+                  any of the hyperlinks is complete, accurate, error- or
+                  virus-free, or up to date. The information contained behind
+                  any hyperlink may not be the sole source of information from
+                  the airline and may not include all fare rules/ticketing
+                  rules. ARC recommends travel agents take care to read all
+                  information published by the airline and all rules for the
+                  fares being booked, ticketed and/or refunded.
                 </small>
               </div>
             </div>
