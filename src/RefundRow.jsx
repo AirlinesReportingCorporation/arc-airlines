@@ -2,12 +2,24 @@ import React, { Component, useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
+function findVal(arr, val) {
+  if (arr) {
+    for (let i = 0; i < arr.length; i++) {
+      const element = arr[i];
+      if (element.indexOf(val) > -1) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
 class RefundRow extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       toggle: false,
-      modalShow: false
+      modalShow: false,
+      cardData: this.props.cardData
     };
 
     this.clickToggle = this.clickToggle.bind(this);
@@ -35,14 +47,19 @@ class RefundRow extends Component {
     var cardData = this.props.cardData;
     var filter = this.props.filters;
 
-    var payment,
+    var payments,
       code,
       exception = "";
 
     var refundClass = "refundRegular";
 
     console.log(data);
-    console.log(cardData);
+
+    if (cardData["Payment Type Accepted"]) {
+      payments = cardData["Payment Type Accepted"].split("\n");
+      console.log(payments);
+    }
+
     console.log("-------");
 
     if (
@@ -77,47 +94,43 @@ class RefundRow extends Component {
         >
           <div className="airlinePartRowTop">
             <div className="airlinePartRowStart">
-              <div className="d-flex align-items-center">
-                <div className="">
-                  <div className="apDesignator">{data["Designator"]}</div>
-                </div>
-                <div className="">
-                  <div className="apCode">{data["Numeric Code"]}</div>
-                </div>
-                <div className="">
-                  <div className="airlinePartName">{data["Name"]}</div>
-                </div>
-                {(data[
-                  "Refund or Ticket Validity Information Last Updated"
-                ] && (
-                  <div className="ml-auto">
-                    <span className="apUpdated">
-                      <span>Latest Updates:</span>
-                      {
-                        data[
-                          "Refund or Ticket Validity Information Last Updated"
-                        ]
-                      }
-                    </span>
-                  </div>
-                )) || (
-                  <div className="ml-auto">
-                    <div className="apUpdated">
-                      <span>Latest Updates:</span> January 1, 2021
+              <div className="row align-items-center">
+                <div class="col-11">
+                  <div className="d-flex flex-column flex-lg-row">
+                    <div className="d-flex align-items-center">
+                      <div className="apDesignator">{data["Designator"]}</div>
+                      <div className="apCode">{data["Numeric Code"]}</div>
                     </div>
-                  </div>
-                )}
-                <div>
-                  <div>
+                    <div className="">
+                      <div className="airlinePartName">{data["Name"]}</div>
+                    </div>
+                    {(data[
+                      "Refund or Ticket Validity Information Last Updated"
+                    ] && (
+                      <div className="ml-auto apUpdated d-flex align-items-center">
+                        <span>Latest Updates:</span>
+                        {
+                          data[
+                            "Refund or Ticket Validity Information Last Updated"
+                          ]
+                        }
+                      </div>
+                    )) || (
+                      <div className="ml-auto d-flex align-items-center">
+                        <div className="apUpdated">
+                          <span>Latest Updates:</span> January 1, 2021
+                        </div>
+                      </div>
+                    )}
                     <div
                       onClick={this.setModalShow.bind(this, true)}
-                      className="apProfile"
+                      className="apProfile d-flex align-items-center"
                     >
                       Airline Profile <i className="fas fa-chevron-right"></i>
                     </div>
                   </div>
                 </div>
-                <div>
+                <div className="col-1">
                   <div>
                     <div className="apExpand" onClick={this.clickToggle}>
                       <i
@@ -262,7 +275,7 @@ class RefundRow extends Component {
                   </div>
                 </div>
                 <div className="col-lg-3">
-                  <div className="apSection">
+                  <div className="apSection apSectionValidity">
                     <div className="apSectionTop">
                       <div className="d-flex align-items-center">
                         <h3>Processing Validity</h3>
@@ -423,15 +436,87 @@ class RefundRow extends Component {
                 <div className="apSectionBottom">
                   <div className="apPaymentLabels">
                     <div className="apPaymentLabel active">Cash</div>
-                    <div className="apPaymentLabel">American Express (AX)</div>
-                    <div className="apPaymentLabel">Diners Club Int'l (DC)</div>
-                    <div className="apPaymentLabel">Discover Card (DS)</div>
-                    <div className="apPaymentLabel">JCB (JC)</div>
-                    <div className="apPaymentLabel">Mastercard (CA)</div>
-                    <div className="apPaymentLabel">PayPal (TP)</div>
-                    <div className="apPaymentLabel">UATP (UP)</div>
-                    <div className="apPaymentLabel">UnionPay (UP)</div>
-                    <div className="apPaymentLabel">VISA (VI)</div>
+                    <div
+                      className={
+                        findVal(payments, "AX")
+                          ? "apPaymentLabel active"
+                          : "apPaymentLabel"
+                      }
+                    >
+                      American Express (AX)
+                    </div>
+                    <div
+                      className={
+                        findVal(payments, "DC")
+                          ? "apPaymentLabel active"
+                          : "apPaymentLabel"
+                      }
+                    >
+                      Diners Club Int'l (DC)
+                    </div>
+                    <div
+                      className={
+                        findVal(payments, "DS")
+                          ? "apPaymentLabel active"
+                          : "apPaymentLabel"
+                      }
+                    >
+                      Discover Card (DS)
+                    </div>
+                    <div
+                      className={
+                        findVal(payments, "JC")
+                          ? "apPaymentLabel active"
+                          : "apPaymentLabel"
+                      }
+                    >
+                      JCB (JC)
+                    </div>
+                    <div
+                      className={
+                        findVal(payments, "CA")
+                          ? "apPaymentLabel active"
+                          : "apPaymentLabel"
+                      }
+                    >
+                      Mastercard (CA)
+                    </div>
+                    <div
+                      className={
+                        findVal(payments, "TP")
+                          ? "apPaymentLabel active"
+                          : "apPaymentLabel"
+                      }
+                    >
+                      PayPal (TP)
+                    </div>
+                    <div
+                      className={
+                        findVal(payments, "UATP")
+                          ? "apPaymentLabel active"
+                          : "apPaymentLabel"
+                      }
+                    >
+                      UATP (UP)
+                    </div>
+                    <div
+                      className={
+                        findVal(payments, "UnionPay")
+                          ? "apPaymentLabel active"
+                          : "apPaymentLabel"
+                      }
+                    >
+                      UnionPay (UP)
+                    </div>
+                    <div
+                      className={
+                        findVal(payments, "VI")
+                          ? "apPaymentLabel active"
+                          : "apPaymentLabel"
+                      }
+                    >
+                      VISA (VI)
+                    </div>
                   </div>
                   <div className="row">
                     {cardData["Code"] && (
@@ -456,7 +541,7 @@ class RefundRow extends Component {
               <div className="apInfo">
                 <div className="apInfoContainer">
                   <div className="row align-items-center">
-                    <div className="col">
+                    <div className="col-lg-4">
                       <div className="d-flex align-items-center justify-center">
                         <img
                           src="https://www2.arccorp.com/globalassets/refunds/ap-calendar-icon.png"
@@ -466,7 +551,7 @@ class RefundRow extends Component {
                         <div className="apInfoLabel">General Concurrence</div>
                       </div>
                     </div>
-                    <div className="col">
+                    <div className="col-lg-4">
                       <div className="d-flex align-items-center justify-center">
                         <img
                           src="https://www2.arccorp.com/globalassets/refunds/ap-check-icon.png"
@@ -478,8 +563,8 @@ class RefundRow extends Component {
                         </div>
                       </div>
                     </div>
-                    <div className="col">
-                      <div className="d-flex align-items-center">
+                    <div className="col-lg-4">
+                      <div className="d-flex align-items-center justify-center">
                         <img
                           src="https://www2.arccorp.com/globalassets/refunds/ap-info-icon.png"
                           alt=""
