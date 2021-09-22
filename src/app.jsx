@@ -24,7 +24,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      jsonHeaders: [],
       jsonData: [],
       doc141: [],
       refundData: [],
@@ -32,20 +31,23 @@ class App extends Component {
       filterTicket: "ALL",
       filterObj: [],
       refundFilter: [],
-      refundList: [],
       sortType: "asc",
       jsonCardHeaders: [],
       jsonCardData: [],
       cardData: [],
       cardFilter: [],
-      cardList: [],
-      activePayments: []
+      activePayments: [],
+      completeLoad: false,
+      dataRows: <div></div>
     };
+
     this.setFilter = this.setFilter.bind(this);
     this.setTicketFilter = this.setTicketFilter.bind(this);
     this.setSort = this.setSort.bind(this);
     this.toggleActivePayments = this.toggleActivePayments.bind(this);
     this.resetFilters = this.resetFilters.bind(this);
+    this.completeLoadFunc = this.completeLoadFunc.bind(this);
+    this.renderRows = this.renderRows.bind(this);
   }
 
   resetFilters() {
@@ -58,6 +60,10 @@ class App extends Component {
     this.setState({ filter: "ALL" });
     this.setState({ filterTicket: "ALL" });
     this.setSort("asc");
+  }
+
+  completeLoadFunc() {
+    this.setState({ completeLoad: true });
   }
 
   setFilter(val) {
@@ -127,132 +133,185 @@ class App extends Component {
   componentDidMount() {
     var e = this;
     //https://www2.arccorp.com/globalassets/support--training/agency-support/credit-refund-acceptance/cc-acceptance-chart.xlsx
-    axios({
-      method: "get",
-      url:
-        "https://www2.arccorp.com/globalassets/refunds/refunds.xlsx?" +
-        new Date().toLocaleString(),
-      responseType: "arraybuffer"
-    }).then(function(response) {
-      console.log("===== Refunds Chart Loaded ===== ");
-      var data = new Uint8Array(response.data);
-      var workbook = XLSX.read(data, { type: "array" });
+    const refundcall = new Promise((resolve, reject) => {
+      axios({
+        method: "get",
+        url:
+          "https://www2.arccorp.com/globalassets/refunds/refunds.xlsx?" +
+          new Date().toLocaleString(),
+        responseType: "arraybuffer"
+      }).then(function(response) {
+        console.log("===== Refunds Chart Loaded ===== ");
+        var data = new Uint8Array(response.data);
+        var workbook = XLSX.read(data, { type: "array" });
 
-      var workbookData = workbook["Sheets"]["ParticipatingCarriers"];
+        var workbookData = workbook["Sheets"]["ParticipatingCarriers"];
 
-      //console.log(workbookData);
+        //console.log(workbookData);
 
-      var json = XLSX.utils.sheet_to_json(workbookData, { raw: false });
+        var json = XLSX.utils.sheet_to_json(workbookData, { raw: false });
 
-      var refundTypes = [];
-      var jsonHeadersTemp = [];
+        var refundTypes = [];
 
-      e.setState({ jsonData: json });
+        e.setState({ jsonData: json });
 
-      //traverseEntireWorkBook
-      for (var key in workbookData) {
-        //value in cell
-        var val = workbookData[key].w;
+        //traverseEntireWorkBook
+        for (var key in workbookData) {
+          //value in cell
+          var val = workbookData[key].w;
 
-        var str = key.match(/[a-z]+|[^a-z]+/gi);
+          var str = key.match(/[a-z]+|[^a-z]+/gi);
 
-        if (str[1] === "1") {
-          jsonHeadersTemp.push(val);
-          //e.state.jsonHeaders[key[0]] = val; ///.replace(/ /g,"_").replace(":", "");
-        }
-        //console.log(val + ":" + str);
-      }
-
-      e.setState({ refundList: refundTypes });
-      e.setState({ jsonHeaders: jsonHeadersTemp });
-      console.log(e.state.jsonData.length);
-
-      e.setSort("asc");
-    });
-
-    axios({
-      method: "get",
-      url:
-        "https://www2.arccorp.com/globalassets/forms/ops/doc141.xlsx?" +
-        new Date().toLocaleString(),
-      responseType: "arraybuffer"
-    }).then(function(response) {
-      console.log("===== Doc141 Chart Loaded ===== ");
-      var data = new Uint8Array(response.data);
-      var workbook = XLSX.read(data, { type: "array" });
-
-      var workbookData = workbook["Sheets"]["ET Matrix"];
-
-      //console.log(workbookData);
-
-      var json = XLSX.utils.sheet_to_json(workbookData, {
-        raw: false,
-        range: 1
-      });
-
-      e.setState({ doc141: json });
-
-      console.log(e.state.doc141);
-    });
-
-    axios({
-      method: "get",
-      url:
-        "https://www2.arccorp.com/globalassets/support--training/agency-support/credit-card-acceptance/cchart.xlsx?" +
-        new Date().toLocaleString(),
-      responseType: "arraybuffer"
-    }).then(function(response) {
-      console.log("===== CC Chart Loaded =====");
-      var data = new Uint8Array(response.data);
-      var workbook = XLSX.read(data, { type: "array" });
-
-      var workbookData = workbook["Sheets"]["CC Acceptance Chart"];
-
-      var json = XLSX.utils.sheet_to_json(workbookData);
-
-      var cardTypes = [];
-
-      e.setState({ jsonCardData: json });
-
-      //traverseEntireWorkBook
-      for (var key in workbookData) {
-        //value in cell
-        var val = workbookData[key].w;
-
-        var str = key.match(/[a-z]+|[^a-z]+/gi);
-
-        if (str[0] === "D" && str[1] != 1) {
-          var payments = val.split("\n");
-
-          for (var i = 0; i < payments.length; i++) {
-            var paymentVal = payments[i].trim();
-
-            if (!(cardTypes.indexOf(paymentVal) > -1) && paymentVal != "") {
-              cardTypes.push(paymentVal);
-            }
-          }
-        }
-
-        if (val) {
-          if (str[1] === "1") {
-            e.state.jsonCardHeaders[key[0]] = val; ///.replace(/ /g,"_").replace(":", "");
-          }
           //console.log(val + ":" + str);
         }
-      }
 
-      e.setState({ cardList: cardTypes });
-
-      console.log(e.state.jsonCardHeaders);
-      console.log(e.state.cardList);
-      console.log(e.state.jsonCardData.length);
+        e.setSort("asc");
+        resolve(true);
+      });
     });
+
+    const doc141call = new Promise((resolve, reject) => {
+      axios({
+        method: "get",
+        url:
+          "https://www2.arccorp.com/globalassets/forms/ops/doc141.xlsx?" +
+          new Date().toLocaleString(),
+        responseType: "arraybuffer"
+      }).then(function(response) {
+        console.log("===== Doc141 Chart Loaded ===== ");
+        var data = new Uint8Array(response.data);
+        var workbook = XLSX.read(data, { type: "array" });
+
+        var workbookData = workbook["Sheets"]["ET Matrix"];
+
+        //console.log(workbookData);
+
+        var json = XLSX.utils.sheet_to_json(workbookData, {
+          raw: false,
+          range: 1
+        });
+
+        e.setState({ doc141: json });
+        resolve(true);
+      });
+    });
+
+    const cchartcall = new Promise((resolve, reject) => {
+      axios({
+        method: "get",
+        url:
+          "https://www2.arccorp.com/globalassets/support--training/agency-support/credit-card-acceptance/cchart.xlsx?" +
+          new Date().toLocaleString(),
+        responseType: "arraybuffer"
+      }).then(function(response) {
+        console.log("===== CC Chart Loaded =====");
+        var data = new Uint8Array(response.data);
+        var workbook = XLSX.read(data, { type: "array" });
+
+        var workbookData = workbook["Sheets"]["CC Acceptance Chart"];
+
+        var json = XLSX.utils.sheet_to_json(workbookData);
+
+        e.setState({ jsonCardData: json });
+        resolve(true);
+      });
+    });
+
+    Promise.all([refundcall, doc141call, cchartcall])
+      .then(values => {
+        e.completeLoadFunc();
+      })
+      .catch(error => {
+        console.error(error.message);
+      });
 
     stickybits(".product-sticky-container");
   }
 
+  renderRows() {
+    var e = this;
+    if (e.state.completeLoad) {
+      var refundRowHTML = this.state.jsonData.map((data, i) => {
+        var comboTruth = false;
+        var refundShow = false;
+        var ticketShow = false;
+
+        var className = "hide";
+
+        var filter = this.state.filter;
+        var filterTicket = this.state.filterTicket;
+
+        if (filter == "ALL") {
+          refundShow = true;
+        } else if (data["Refunds"].indexOf(this.state.filter) > -1) {
+          refundShow = true;
+        }
+
+        if (filterTicket == "ALL") {
+          ticketShow = true;
+        } else if (
+          filterTicket == "13 Months" &&
+          data["Ticket Validity"] == "13 Months"
+        ) {
+          ticketShow = true;
+        } else if (
+          filterTicket == "> 13 Months" &&
+          data["Ticket Validity"] != "13 Months"
+        ) {
+          ticketShow = true;
+        }
+
+        className = refundShow && ticketShow ? "show" : "hide";
+
+        var cardRow = "";
+        //get cardData row that matches this
+
+        for (let index = 0; index < e.state.jsonCardData.length; index++) {
+          if (
+            e.state.jsonCardData[index]["Airline Code"].indexOf(
+              data["Numeric Code"]
+            ) > 0
+          ) {
+            cardRow = e.state.jsonCardData[index];
+          }
+        }
+
+        var doc141Row = findIndexArr(
+          e.state.doc141,
+          " Numeric",
+          data["Numeric Code"]
+        );
+
+        var paymentFilterData = e.state.activePayments
+          ? e.state.activePayments
+          : "all";
+
+        return (
+          <div key={i} className={"col-lg-12 " + className}>
+            <RefundRow
+              data={data}
+              cardData={cardRow}
+              doc141Data={doc141Row}
+              paymentFilterList={paymentFilterData}
+              filters="filter"
+            />
+          </div>
+        );
+      });
+
+      return refundRowHTML;
+    } else {
+      return (
+        <div className={"loading"}>
+          <div className="loading-icon">
+            <i className="fas fa-circle-notch fa-spin"></i>
+          </div>
+        </div>
+      );
+    }
+  }
+
   render() {
-    const jsonHeaders = this.state.jsonHeaders;
     var filter = this.state.filter;
     var cardData = this.state.jsonCardData;
     var e = this;
@@ -475,7 +534,9 @@ class App extends Component {
                 </div>
               </div>
               <div className="col-lg-4">
-                <div className="airlinePartLabel">Accepted Payments</div>
+                <div className="airlinePartLabel" style={{ marginLeft: "0" }}>
+                  Accepted Payments
+                </div>
                 <div className="row">
                   <div className="col-lg-6">
                     <div className="airlinePartFilterItem">
@@ -617,90 +678,22 @@ class App extends Component {
 
         <div className="airlinePartsResultsTitle">Search Results</div>
 
-        <div className="airlinePartsTable">
+        <div className={"loading" + this.state.completeLoad ? "hide" : "show"}>
+          <div className="loading-icon">
+            <i className="fas fa-circle-notch fa-spin"></i>
+          </div>
+        </div>
+
+        <div
+          className={
+            "airlinePartsTable" + this.state.completeLoad ? "show" : "hide"
+          }
+        >
           <div
             className=""
             style={{ maxWidth: "1170px", margin: "0 auto", overflow: "hidden" }}
           >
-            <div className="row no-gutters">
-              {this.state.filter &&
-                this.state.filterTicket &&
-                this.state.jsonCardData.length &&
-                this.state.jsonData.map((data, i) => {
-                  var comboTruth = false;
-                  var refundShow = false;
-                  var ticketShow = false;
-
-                  var className = "hide";
-
-                  var filter = this.state.filter;
-                  var filterTicket = this.state.filterTicket;
-
-                  if (filter == "ALL") {
-                    refundShow = true;
-                  } else if (data["Refunds"].indexOf(this.state.filter) > -1) {
-                    refundShow = true;
-                  }
-
-                  if (filterTicket == "ALL") {
-                    ticketShow = true;
-                  } else if (
-                    filterTicket == "13 Months" &&
-                    data["Ticket Validity"] == "13 Months"
-                  ) {
-                    ticketShow = true;
-                  } else if (
-                    filterTicket == "> 13 Months" &&
-                    data["Ticket Validity"] != "13 Months"
-                  ) {
-                    ticketShow = true;
-                  }
-
-                  className = refundShow && ticketShow ? "show" : "hide";
-
-                  var cardRow = "";
-                  //get cardData row that matches this
-
-                  for (
-                    let index = 0;
-                    index < e.state.jsonCardData.length;
-                    index++
-                  ) {
-                    if (
-                      e.state.jsonCardData[index]["Airline Code"].indexOf(
-                        data["Numeric Code"]
-                      ) > 0
-                    ) {
-                      cardRow = e.state.jsonCardData[index];
-                    }
-                  }
-
-                  var doc141Row = findIndexArr(
-                    e.state.doc141,
-                    " Numeric",
-                    data["Numeric Code"]
-                  );
-
-                  var paymentFilterData = e.state.activePayments
-                    ? e.state.activePayments
-                    : "all";
-
-                  console.log("input");
-                  console.log(paymentFilterData);
-
-                  return (
-                    <div key={i} className={"col-lg-12 " + className}>
-                      <RefundRow
-                        data={data}
-                        cardData={cardRow}
-                        doc141Data={doc141Row}
-                        paymentFilterList={paymentFilterData}
-                        filters="filter"
-                      />
-                    </div>
-                  );
-                })}
-            </div>
+            <div className="row no-gutters">{this.renderRows()}</div>
           </div>
         </div>
 
