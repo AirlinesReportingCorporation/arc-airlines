@@ -5,7 +5,6 @@ import axios from "axios";
 import XLSX from "xlsx";
 import SimpleBar from "simplebar-react";
 import stickybits from "stickybits";
-
 import RefundRow from "./RefundRow.jsx";
 
 function findIndexArr(arr, key, val) {
@@ -46,6 +45,19 @@ class App extends Component {
     this.setTicketFilter = this.setTicketFilter.bind(this);
     this.setSort = this.setSort.bind(this);
     this.toggleActivePayments = this.toggleActivePayments.bind(this);
+    this.resetFilters = this.resetFilters.bind(this);
+  }
+
+  resetFilters() {
+    this.setState({ activePayments: [] });
+    var x = document.getElementsByClassName("cardType");
+    for (var i = 0; i < x.length; i++) {
+      x[i].checked = false;
+    }
+
+    this.setState({ filter: "ALL" });
+    this.setState({ filterTicket: "ALL" });
+    this.setSort("asc");
   }
 
   setFilter(val) {
@@ -596,7 +608,7 @@ class App extends Component {
               <div className="icon-search"></div>
             </div>
 
-            <div className="apReset">
+            <div className="apReset" onClick={this.resetFilters}>
               <i className="far fa-window-close"></i>
               Reset All
             </div>
