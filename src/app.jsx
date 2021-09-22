@@ -8,12 +8,26 @@ import stickybits from "stickybits";
 
 import RefundRow from "./RefundRow.jsx";
 
+function findIndexArr(arr, key, val) {
+  if (arr) {
+    for (let i = 0; i < arr.length; i++) {
+      const element = arr[i];
+      if (arr[i][key]) {
+        if (arr[i][key].indexOf(val) > -1) {
+          return element;
+        }
+      }
+    }
+  }
+  return false;
+}
 class App extends Component {
   constructor() {
     super();
     this.state = {
       jsonHeaders: [],
       jsonData: [],
+      doc141: [],
       refundData: [],
       filter: "ALL",
       filterTicket: "ALL",
@@ -25,15 +39,51 @@ class App extends Component {
       jsonCardData: [],
       cardData: [],
       cardFilter: [],
-      cardList: []
+      cardList: [],
+      activePayments: []
     };
     this.setFilter = this.setFilter.bind(this);
     this.setTicketFilter = this.setTicketFilter.bind(this);
     this.setSort = this.setSort.bind(this);
+    this.toggleActivePayments = this.toggleActivePayments.bind(this);
   }
 
   setFilter(val) {
     this.setState({ filter: val });
+  }
+
+  toggleActivePayments(val) {
+    var e = this;
+    //find if in array
+    var inArray = false;
+    var inArrayIndex = 0;
+
+    for (let i = 0; i < e.state.activePayments.length; i++) {
+      const element = e.state.activePayments[i];
+
+      //if in array get index
+      if (val == element) {
+        inArrayIndex = i;
+        inArray = true;
+      }
+    }
+
+    //if in array, splice from index
+    if (inArray) {
+      var currentPayments = e.state.activePayments;
+      currentPayments.splice(inArrayIndex, 1);
+      e.setState({
+        activePayments: currentPayments
+      });
+    }
+    //if not in array add to array
+    else if (!inArray) {
+      var currentPayments = e.state.activePayments;
+      currentPayments.push(val);
+      e.setState({ activePayments: currentPayments });
+    }
+
+    console.log(e.state.activePayments);
   }
 
   setTicketFilter(val) {
@@ -106,6 +156,31 @@ class App extends Component {
       console.log(e.state.jsonData.length);
 
       e.setSort("asc");
+    });
+
+    axios({
+      method: "get",
+      url:
+        "https://www2.arccorp.com/globalassets/forms/ops/doc141.xlsx?" +
+        new Date().toLocaleString(),
+      responseType: "arraybuffer"
+    }).then(function(response) {
+      console.log("===== Doc141 Chart Loaded ===== ");
+      var data = new Uint8Array(response.data);
+      var workbook = XLSX.read(data, { type: "array" });
+
+      var workbookData = workbook["Sheets"]["ET Matrix"];
+
+      //console.log(workbookData);
+
+      var json = XLSX.utils.sheet_to_json(workbookData, {
+        raw: false,
+        range: 1
+      });
+
+      e.setState({ doc141: json });
+
+      console.log(e.state.doc141);
     });
 
     axios({
@@ -389,6 +464,126 @@ class App extends Component {
               </div>
               <div className="col-lg-4">
                 <div className="airlinePartLabel">Accepted Payments</div>
+                <div className="row">
+                  <div className="col-lg-6">
+                    <div className="airlinePartFilterItem">
+                      <label htmlFor="card-0">
+                        <input
+                          className="cardType"
+                          name="card-0"
+                          id="card-0"
+                          type="checkbox"
+                          onClick={this.toggleActivePayments.bind(this, "AX")}
+                        />
+                        American Express (AX)
+                      </label>
+                    </div>
+                    <div className="airlinePartFilterItem">
+                      <label htmlFor="card-2">
+                        <input
+                          className="cardType"
+                          name="card-2"
+                          id="card-2"
+                          type="checkbox"
+                          onClick={this.toggleActivePayments.bind(this, "CA")}
+                        />
+                        Mastercard (CA)
+                      </label>
+                    </div>
+                    <div className="airlinePartFilterItem">
+                      <label htmlFor="card-1">
+                        <input
+                          className="cardType"
+                          name="card-1"
+                          id="card-1"
+                          type="checkbox"
+                          onClick={this.toggleActivePayments.bind(this, "UATP")}
+                        />
+                        UATP (TP)
+                      </label>
+                    </div>
+                    <div className="airlinePartFilterItem">
+                      <label htmlFor="card-3">
+                        <input
+                          className="cardType"
+                          name="card-3"
+                          id="card-3"
+                          type="checkbox"
+                          onClick={this.toggleActivePayments.bind(this, "VI")}
+                        />
+                        Visa (VI)
+                      </label>
+                    </div>
+                    <div className="airlinePartFilterItem">
+                      <label htmlFor="card-4">
+                        <input
+                          className="cardType"
+                          name="card-4"
+                          id="card-4"
+                          type="checkbox"
+                          onClick={this.toggleActivePayments.bind(this, "DC")}
+                        />
+                        Diners Club Int'l (DC)
+                      </label>
+                    </div>
+                  </div>
+                  <div className="col-lg-6">
+                    <div className="airlinePartFilterItem">
+                      <label htmlFor="card-5">
+                        <input
+                          className="cardType"
+                          name="card-5"
+                          id="card-5"
+                          type="checkbox"
+                          onClick={this.toggleActivePayments.bind(this, "DS")}
+                        />
+                        Discover (DS)
+                      </label>
+                    </div>
+                    <div className="airlinePartFilterItem">
+                      <label htmlFor="card-6">
+                        <input
+                          className="cardType"
+                          name="card-6"
+                          id="card-6"
+                          type="checkbox"
+                          onClick={this.toggleActivePayments.bind(this, "JCB")}
+                        />
+                        JCB (JC)
+                      </label>
+                    </div>
+                    <div className="airlinePartFilterItem">
+                      <label htmlFor="card-7">
+                        <input
+                          className="cardType"
+                          name="card-7"
+                          id="card-7"
+                          type="checkbox"
+                          onClick={this.toggleActivePayments.bind(
+                            this,
+                            "PayPal"
+                          )}
+                        />
+                        PayPal (TP)
+                      </label>
+                    </div>
+                    <div className="airlinePartFilterItem">
+                      <label htmlFor="card-8">
+                        <input
+                          className="cardType"
+                          name="card-8"
+                          id="card-8"
+                          type="checkbox"
+                          onClick={this.toggleActivePayments.bind(
+                            this,
+                            "UnionPay"
+                          )}
+                        />
+                        UnionPay (UP)
+                      </label>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -468,11 +663,26 @@ class App extends Component {
                     }
                   }
 
+                  var doc141Row = findIndexArr(
+                    e.state.doc141,
+                    " Numeric",
+                    data["Numeric Code"]
+                  );
+
+                  var paymentFilterData = e.state.activePayments
+                    ? e.state.activePayments
+                    : "all";
+
+                  console.log("input");
+                  console.log(paymentFilterData);
+
                   return (
                     <div key={i} className={"col-lg-12 " + className}>
                       <RefundRow
                         data={data}
                         cardData={cardRow}
+                        doc141Data={doc141Row}
+                        paymentFilterList={paymentFilterData}
                         filters="filter"
                       />
                     </div>
@@ -482,105 +692,67 @@ class App extends Component {
           </div>
         </div>
 
-        <div className="legaleseContainer">
+        <div id="resources" className="box-icon text-center">
           <div className="container">
             <div className="row">
-              <div className="col-lg-12">
-                <small>
-                  <strong>Disclaimer</strong>: This page is updated based on
-                  information ARC receives from individual airlines and global
-                  distribution systems. It may not be comprehensive and is
-                  subject to change without notice. For specific airline
-                  policies and guidelines, please visit the airline’s website or
-                  contact the airline directly. ARC uses reasonable care in
-                  compiling and presenting the hyperlinks, but ARC gives no
-                  guarantee, representation, or warranty that the content behind
-                  any of the hyperlinks is complete, accurate, error- or
-                  virus-free, or up to date. The information contained behind
-                  any hyperlink may not be the sole source of information from
-                  the airline and may not include all fare rules/ticketing
-                  rules. ARC recommends travel agents take care to read all
-                  information published by the airline and all rules for the
-                  fares being booked, ticketed and/or refunded.
-                </small>
+              <div className="col-lg-4">
+                <div className="box-icon-item">
+                  <img
+                    src="https://www2.arccorp.com/globalassets/products--participation/arc-travel-demand/atd-product-sheet.jpg"
+                    alt=""
+                  />
+                  <div className="box-icon-header">Lorem Ipsum</div>
+                  <div className="box-icon-copy">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Dolore fuga vero porro numquam voluptate voluptatum iste,
+                    beatae quisquam distinctio tempora corporis, possimus rerum
+                    libero asperiores explicabo mollitia est voluptates sit!
+                  </div>
+                  <a target="_blank" href="#" className="link-download">
+                    Download
+                    <i className="fas fa-chevron-down"></i>
+                  </a>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
 
-        <div id="agencyResources" className="agencyResources">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12">
-                <h2>Agency Resources</h2>
+              <div className="col-lg-4">
+                <div className="box-icon-item">
+                  <img
+                    src="https://www2.arccorp.com/globalassets/products--participation/arc-travel-demand/atd-product-sheet.jpg"
+                    alt=""
+                  />
+                  <div className="box-icon-header">Lorem Ipsum</div>
+                  <div className="box-icon-copy">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Dolore fuga vero porro numquam voluptate voluptatum iste,
+                    beatae quisquam distinctio tempora corporis, possimus rerum
+                    libero asperiores explicabo mollitia est voluptates sit!
+                  </div>
+                  <a target="_blank" href="#" className="link-download">
+                    Download
+                    <i className="fas fa-chevron-down"></i>
+                  </a>
+                </div>
               </div>
-            </div>
-            <div className="row">
-              <div className="col-lg-6">
-                <h3>Chargeback FAQs</h3>
-                <p>
-                  The industry is seeing a significant increase in service- and
-                  refund-related disputes compared to the typical fraud-related
-                  chargebacks. These FAQs serve as a resource for “Terms and
-                  Conditions” related disputes, which need to be managed
-                  differently.
-                </p>
-                <a
-                  target="_blank"
-                  href="https://www2.arccorp.com/globalassets/refunds/covid-19-chargeback-dispute-management-faqs.pdf"
-                  className="ctaBtn"
-                >
-                  View FAQs
-                </a>
-              </div>
-              <div className="col-lg-6">
-                <h3>ARC Pay Dispute FAQs</h3>
-                <p>
-                  During this challenging time, agencies may be experiencing an
-                  influx of ARC Pay disputes. Here are the steps agencies need
-                  to take to proactively address and respond to ARC Pay
-                  transaction disputes and chargebacks.
-                </p>
-                <a
-                  target="_blank"
-                  href="https://www2.arccorp.com/globalassets/refunds/arc-pay-dispute-information-and-faqs.pdf"
-                  className="ctaBtn"
-                >
-                  View FAQs
-                </a>
-              </div>
-            </div>
-            <div className="row" style={{ marginTop: "30px" }}>
-              <div className="col-lg-6">
-                <h3>Cash Settlement FAQs</h3>
-                <p>
-                  Due to the state of the global travel community, travel
-                  agencies are facing a level of refunds that is outpacing new
-                  sales. These FAQs detail the changes ARC has made to ensure
-                  the integrity of its core settlement functions.
-                </p>
-                <a
-                  target="_blank"
-                  href="https://www2.arccorp.com/globalassets/email/ARC-Cash-Settlement-Travel-Agency-FAQs-Effective-PED-2020-11-08.pdf"
-                  className="ctaBtn"
-                >
-                  View FAQs
-                </a>
-              </div>
-              <div className="col-lg-6">
-                <h3>Recommendations for Managing Airline Schedule Changes</h3>
-                <p>
-                  These new guidelines from ARC’s Debit Memo Working Group aim
-                  to help airlines, travel agencies and GDSs manage airline
-                  schedule changes more effectively.
-                </p>
-                <a
-                  target="_blank"
-                  href="https://www2.arccorp.com/globalassets/support--training/debit-memo-working-group/recommendations-for-managing-airline-schedule-changes.pdf"
-                  className="ctaBtn"
-                >
-                  Download PDF
-                </a>
+
+              <div className="col-lg-4">
+                <div className="box-icon-item">
+                  <img
+                    src="https://www2.arccorp.com/globalassets/products--participation/arc-travel-demand/atd-product-sheet.jpg"
+                    alt=""
+                  />
+                  <div className="box-icon-header">Lorem Ipsum</div>
+                  <div className="box-icon-copy">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Dolore fuga vero porro numquam voluptate voluptatum iste,
+                    beatae quisquam distinctio tempora corporis, possimus rerum
+                    libero asperiores explicabo mollitia est voluptates sit!
+                  </div>
+                  <a target="_blank" href="#" className="link-download">
+                    Download
+                    <i className="fas fa-chevron-down"></i>
+                  </a>
+                </div>
               </div>
             </div>
           </div>

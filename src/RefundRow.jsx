@@ -14,12 +14,12 @@ function findVal(arr, val) {
   return false;
 }
 class RefundRow extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       toggle: false,
       modalShow: false,
-      cardData: this.props.cardData
+      filterActive: true
     };
 
     this.clickToggle = this.clickToggle.bind(this);
@@ -45,22 +45,39 @@ class RefundRow extends Component {
   render() {
     var data = this.props.data;
     var cardData = this.props.cardData;
-    var filter = this.props.filters;
+    var doc141Data = this.props.doc141Data;
 
-    var payments,
-      code,
-      exception = "";
-
-    var refundClass = "refundRegular";
-
-    console.log(data);
+    var payments = "";
 
     if (cardData["Payment Type Accepted"]) {
       payments = cardData["Payment Type Accepted"].split("\n");
-      console.log(payments);
     }
 
-    console.log("-------");
+    var paymentFiltered = 0;
+    var paymentNotMatched = true;
+
+    if (this.props.paymentFilterList == "all") {
+      paymentFiltered == true;
+    } else if (payments) {
+      for (let i = 0; i < payments.length; i++) {
+        const all = payments[i];
+        for (let j = 0; j < this.props.paymentFilterList.length; j++) {
+          const filtered = this.props.paymentFilterList[j];
+          if (all.indexOf(filtered) > -1) {
+            paymentFiltered++;
+          }
+        }
+      }
+      if (this.props.paymentFilterList.length == paymentFiltered) {
+        paymentNotMatched = false;
+      } else {
+        paymentNotMatched = true;
+      }
+    }
+
+    var paymentHide = paymentNotMatched ? true : false;
+
+    var refundClass = "refundRegular";
 
     if (
       data["Refunds"].indexOf("Managing Directly") > -1 ||
@@ -90,12 +107,16 @@ class RefundRow extends Component {
           onHide={this.setModalShow.bind(this, false)}
         />
         <div
-          className={"airlinePartRow" + (this.state.toggle ? " active" : "")}
+          className={
+            "airlinePartRow" +
+            (this.state.toggle ? " active" : "") +
+            (paymentHide ? " hide" : " ")
+          }
         >
           <div className="airlinePartRowTop">
             <div className="airlinePartRowStart">
               <div className="row align-items-center">
-                <div class="col-11">
+                <div className="col-11">
                   <div className="d-flex flex-column flex-lg-row">
                     <div className="d-flex align-items-center">
                       <div className="apDesignator">{data["Designator"]}</div>
@@ -345,7 +366,15 @@ class RefundRow extends Component {
                       <div className="row apEdiBorder">
                         <div className="col-lg-6">
                           <div className="apEdiItem">
-                            <div className="apEdiCir"></div>
+                            <div
+                              className={
+                                doc141Data[
+                                  "1 Supports \r\nIAR \r\nET \r\nVoid?"
+                                ] === "Y"
+                                  ? "apEdiCir"
+                                  : "apEdiCirRed"
+                              }
+                            ></div>
                             <div className="apEdiLabel">
                               <sup>1</sup>IAR ET VOID
                             </div>
@@ -353,9 +382,17 @@ class RefundRow extends Component {
                         </div>
                         <div className="col-lg-6">
                           <div className="apEdiItem">
-                            <div className="apEdiCir"></div>
+                            <div
+                              className={
+                                doc141Data[
+                                  "1 Supports \r\nIAR EMD\r\nVoid?"
+                                ] === "Y"
+                                  ? "apEdiCir"
+                                  : "apEdiCirRed"
+                              }
+                            ></div>
                             <div className="apEdiLabel">
-                              <sup>1</sup>IAR ET VOID
+                              <sup>1</sup>IAR EMD VOID
                             </div>
                           </div>
                         </div>
@@ -363,17 +400,33 @@ class RefundRow extends Component {
                       <div className="row apEdiBorder">
                         <div className="col-lg-6">
                           <div className="apEdiItem">
-                            <div className="apEdiCir"></div>
+                            <div
+                              className={
+                                doc141Data[
+                                  "1 Supports \r\nIAR \r\nET \r\nRefund?"
+                                ] === "Y"
+                                  ? "apEdiCir"
+                                  : "apEdiCirRed"
+                              }
+                            ></div>
                             <div className="apEdiLabel">
-                              <sup>1</sup>IAR ET VOID
+                              <sup>1</sup>IAR ET Refund
                             </div>
                           </div>
                         </div>
                         <div className="col-lg-6">
                           <div className="apEdiItem">
-                            <div className="apEdiCir"></div>
+                            <div
+                              className={
+                                doc141Data[
+                                  "1 Supports \r\nIAR EMD\r\nRefund?"
+                                ] === "Y"
+                                  ? "apEdiCir"
+                                  : "apEdiCirRed"
+                              }
+                            ></div>
                             <div className="apEdiLabel">
-                              <sup>1</sup>IAR ET VOID
+                              <sup>1</sup>IAR EMD Refund
                             </div>
                           </div>
                         </div>
@@ -381,17 +434,33 @@ class RefundRow extends Component {
                       <div className="row">
                         <div className="col-lg-6">
                           <div className="apEdiItem">
-                            <div className="apEdiCir"></div>
+                            <div
+                              className={
+                                doc141Data[
+                                  " Supports \r\nIAR ET\r\nCancel Refund?"
+                                ] === "Y"
+                                  ? "apEdiCir"
+                                  : "apEdiCirRed"
+                              }
+                            ></div>
                             <div className="apEdiLabel">
-                              <sup>1</sup>IAR ET VOID
+                              <sup>1</sup>IAR ET Cancel Refund
                             </div>
                           </div>
                         </div>
                         <div className="col-lg-6">
                           <div className="apEdiItem">
-                            <div className="apEdiCirRed"></div>
+                            <div
+                              className={
+                                doc141Data[
+                                  " Supports \r\nIAR EMD\r\nCancel Refund?"
+                                ] === "Y"
+                                  ? "apEdiCir"
+                                  : "apEdiCirRed"
+                              }
+                            ></div>
                             <div className="apEdiLabel">
-                              <sup>1</sup>IAR ET VOID
+                              <sup>1</sup>IAR EMD Cancel Refund
                             </div>
                           </div>
                         </div>
