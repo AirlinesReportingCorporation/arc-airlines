@@ -65,7 +65,7 @@ class App extends Component {
     this.setSort("asc");
     this.setState({ searchValue: "" });
 
-    document.getElementsByClassName("select-search__input").value = '';
+    document.getElementsByClassName("select-search__input").value = "";
   }
 
   setSearchValue(val) {
@@ -279,7 +279,12 @@ class App extends Component {
           "-" +
           data["Name"].replace(/\s/g, "");
 
-        className = (refundShow && ticketShow && (e.state.searchValue == curSearchName || e.state.searchValue == "")) ? "show" : "hide";
+        className =
+          refundShow &&
+          ticketShow &&
+          (e.state.searchValue == curSearchName || e.state.searchValue == "")
+            ? "show"
+            : "hide";
 
         var cardRow = "";
         //get cardData row that matches this
@@ -300,9 +305,11 @@ class App extends Component {
           data["Numeric Code"]
         );
 
-        var paymentFilterData = e.state.activePayments
+        var paymentFilterData = e.state.activePayments.length
           ? e.state.activePayments
           : "all";
+
+        console.log(paymentFilterData)
 
         return (
           <div key={i} className={"col-lg-12 " + className}>

@@ -54,10 +54,10 @@ class RefundRow extends Component {
     }
 
     var paymentFiltered = 0;
-    var paymentNotMatched = true;
+    var paymentHide = true;
 
     if (this.props.paymentFilterList == "all") {
-      paymentFiltered == true;
+      paymentHide = false;
     } else if (payments) {
       for (let i = 0; i < payments.length; i++) {
         const all = payments[i];
@@ -69,13 +69,11 @@ class RefundRow extends Component {
         }
       }
       if (this.props.paymentFilterList.length == paymentFiltered) {
-        paymentNotMatched = false;
+        paymentHide = false;
       } else {
-        paymentNotMatched = true;
+        paymentHide = true;
       }
     }
-
-    var paymentHide = paymentNotMatched ? true : false;
 
     var refundClass = "refundRegular";
 
