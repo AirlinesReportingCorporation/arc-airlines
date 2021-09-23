@@ -956,20 +956,22 @@ function MyVerticallyCenteredModal(props) {
             )}
           </div>
         </div>
-        <div className="row modal-row text-center">
-          <div className="modal-instructions">
-            Additional Airline Instructions
-          </div>
-          <div className="modal-instructions-body">
-            {props.data && (
+        {props.data && profData["AdditionalInstructions"] ? (
+          <div className="row modal-row text-center">
+            <div className="modal-instructions">
+              Additional Airline Instructions
+            </div>
+            <div className="modal-instructions-body">
               <div
                 dangerouslySetInnerHTML={{
                   __html: profData["AdditionalInstructions"]
                 }}
               ></div>
-            )}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div></div>
+        )}
       </Modal.Body>
     </Modal>
   );
