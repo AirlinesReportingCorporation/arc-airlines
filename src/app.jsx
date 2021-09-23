@@ -36,6 +36,7 @@ class App extends Component {
       jsonCardHeaders: [],
       jsonCardData: [],
       cardData: [],
+      profileData: [],
       cardFilter: [],
       activePayments: [],
       completeLoad: false,
@@ -207,6 +208,20 @@ class App extends Component {
       });
     });
 
+    const profilecall = new Promise((resolve, reject) => {
+      axios({
+        method: "get",
+        url:
+          "https://www2.arccorp.com/products-participation/airlines/airline-participation/participating-carriers/GetCarriers?" +
+          new Date().toLocaleString(),
+        responseType: "json"
+      }).then(function(response) {
+        console.log("===== Profile Chart Loaded ===== ");
+        e.setState({ profileData: response.data });
+        resolve(true);
+      });
+    });
+
     const cchartcall = new Promise((resolve, reject) => {
       axios({
         method: "get",
@@ -228,7 +243,7 @@ class App extends Component {
       });
     });
 
-    Promise.all([refundcall, doc141call, cchartcall])
+    Promise.all([refundcall, doc141call, cchartcall, profilecall])
       .then(values => {
         e.completeLoadFunc();
       })
@@ -309,7 +324,7 @@ class App extends Component {
           ? e.state.activePayments
           : "all";
 
-        console.log(paymentFilterData)
+        console.log(paymentFilterData);
 
         return (
           <div key={i} className={"col-lg-12 " + className}>
@@ -318,6 +333,7 @@ class App extends Component {
               cardData={cardRow}
               doc141Data={doc141Row}
               paymentFilterList={paymentFilterData}
+              profileData={this.state.profileData}
               filters="filter"
             />
           </div>

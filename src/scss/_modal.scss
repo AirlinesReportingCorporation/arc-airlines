@@ -117,6 +117,8 @@
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 0.3rem;
   outline: 0;
+  padding: 0;
+  max-width: 580px;
 }
 
 .modal-backdrop {
@@ -156,15 +158,57 @@
 }
 
 .modal-title {
+  color: #2a2b2c;
+  font-family: SourceSansPro-SemiBold, Arial, Helvetica, sans-serif;
   margin-bottom: 0;
-  line-height: 1.5;
+  font-size: 30px;
+  text-align: center;
+  line-height: 1.2;
+  padding-left: 30px;
+  padding-right: 30px;
+  width: 100%;
+}
+
+.modal-row {
+  margin-bottom: 25px;
+  strong {
+    font-family: SourceSansPro-Bold, Arial, Helvetica, sans-serif;
+  }
 }
 
 .modal-body {
+  font-size: 14px;
+  color: #2a2b2c;
   position: relative;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
-  padding: 1rem;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 10px;
+  padding-top: 30px;
+}
+
+.modal-instructions {
+  font-family: SourceSansPro-Bold, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  border-radius: 8px;
+  background: #2a2b2c;
+  color: #ffffff;
+  text-align: center;
+  margin-left: 30px;
+  margin-right: 30px;
+  padding: 20px;
+  width: 100%;
+  text-transform: uppercase;
+}
+
+.modal-instructions-body {
+  margin-top: 30px;
+  font-size: 14px;
+  width: 100%;
+  margin-left: 30px;
+  margin-right: 30px;
+  text-align: left;
 }
 
 .modal-footer {

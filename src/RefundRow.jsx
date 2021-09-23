@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import axios from "axios";
 
 function findVal(arr, val) {
   if (arr) {
@@ -13,13 +14,28 @@ function findVal(arr, val) {
   }
   return false;
 }
+
+function findIndex(arr, key, val) {
+  if (arr) {
+    for (let i = 0; i < arr.length; i++) {
+      const element = arr[i][key];
+      //console.log(element);
+      if (element.indexOf(val) > -1) {
+        return i;
+      }
+    }
+  }
+  return -1;
+}
+
 class RefundRow extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       toggle: false,
       modalShow: false,
-      filterActive: true
+      filterActive: true,
+      profileData: []
     };
 
     this.clickToggle = this.clickToggle.bind(this);
@@ -39,6 +55,33 @@ class RefundRow extends Component {
       this.setState({ toggle: true });
     } else {
       this.setState({ toggle: false });
+    }
+  }
+
+  componentWillMount() {
+    var e = this;
+    var profileData = this.props.profileData;
+    //console.log(profileData);
+
+    var profI = findIndex(
+      profileData,
+      "arc_CarrierCodeNumber",
+      this.props.data["Numeric Code"]
+    );
+
+    if (profileData[profI]) {
+      var accountid = profileData[profI]["AccountId"];
+
+      axios({
+        method: "get",
+        url:
+          "https://www2.arccorp.com/products-participation/airlines/airline-participation/participating-carriers/GetCarrierDetail?accountid=" +
+          accountid,
+        responseType: "json"
+      }).then(function(response) {
+        console.log("===== Individual Profile Loaded ===== ");
+        e.setState({ profileData: response.data });
+      });
     }
   }
 
@@ -104,6 +147,7 @@ class RefundRow extends Component {
           <MyVerticallyCenteredModal
             show={this.state.modalShow}
             onHide={this.setModalShow.bind(this, false)}
+            data={this.state.profileData}
           />
           <div
             className={
@@ -612,16 +656,20 @@ class RefundRow extends Component {
                 <div className="apInfo">
                   <div className="apInfoContainer">
                     <div className="row align-items-center">
-                      <div className="col-lg-4">
-                        <div className="d-flex align-items-center justify-center">
-                          <img
-                            src="https://www2.arccorp.com/globalassets/refunds/ap-calendar-icon.png"
-                            alt=""
-                            className="apInfoIcon"
-                          />
-                          <div className="apInfoLabel">General Concurrence</div>
+                      {this.state.profileData && (
+                        <div className="col-lg-4">
+                          <div className="d-flex align-items-center justify-center">
+                            <img
+                              src="https://www2.arccorp.com/globalassets/refunds/ap-calendar-icon.png"
+                              alt=""
+                              className="apInfoIcon"
+                            />
+                            <div className="apInfoLabel">
+                              {this.state.profileData["AppointmentType"]}
+                            </div>
+                          </div>
                         </div>
-                      </div>
+                      )}
                       <div className="col-lg-4">
                         <div className="d-flex align-items-center justify-center">
                           <img
@@ -813,6 +861,8 @@ class RefundRow extends Component {
 }
 
 function MyVerticallyCenteredModal(props) {
+  var profData = props.data;
+
   return (
     <Modal
       {...props}
@@ -822,20 +872,105 @@ function MyVerticallyCenteredModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
+          {props.data && <div>{profData["Name"]}</div>}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Centered Modal</h4>
-        <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </p>
+        <div className="row modal-row">
+          <div className="col-md-6">
+            <div className="text-right">
+              <strong>Airline Code/Number</strong>
+            </div>
+          </div>
+          <div className="col-md-6">
+            {props.data && (
+              <div>
+                {profData["CarrierCode"] +
+                  "/" +
+                  profData["CarrierNumber"] +
+                  "-" +
+                  profData["CarrierCheckDigit"]}
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="row modal-row">
+          <div className="col-md-6">
+            <div className="text-right">
+              <strong>Appointment Type</strong>
+            </div>
+          </div>
+          <div className="col-md-6">
+            {props.data && <div>{profData["AppointmentType"]}</div>}
+          </div>
+        </div>
+        <div className="row modal-row">
+          <div className="col-md-6">
+            <div className="text-right">
+              <strong>Attention</strong>
+            </div>
+          </div>
+          <div className="col-md-6">
+            {props.data && <div>{profData["Attention"]}</div>}
+          </div>
+        </div>
+        <div className="row modal-row">
+          <div className="col-md-6">
+            <div className="text-right">
+              <strong>Address</strong>
+            </div>
+          </div>
+          <div className="col-md-6">
+            {props.data && (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: profData["AddressComposite"]
+                }}
+              ></div>
+            )}
+          </div>
+        </div>
+        <div className="row modal-row">
+          <div className="col-md-6">
+            <div className="text-right">
+              <strong>Email</strong>
+            </div>
+          </div>
+          <div className="col-md-6">
+            {props.data && (
+              <a href={"mailto:" + profData["Email"]}>{profData["Email"]}</a>
+            )}
+          </div>
+        </div>
+        <div className="row modal-row">
+          <div className="col-md-6">
+            <div className="text-right">
+              <strong>Website</strong>
+            </div>
+          </div>
+          <div className="col-md-6">
+            {props.data && (
+              <a href={profData["Website"]} target="_blank">
+                {profData["Website"]}
+              </a>
+            )}
+          </div>
+        </div>
+        <div className="row modal-row text-center">
+          <div className="modal-instructions">
+            Additional Airline Instructions
+          </div>
+          <div className="modal-instructions-body">
+            {props.data && (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: profData["AdditionalInstructions"]
+                }}
+              ></div>
+            )}
+          </div>
+        </div>
       </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
-      </Modal.Footer>
     </Modal>
   );
 }
