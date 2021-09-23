@@ -32,6 +32,7 @@
     "react": "^16.14.0",
     "react-app-polyfill": "^2.0.0",
     "react-dom": "^16.14.0",
+    "react-select-search": "^2.2.4",
     "react-tooltip": "^4.2.21",
     "simplebar-react": "^2.3.5",
     "stickybits": "^3.7.9",

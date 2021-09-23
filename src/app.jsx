@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
 import * as moment from "moment";
 import axios from "axios";
@@ -6,6 +6,7 @@ import XLSX from "xlsx";
 import SimpleBar from "simplebar-react";
 import stickybits from "stickybits";
 import RefundRow from "./RefundRow.jsx";
+import SelectSearch from "react-select-search";
 
 function findIndexArr(arr, key, val) {
   if (arr) {
@@ -38,7 +39,8 @@ class App extends Component {
       cardFilter: [],
       activePayments: [],
       completeLoad: false,
-      dataRows: <div></div>
+      dataRows: <div></div>,
+      searchValue: ""
     };
 
     this.setFilter = this.setFilter.bind(this);
@@ -48,6 +50,7 @@ class App extends Component {
     this.resetFilters = this.resetFilters.bind(this);
     this.completeLoadFunc = this.completeLoadFunc.bind(this);
     this.renderRows = this.renderRows.bind(this);
+    this.setSearchValue = this.setSearchValue.bind(this);
   }
 
   resetFilters() {
@@ -60,6 +63,14 @@ class App extends Component {
     this.setState({ filter: "ALL" });
     this.setState({ filterTicket: "ALL" });
     this.setSort("asc");
+    this.setState({ searchValue: "" });
+
+    document.getElementsByClassName("select-search__input").value = '';
+  }
+
+  setSearchValue(val) {
+    console.log(val);
+    this.setState({ searchValue: val });
   }
 
   completeLoadFunc() {
@@ -261,7 +272,14 @@ class App extends Component {
           ticketShow = true;
         }
 
-        className = refundShow && ticketShow ? "show" : "hide";
+        var curSearchName =
+          data["Designator"] +
+          "-" +
+          data["Numeric Code"] +
+          "-" +
+          data["Name"].replace(/\s/g, "");
+
+        className = (refundShow && ticketShow && (e.state.searchValue == curSearchName || e.state.searchValue == "")) ? "show" : "hide";
 
         var cardRow = "";
         //get cardData row that matches this
@@ -315,6 +333,28 @@ class App extends Component {
     var filter = this.state.filter;
     var cardData = this.state.jsonCardData;
     var e = this;
+
+    var searchData = [];
+
+    var searchPicked = "";
+
+    for (let i = 0; i < this.state.jsonData.length; i++) {
+      const element = this.state.jsonData[i];
+      searchData.push({
+        name:
+          element["Designator"] +
+          "-" +
+          element["Numeric Code"] +
+          " " +
+          element["Name"],
+        value:
+          element["Designator"] +
+          "-" +
+          element["Numeric Code"] +
+          "-" +
+          element["Name"].replace(/\s/g, "")
+      });
+    }
 
     return (
       <div className="airlinePartPage">
@@ -665,7 +705,13 @@ class App extends Component {
             style={{ paddingBottom: "0" }}
           >
             <div className="apSearch">
-              <input type="text" placeholder="Search Airlines" />
+              <SelectSearch
+                options={searchData}
+                search
+                value={this.state.searchValue}
+                placeholder="Search airlines"
+                onChange={this.setSearchValue.bind(this)}
+              />
               <div className="icon-search"></div>
             </div>
 
