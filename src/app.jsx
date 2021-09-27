@@ -343,7 +343,10 @@ class App extends Component {
       return refundRowHTML;
     } else {
       return (
-        <div className={"loading"}>
+        <div
+          className={"loading"}
+          style={{ marginTop: "70px", marginBottom: "70px" }}
+        >
           <div className="loading-icon">
             <i className="fas fa-circle-notch fa-spin"></i>
           </div>
@@ -754,8 +757,6 @@ class App extends Component {
           </div>
         </div>
 
-        <div className="airlinePartsResultsTitle">Search Results</div>
-
         <div className={"loading" + this.state.completeLoad ? "hide" : "show"}>
           <div className="loading-icon">
             <i className="fas fa-circle-notch fa-spin"></i>
@@ -767,6 +768,9 @@ class App extends Component {
             "airlinePartsTable" + this.state.completeLoad ? "show" : "hide"
           }
         >
+          {e.state.completeLoad && (
+            <div className="airlinePartsResultsTitle">Search Results</div>
+          )}
           <div
             className=""
             style={{ maxWidth: "1170px", margin: "0 auto", overflow: "hidden" }}
