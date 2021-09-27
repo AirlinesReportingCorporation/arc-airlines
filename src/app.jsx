@@ -347,6 +347,9 @@ class App extends Component {
           <div className="loading-icon">
             <i className="fas fa-circle-notch fa-spin"></i>
           </div>
+          <div style={{ color: "#aaaaaa" }}>
+            Loading Participating Airline Information…
+          </div>
         </div>
       );
     }
@@ -446,14 +449,20 @@ class App extends Component {
             <p style={{ lineHeight: "16px" }}>
               <small>
                 <strong>Please note:</strong> This page is updated based on
-                information ARC receives from the participating airlines. It may
-                not be comprehensive and is subject to change. For specific
-                airline policies and guidelines, please visit the airline’s
-                website or contact the airline directly. ARC gives no guarantee
-                that the content behind hyperlinks is complete, accurate, error-
-                or virus-free, or up to date. ARC recommends travel agents take
-                care to read all information published by the airline and all
-                rules for the fares being booked and/or ticketed.
+                information ARC receives from individual airlines and global
+                distribution systems. It may not be comprehensive and is subject
+                to change without notice. For specific airline policies and
+                guidelines, please visit the airline’s website or contact the
+                airline directly. ARC uses reasonable care in compiling and
+                presenting the hyperlinks, but ARC gives no guarantee,
+                representation, or warranty that the content behind any of the
+                hyperlinks is complete, accurate, error- or virus-free, or up to
+                date. The information contained behind any hyperlink may not be
+                the sole source of information from the airline and may not
+                include all fare rules/ticketing rules. ARC recommends travel
+                agents take care to read all information published by the
+                airline and all rules for the fares being booked, ticketed
+                and/or refunded.
               </small>
             </p>
           </div>

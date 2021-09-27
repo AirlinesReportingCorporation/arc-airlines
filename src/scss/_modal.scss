@@ -1,5 +1,6 @@
 .modal-open {
   overflow: hidden;
+  //filter: blur(1px);
 }
 
 .modal-open .modal {
@@ -129,6 +130,7 @@
   width: 100vw;
   height: 100vh;
   background-color: #000;
+  backdrop-filter: blur(5px);
 }
 
 .modal-backdrop.fade {

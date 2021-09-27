@@ -50,6 +50,7 @@
   align-items: center;
 
   .loading {
+    color: #dddddd;
     vertical-align: middle;
     text-align: center;
     width: 100%;
@@ -87,7 +88,7 @@
     font-size: 48px;
   }
   strong {
-    font-family: SourceSansPro-Black, Arial, Helvetica, sans-serif;
+    font-family: SourceSansPro-Bold, Arial, Helvetica, sans-serif;
   }
   p {
     font-family: SourceSansPro-Regular, Arial, Helvetica, sans-serif;
@@ -226,7 +227,6 @@
     line-height: 30px;
     cursor: pointer;
     z-index: 11;
-    
   }
 }
 
@@ -326,11 +326,34 @@
 .apEdiLegend {
   display: flex;
   align-items: center;
+  margin-top: 10px;
+
+  .apEdiLabel {
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: 24px;
+  }
 }
 
 .apSectionMargin {
   margin-left: 20px;
   margin-right: 20px;
+
+  line-height: 15px;
+
+  .apEdiLabel {
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: 30px;
+  }
+
+  .apEdiLegend {
+    .apEdiLabel {
+      padding-top: 0;
+      padding-bottom: 0;
+      line-height: 1;
+    }
+  }
 }
 
 .apSection.apInfo {
@@ -372,7 +395,11 @@
   color: #757a7b;
   font-size: 13px;
   opacity: 0.5;
-  margin-right: 10px;
+  margin-right: 12px;
+
+  &:last-child {
+    margin-right: 0;
+  }
 
   &.active {
     border-color: #8cc088;
@@ -631,12 +658,17 @@ a.apInfoLink {
     justify-content: center;
   }
 
-  .airlinePartFilterItem, .airlinePartFilterItem label {
+  .airlinePartFilterItem,
+  .airlinePartFilterItem label {
     font-size: 13px;
     line-height: 24px;
     font-family: SourceSansPro-Black, Arial, Helvetica, sans-serif;
     text-transform: uppercase;
     cursor: pointer;
+
+    input[type="checkbox"] {
+      margin-bottom: 0;
+    }
 
     i {
       color: transparent;

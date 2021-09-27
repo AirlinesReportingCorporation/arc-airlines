@@ -172,7 +172,7 @@ class RefundRow extends Component {
                         "Refund or Ticket Validity Information Last Updated"
                       ] && (
                         <div className="ml-auto apUpdated d-flex align-items-center">
-                          <span>Latest Updates:</span>
+                          <span>Latest Updates:</span> 
                           {
                             data[
                               "Refund or Ticket Validity Information Last Updated"
