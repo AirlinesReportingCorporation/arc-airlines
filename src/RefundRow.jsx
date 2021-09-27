@@ -256,12 +256,12 @@ class RefundRow extends Component {
                       </div>
                       <div className="apSectionBottom">
                         <div className="row">
-                          {data["Phone"] && (
-                            <div className="col-lg-5">
-                              <div className="apDataLabel">Phone</div>
-                              <div className="apDataText">{data["Phone"]}</div>
+                          <div className="col-lg-5">
+                            <div className="apDataLabel">Phone</div>
+                            <div className="apDataText">
+                              {data["Phone"] ? data["Phone"] : "N/A"}
                             </div>
-                          )}
+                          </div>
 
                           <div className="col-lg-7">
                             <div className="apRefundsBtn">
@@ -271,20 +271,22 @@ class RefundRow extends Component {
                         </div>
                         <div className="row">
                           <div className="col-lg-12">
-                            {data["Email"] && (
-                              <div>
-                                <div className="apDataLabel">Email</div>
+                            <div>
+                              <div className="apDataLabel">Email</div>
+                              {data["Email"] ? (
                                 <a href={"mailto:" + data["Email"]}>
-                                  {data["Email"]}
+                                  {data["Email"]}{" "}
                                 </a>
-                              </div>
-                            )}
+                              ) : (
+                                <div className="apDataText">N/A</div>
+                              )}
+                            </div>
                           </div>
                         </div>
                         <div className="row">
-                          {(data["Instructions 1"] ||
-                            data["Instructions 2"] ||
-                            data["Instructions 3"]) && (
+                          {data["Instructions 1"] ||
+                          data["Instructions 2"] ||
+                          data["Instructions 3"] ? (
                             <div className="col-lg-12">
                               <div className="apDataLabel">Instructions</div>
                               {data["Instructions 1"] && (
@@ -337,6 +339,11 @@ class RefundRow extends Component {
                                     })}
                                 </div>
                               )}
+                            </div>
+                          ) : (
+                            <div className="col-lg-12">
+                              <div className="apDataLabel">Instructions</div>
+                              <div className="apDataText">N/A</div>
                             </div>
                           )}
                         </div>
