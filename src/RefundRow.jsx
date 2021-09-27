@@ -35,7 +35,8 @@ class RefundRow extends Component {
       toggle: false,
       modalShow: false,
       filterActive: true,
-      profileData: []
+      profileData: [],
+      fullProfileData: []
     };
 
     this.clickToggle = this.clickToggle.bind(this);
@@ -71,6 +72,7 @@ class RefundRow extends Component {
 
     if (profileData[profI]) {
       var accountid = profileData[profI]["AccountId"];
+      e.setState({ fullProfileData: profileData[profI] });
 
       axios({
         method: "get",
@@ -79,7 +81,7 @@ class RefundRow extends Component {
           accountid,
         responseType: "json"
       }).then(function(response) {
-        console.log("===== Individual Profile Loaded ===== ");
+        //console.log("===== Individual Profile Loaded ===== ");
         e.setState({ profileData: response.data });
       });
     }
@@ -172,7 +174,7 @@ class RefundRow extends Component {
                         "Refund or Ticket Validity Information Last Updated"
                       ] && (
                         <div className="ml-auto apUpdated d-flex align-items-center">
-                          <span>Latest Updates:</span> 
+                          <span>Latest Updates:</span>
                           {
                             data[
                               "Refund or Ticket Validity Information Last Updated"
@@ -657,7 +659,7 @@ class RefundRow extends Component {
                   <div className="apInfoContainer">
                     <div className="row align-items-center">
                       {this.state.profileData && (
-                        <div className="col-lg-4">
+                        <div className="col-4 col-lg-4">
                           <div className="d-flex align-items-center justify-center">
                             <img
                               src="https://www2.arccorp.com/globalassets/refunds/ap-calendar-icon.png"
@@ -670,7 +672,7 @@ class RefundRow extends Component {
                           </div>
                         </div>
                       )}
-                      <div className="col-lg-4">
+                      <div className="col-4 col-lg-4">
                         <div className="d-flex align-items-center justify-center">
                           <img
                             src="https://www2.arccorp.com/globalassets/refunds/ap-check-icon.png"
@@ -682,18 +684,26 @@ class RefundRow extends Component {
                           </div>
                         </div>
                       </div>
-                      <div className="col-lg-4">
-                        <div className="d-flex align-items-center justify-center">
-                          <img
-                            src="https://www2.arccorp.com/globalassets/refunds/ap-info-icon.png"
-                            alt=""
-                            className="apInfoIcon apInfoPolicy"
-                          />
-                          <a className="apInfoLabel apInfoLink">
-                            Airline Policy{" "}
-                            <i className="fas fa-chevron-right"></i>
-                          </a>
-                        </div>
+                      <div className="col-4 col-lg-4">
+                        {this.state.fullProfileData["arc_CarrierPolicy"] && (
+                          <div className="d-flex align-items-center justify-left">
+                            <img
+                              src="https://www2.arccorp.com/globalassets/refunds/ap-info-icon.png"
+                              alt=""
+                              className="apInfoIcon apInfoPolicy"
+                            />
+                            <a
+                              href={
+                                this.state.fullProfileData["arc_CarrierPolicy"]
+                              }
+                              target="_blank"
+                              className="apInfoLabel apInfoLink"
+                            >
+                              Airline Policy{" "}
+                              <i className="fas fa-chevron-right"></i>
+                            </a>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

@@ -703,6 +703,23 @@ a.apInfoLink {
 }
 
 @media screen and (max-width: 991.999px) {
+  .ml-auto,
+  .mr-auto {
+    margin-left: inherit;
+    margin-right: inherit;
+  }
+
+  .apInfoContainer {
+    .align-items-center {
+      justify-content: center;
+    }
+  }
+
+  .apUpdated {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
   .airlinePartRow {
     margin-left: 15px;
     margin-right: 15px;
