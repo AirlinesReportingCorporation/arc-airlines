@@ -468,6 +468,32 @@ class App extends Component {
                 and/or refunded.
               </small>
             </p>
+
+            <p
+              style={{
+                border: "2px solid #ddd",
+                fontSize: "12px",
+                borderRadius: "8px",
+                padding: "20px",
+                lineHeight: "1.5"
+              }}
+            >
+              This new webpage shows all the information about ARC participating
+              airlines in one convenient place. If you prefer to use the
+              previous{" "}
+              <a href="https://www2.arccorp.com/refunds">
+                Airline Refund and Exchange Information
+              </a>
+              ,{" "}
+              <a href="https://www2.arccorp.com/globalassets/forms/ops/doc141.pdf">
+                Airline Ticket Matrix
+              </a>{" "}
+              and{" "}
+              <a href="https://www2.arccorp.com/products-participation/airlines/airline-participation/participating-carriers/">
+                Participating Airline
+              </a>{" "}
+              pages, they’ll be available for a short period of time.
+            </p>
           </div>
         </div>
 
