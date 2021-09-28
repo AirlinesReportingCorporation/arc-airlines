@@ -159,7 +159,7 @@ class RefundRow extends Component {
             }
           >
             <div className="airlinePartRowTop">
-              <div className="airlinePartRowStart">
+              <div className="airlinePartRowStart container-fluid">
                 <div className="row align-items-center">
                   <div className="col-11">
                     <div className="d-flex flex-column flex-lg-row">
@@ -665,6 +665,11 @@ class RefundRow extends Component {
                 <div className="apInfo">
                   <div className="apInfoContainer">
                     <div className="row align-items-center">
+                      {!this.state.fullProfileData["arc_CarrierPolicy"] ? (
+                        <div className="offset-lg-2"></div>
+                      ) : (
+                        ""
+                      )}
                       {this.state.profileData && (
                         <div className="col-4 col-lg-4">
                           <div className="d-flex align-items-center justify-center">

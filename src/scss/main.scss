@@ -90,6 +90,7 @@
   }
   strong {
     font-family: SourceSansPro-Bold, Arial, Helvetica, sans-serif;
+    font-weight: 400;
   }
   p {
     font-family: SourceSansPro-Regular, Arial, Helvetica, sans-serif;
@@ -142,6 +143,10 @@
     background: #212122;
     color: #ffffff;
 
+    .airlinePartRowStart {
+      background: #212122;
+    }
+
     .airlinePartName {
       color: #ffffff;
     }
@@ -150,8 +155,8 @@
 
 .airlinePartRowTop {
   font-family: SourceSansPro-Regular, Arial, Helvetica, sans-serif;
-  padding: 35px 30px;
   transition: 0.5s;
+  overflow: hidden;
 }
 
 .apDesignator,
@@ -192,7 +197,7 @@
   cursor: pointer;
 
   i {
-    font-size: 12px;
+    font-size: 11px;
     margin-left: 3px;
   }
 }
@@ -250,6 +255,7 @@
 .airlinePartRowStart {
   position: relative;
   z-index: 5;
+  padding: 35px;
 }
 
 .airlinePartRowBottom {
@@ -258,12 +264,15 @@
 }
 
 .airlinePartRowInfo {
+  background: #212122;
   position: relative;
   display: none;
   word-break: break-word;
-  padding-top: 50px;
   z-index: 4;
   transition: all 0.5s ease-in-out;
+  padding-right: 30px;
+  padding-left: 30px;
+  padding-bottom: 30px;
 
   &.show {
     display: block;
@@ -439,7 +448,7 @@ a.apInfoLink {
   color: #1d9cb1;
   font-family: SourceSansPro-Bold, Arial, Helvetica, sans-serif;
   i {
-    font-size: 12px;
+    font-size: 11px;
     margin-left: 3px;
   }
 }
@@ -705,11 +714,26 @@ a.apInfoLink {
   margin-right: auto;
 }
 
+@media screen and (max-width: 600px) {
+  .airlinePartFilterBottom {
+    flex-direction: column;
+  }
+  .apReset {
+    position: relative;
+    right: auto;
+    margin-top: 15px;
+  }
+}
+
 @media screen and (max-width: 991.999px) {
   .ml-auto,
   .mr-auto {
     margin-left: inherit;
     margin-right: inherit;
+  }
+
+  .airlinePartName {
+    padding-top: 10px;
   }
 
   .apInfoContainer {
@@ -736,7 +760,7 @@ a.apInfoLink {
   .apSectionValidity {
     margin-right: 20px;
     margin-left: 20px;
-    margin-top: 30px;
+    margin-top: 20px;
   }
   .apEdiBorder {
     border: none;
@@ -744,5 +768,10 @@ a.apInfoLink {
 
   .apInfoIcon {
     margin-bottom: 10px;
+  }
+
+  .apPaymentSection {
+    margin-right: 9px;
+    margin-left: 8px;
   }
 }
