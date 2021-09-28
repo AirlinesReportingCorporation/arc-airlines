@@ -746,7 +746,6 @@ class App extends Component {
                 value={this.state.searchValue}
                 placeholder="Search airlines"
                 onChange={this.setSearchValue.bind(this)}
-                autoFocus
               />
               <div className="icon-search"></div>
             </div>
