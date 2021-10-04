@@ -391,26 +391,28 @@ class RefundRow extends Component {
                           </div>
                         </div>
                         <div className="row">
-                          {data["Restrictions Link Title 1"] &&
-                            data["Restrictions Link URL 1"] && (
-                              <div className="col-lg-12">
-                                <div className="apDataLabel">Restriction</div>
-                                <div className="apDataText">
-                                  <p>
-                                    {" "}
-                                    {data["Restrictions Text"] && (
-                                      <div>{data["Restrictions Text"]}</div>
-                                    )}
-                                    <a
-                                      target="_blank"
-                                      href={data["Restrictions Link URL 1"]}
-                                    >
-                                      {data["Restrictions Link Title 1"]}
-                                    </a>
-                                  </p>
-                                </div>
+                          <div className="col-lg-12">
+                            <div className="apDataLabel">Restriction</div>
+                            {data["Restrictions Link Title 1"] &&
+                            data["Restrictions Link URL 1"] ? (
+                              <div className="apDataText">
+                                <p>
+                                  {" "}
+                                  {data["Restrictions Text"] && (
+                                    <div>{data["Restrictions Text"]}</div>
+                                  )}
+                                  <a
+                                    target="_blank"
+                                    href={data["Restrictions Link URL 1"]}
+                                  >
+                                    {data["Restrictions Link Title 1"]}
+                                  </a>
+                                </p>
                               </div>
+                            ) : (
+                              <div className="apDataText">N/A</div>
                             )}
+                          </div>
                         </div>
                       </div>
                     </div>
