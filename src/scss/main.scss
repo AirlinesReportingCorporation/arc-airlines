@@ -401,13 +401,14 @@
 .apPaymentLabel {
   display: inline-block;
   margin-top: 15px;
-  border: 1px solid #757a7b;
+  border: 2px solid #757a7b;
   border-radius: 30px;
   padding: 5px 10px;
   color: #757a7b;
   font-size: 13px;
   opacity: 0.5;
-  margin-right: 12px;
+  margin-right: 7px;
+  font-family: SourceSansPro-SemiBold, Arial, Helvetica, sans-serif;
 
   &:last-child {
     margin-right: 0;
@@ -712,6 +713,38 @@ a.apInfoLink {
 
 .mr-auto {
   margin-right: auto;
+}
+
+.airlineTooltip {
+  position: relative;
+  z-index: 30;
+
+  img {
+    cursor: pointer;
+  }
+
+  &:hover {
+    .airlineTooltipText {
+      display: block;
+    }
+  }
+
+  .airlineTooltipText {
+    position: absolute;
+    right: 0;
+    top: 30px;
+    border-radius: 8px;
+    padding: 20px;
+    background: #ffffff;
+    z-index: 30;
+    display: none;
+    color: #212121;
+    width:250px;
+    max-height: 350px;
+    border: 1px solid #000000;
+    font-size: 14px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  }
 }
 
 @media screen and (max-width: 600px) {

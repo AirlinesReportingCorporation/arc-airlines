@@ -433,6 +433,15 @@ class App extends Component {
               airline.)
             </p>
             <p>
+              <strong>EDIFACT Support</strong>: The EDIFACT Support section
+              reflects the messaging capabilities of each airline. If you need
+              access to the capabilities in one document, you can{" "}
+              <a href="#">
+                download the Participating Airline Information list
+              </a>
+              .
+            </p>
+            <p>
               <strong>NDC/Direct Connect</strong>: Use the filters below to view
               airlines participating in NDC/Direct Connect, which gives agencies
               direct access to fares.
@@ -488,9 +497,9 @@ class App extends Component {
               <a href="https://www2.arccorp.com/globalassets/forms/ops/doc141.pdf">
                 Airline Ticket Matrix
               </a>{" "}
-              and{" "}
-              <a href="https://www2.arccorp.com/products-participation/airlines/airline-participation/participating-carriers/">
-                Participating Airline
+              ,{" "}
+              <a href="https://www2.arccorp.com/support-training/airlines/payment-acceptance/">
+                Payment Acceptance
               </a>{" "}
               pages, they’ll be available for a short period of time.
             </p>

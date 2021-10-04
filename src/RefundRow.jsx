@@ -245,12 +245,16 @@ class RefundRow extends Component {
                           )}
 
                           <div className="ml-auto">
-                            <img
-                              data-tip=""
-                              data-for="refund"
-                              src="https://www2.arccorp.com/globalassets/about-us/our-data/redesign/tooltip.png"
-                              alt="Help"
-                            />
+                            <div className="airlineTooltip">
+                              <img
+                                src="https://www2.arccorp.com/globalassets/about-us/our-data/redesign/tooltip.png"
+                                alt="Help"
+                              />
+                              <div className="airlineTooltipText">
+                                Refunds are either managed via the GDS or
+                                directly.
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -357,12 +361,21 @@ class RefundRow extends Component {
                           <h3>Processing Validity</h3>
 
                           <div className="ml-auto">
-                            <img
-                              data-tip=""
-                              data-for="refund"
-                              src="https://www2.arccorp.com/globalassets/about-us/our-data/redesign/tooltip.png"
-                              alt="Help"
-                            />
+                            <div className="airlineTooltip">
+                              <img
+                                src="https://www2.arccorp.com/globalassets/about-us/our-data/redesign/tooltip.png"
+                                alt="Help"
+                              />
+                              <div className="airlineTooltipText">
+                                Processing validity refers to the period that
+                                refunds and exchanges can be processed through
+                                ARC’s settlement system, IAR. Before processing
+                                any refund or exchange, agents should review the
+                                ticket’s fare rules, as well as any ticket
+                                validity extension that may have been offered by
+                                the airline.
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -408,12 +421,18 @@ class RefundRow extends Component {
                         <div className="d-flex align-items-center">
                           <h3>EDIFACT Support</h3>
                           <div className="ml-auto">
-                            <img
-                              data-tip=""
-                              data-for="refund"
-                              src="https://www2.arccorp.com/globalassets/about-us/our-data/redesign/tooltip.png"
-                              alt="Help"
-                            />
+                            <div className="airlineTooltip">
+                              <img
+                                src="https://www2.arccorp.com/globalassets/about-us/our-data/redesign/tooltip.png"
+                                alt="Help"
+                              />
+                              <div className="airlineTooltipText">
+                                Electronic Data Interchange for Administration,
+                                Commerce and Transport (EDIFACT) standards
+                                reflect the messaging capabilities of each
+                                airline.
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -548,12 +567,17 @@ class RefundRow extends Component {
                     <div className="d-flex align-items-center">
                       <h3>Accepted Payments</h3>
                       <div className="ml-auto">
-                        <img
-                          data-tip=""
-                          data-for="refund"
-                          src="https://www2.arccorp.com/globalassets/about-us/our-data/redesign/tooltip.png"
-                          alt="Help"
-                        />
+                        <div className="airlineTooltip">
+                          <img
+                            src="https://www2.arccorp.com/globalassets/about-us/our-data/redesign/tooltip.png"
+                            alt="Help"
+                          />
+                          <div className="airlineTooltipText">
+                            Payments accepted by the airline are shown in bright
+                            green text. Payment options in gray are not
+                            accepted.
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
