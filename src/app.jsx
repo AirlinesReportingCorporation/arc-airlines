@@ -399,9 +399,7 @@ class App extends Component {
                 </div>
               </div>
               <div className="product-sticky-links d-flex align-items-center">
-                <a href="#overview" className="product-sticky-link">
-                  Download Files
-                </a>
+                
                 <a href="#resources" className="product-sticky-link">
                   Resources
                 </a>

@@ -67,6 +67,10 @@
   font-family: SourceSansPro-Regular, Arial, Helvetica, sans-serif;
   width: 100%;
   background: #ffffff;
+
+  a {
+    text-decoration: none;
+  }
 }
 
 .airlinePartJumboContainer {
@@ -681,6 +685,7 @@ a.apInfoLink {
 
     input[type="checkbox"] {
       margin-bottom: 0;
+      margin-right: 5px;
     }
 
     i {
