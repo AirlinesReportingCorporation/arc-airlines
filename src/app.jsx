@@ -399,7 +399,6 @@ class App extends Component {
                 </div>
               </div>
               <div className="product-sticky-links d-flex align-items-center">
-                
                 <a href="#resources" className="product-sticky-link">
                   Resources
                 </a>
@@ -813,65 +812,28 @@ class App extends Component {
         </div>
 
         <div id="resources" className="box-icon text-center">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-4">
-                <div className="box-icon-item">
-                  <img
-                    src="https://www2.arccorp.com/globalassets/products--participation/arc-travel-demand/atd-product-sheet.jpg"
-                    alt=""
-                  />
-                  <div className="box-icon-header">Lorem Ipsum</div>
-                  <div className="box-icon-copy">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Dolore fuga vero porro numquam voluptate voluptatum iste,
-                    beatae quisquam distinctio tempora corporis, possimus rerum
-                    libero asperiores explicabo mollitia est voluptates sit!
+          <div id="insights" className="callout-box-container">
+            <div className="container">
+              <div className="callout-box teal">
+                <div className="row">
+                  <div className="col-lg-12">
+                    <div className="callout-box-eyebrow">Targeted Insights</div>
+                    <div className="callout-box-title">
+                      Looking for a more custom data solution?
+                    </div>
+                    <div className="callout-box-copy">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Ex eveniet, atque deserunt expedita assumenda tempore aut
+                      ipsam molestias. Sunt vero, eum error hic harum magnam
+                      minus praesentium quam obcaecati laboriosam!
+                    </div>
+                    <a
+                      href="https://www2.arccorp.com/products-participation/products/arc-custom-reports/"
+                      className="ctaBtn ctaBtn--white  product-cta"
+                    >
+                      Learn More
+                    </a>
                   </div>
-                  <a target="_blank" href="#" className="link-download">
-                    Download
-                    <i className="fas fa-chevron-down"></i>
-                  </a>
-                </div>
-              </div>
-
-              <div className="col-lg-4">
-                <div className="box-icon-item">
-                  <img
-                    src="https://www2.arccorp.com/globalassets/products--participation/arc-travel-demand/atd-product-sheet.jpg"
-                    alt=""
-                  />
-                  <div className="box-icon-header">Lorem Ipsum</div>
-                  <div className="box-icon-copy">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Dolore fuga vero porro numquam voluptate voluptatum iste,
-                    beatae quisquam distinctio tempora corporis, possimus rerum
-                    libero asperiores explicabo mollitia est voluptates sit!
-                  </div>
-                  <a target="_blank" href="#" className="link-download">
-                    Download
-                    <i className="fas fa-chevron-down"></i>
-                  </a>
-                </div>
-              </div>
-
-              <div className="col-lg-4">
-                <div className="box-icon-item">
-                  <img
-                    src="https://www2.arccorp.com/globalassets/products--participation/arc-travel-demand/atd-product-sheet.jpg"
-                    alt=""
-                  />
-                  <div className="box-icon-header">Lorem Ipsum</div>
-                  <div className="box-icon-copy">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Dolore fuga vero porro numquam voluptate voluptatum iste,
-                    beatae quisquam distinctio tempora corporis, possimus rerum
-                    libero asperiores explicabo mollitia est voluptates sit!
-                  </div>
-                  <a target="_blank" href="#" className="link-download">
-                    Download
-                    <i className="fas fa-chevron-down"></i>
-                  </a>
                 </div>
               </div>
             </div>
