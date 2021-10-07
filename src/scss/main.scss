@@ -260,6 +260,15 @@
   position: relative;
   z-index: 5;
   padding: 35px;
+
+  .col-11 {
+    flex: 0 0 95%;
+    max-width: 95%;
+  }
+  .col-1 {
+    flex: 0 0 5%;
+    max-width: 5%;
+  }
 }
 
 .airlinePartRowBottom {

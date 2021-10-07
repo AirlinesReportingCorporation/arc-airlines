@@ -647,7 +647,7 @@ class RefundRow extends Component {
                             : "apPaymentLabel"
                         }
                       >
-                        UATP (UP)
+                        UATP (TP)
                       </div>
                       <div
                         className={
