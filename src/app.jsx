@@ -811,8 +811,8 @@ class App extends Component {
           </div>
         </div>
 
-        <div id="resources" className="box-icon text-center">
-          <div id="insights" className="callout-box-container">
+        <div>
+          <div id="resources" className="callout-box-container" style={{paddingBottom: "80px"}}>
             <div className="container">
               <div className="callout-box teal">
                 <div className="row">

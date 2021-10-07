@@ -700,7 +700,7 @@ class RefundRow extends Component {
                         <div className="col-4 col-lg-4">
                           <div className="d-flex align-items-center justify-center">
                             <img
-                              src="https://www2.arccorp.com/globalassets/refunds/ap-calendar-icon.png"
+                              src="https://www2.arccorp.com/globalassets/refunds/ap-appointment.png"
                               alt=""
                               className="apInfoIcon"
                             />
