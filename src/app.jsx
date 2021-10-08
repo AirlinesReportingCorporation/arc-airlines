@@ -30,6 +30,7 @@ class App extends Component {
       refundData: [],
       filter: "ALL",
       filterTicket: "ALL",
+      filterNDC: "ALL",
       filterObj: [],
       refundFilter: [],
       sortType: "asc",
@@ -46,6 +47,7 @@ class App extends Component {
 
     this.setFilter = this.setFilter.bind(this);
     this.setTicketFilter = this.setTicketFilter.bind(this);
+    this.setNDCFilter = this.setNDCFilter.bind(this);
     this.setSort = this.setSort.bind(this);
     this.toggleActivePayments = this.toggleActivePayments.bind(this);
     this.resetFilters = this.resetFilters.bind(this);
@@ -118,6 +120,11 @@ class App extends Component {
 
   setTicketFilter(val) {
     this.setState({ filterTicket: val });
+  }
+
+  setNDCFilter(val) {
+    this.setState({ filterNDC: val });
+    console.log(this.state.filterNDC);
   }
 
   setSort(val) {
@@ -261,16 +268,41 @@ class App extends Component {
         var comboTruth = false;
         var refundShow = false;
         var ticketShow = false;
+        var ndcShow = false;
 
         var className = "hide";
 
         var filter = this.state.filter;
         var filterTicket = this.state.filterTicket;
+        var filterNDC = this.state.filterNDC;
 
         if (filter == "ALL") {
           refundShow = true;
         } else if (data["Refunds"].indexOf(this.state.filter) > -1) {
           refundShow = true;
+        }
+
+        if (filterNDC == "ALL") {
+          ndcShow = true;
+        } else if (
+          filterNDC == "YES" &&
+          (data["Numeric Code"] === "001" ||
+            data["Numeric Code"] === "134" ||
+            data["Numeric Code"] === "125" ||
+            data["Numeric Code"] === "016")
+        ) {
+          ndcShow = true;
+        } else if (filterNDC == "NO") {
+          ndcShow = true;
+
+          if (
+            data["Numeric Code"] === "001" ||
+            data["Numeric Code"] === "134" ||
+            data["Numeric Code"] === "125" ||
+            data["Numeric Code"] === "016"
+          ) {
+            ndcShow = false;
+          }
         }
 
         if (filterTicket == "ALL") {
@@ -297,6 +329,7 @@ class App extends Component {
         className =
           refundShow &&
           ticketShow &&
+          ndcShow &&
           (e.state.searchValue == curSearchName || e.state.searchValue == "")
             ? "show"
             : "hide";
@@ -495,6 +528,10 @@ class App extends Component {
                 Airline Ticket Matrix
               </a>{" "}
               ,{" "}
+              <a href="https://www2.arccorp.com/products-participation/airlines/airline-participation/participating-carriers/">
+                Participating Airline
+              </a>{" "}
+              and ,{" "}
               <a href="https://www2.arccorp.com/support-training/airlines/payment-acceptance/">
                 Payment Acceptance
               </a>{" "}
@@ -629,13 +666,31 @@ class App extends Component {
               <div className="col-lg-2">
                 <div className="airlinePartLabel">NDC/Direct Connect</div>
                 <div className="airlinePartFilterGroup">
-                  <div className="airlinePartFilterItem active">
+                  <div
+                    onClick={this.setNDCFilter.bind(this, "ALL")}
+                    className={
+                      "airlinePartFilterItem " +
+                      (this.state.filterNDC == "ALL" ? " active" : "")
+                    }
+                  >
                     <i className="fas fa-caret-right"></i> All
                   </div>
-                  <div className="airlinePartFilterItem">
+                  <div
+                    onClick={this.setNDCFilter.bind(this, "YES")}
+                    className={
+                      "airlinePartFilterItem " +
+                      (this.state.filterNDC == "YES" ? " active" : "")
+                    }
+                  >
                     <i className="fas fa-caret-right"></i> Yes
                   </div>
-                  <div className="airlinePartFilterItem">
+                  <div
+                    onClick={this.setNDCFilter.bind(this, "NO")}
+                    className={
+                      "airlinePartFilterItem " +
+                      (this.state.filterNDC == "NO" ? " active" : "")
+                    }
+                  >
                     <i className="fas fa-caret-right"></i> No
                   </div>
                 </div>
@@ -812,26 +867,42 @@ class App extends Component {
         </div>
 
         <div>
-          <div id="resources" className="callout-box-container" style={{paddingBottom: "80px"}}>
+          <div
+            id="resources"
+            className="callout-box-container"
+            style={{ paddingBottom: "80px" }}
+          >
             <div className="container">
               <div className="callout-box teal">
                 <div className="row">
                   <div className="col-lg-12">
-                    <div className="callout-box-eyebrow">Targeted Insights</div>
-                    <div className="callout-box-title">
-                      Looking for a more custom data solution?
+                    <div
+                      className="callout-box-title"
+                      style={{
+                        maxWidth: "500px",
+                        marginLeft: "auto",
+                        marginRight: "auto"
+                      }}
+                    >
+                      Download an Excel list of all airline information
                     </div>
-                    <div className="callout-box-copy">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Ex eveniet, atque deserunt expedita assumenda tempore aut
-                      ipsam molestias. Sunt vero, eum error hic harum magnam
-                      minus praesentium quam obcaecati laboriosam!
+                    <div
+                      className="callout-box-copy"
+                      style={{
+                        maxWidth: "700px",
+                        marginLeft: "auto",
+                        marginRight: "auto"
+                      }}
+                    >
+                      If you need an Excel spreadsheet that contains all the
+                      airline information represented above, select the button
+                      below.
                     </div>
                     <a
                       href="https://www2.arccorp.com/products-participation/products/arc-custom-reports/"
                       className="ctaBtn ctaBtn--white  product-cta"
                     >
-                      Learn More
+                      Download
                     </a>
                   </div>
                 </div>

@@ -101,6 +101,19 @@ class RefundRow extends Component {
     var paymentFiltered = 0;
     var paymentHide = true;
 
+    var ndcAirline = false;
+
+    if (data["Numeric Code"]) {
+      if (
+        data["Numeric Code"] === "001" ||
+        data["Numeric Code"] === "134" ||
+        data["Numeric Code"] === "125" ||
+        data["Numeric Code"] === "016"
+      ) {
+        ndcAirline = true;
+      }
+    }
+
     if (this.props.paymentFilterList == "all") {
       paymentHide = false;
     } else if (payments) {
@@ -669,21 +682,25 @@ class RefundRow extends Component {
                       </div>
                     </div>
                     <div className="row">
-                      {cardData["Code"] && (
-                        <div className="col-lg-4">
-                          <div className="apDataLabel">Restriction</div>
+                      <div className="col-lg-4">
+                        <div className="apDataLabel">Restriction</div>
+                        {cardData["Code"] ? (
                           <div className="apDataText">{cardData["Code"]}</div>
-                        </div>
-                      )}
+                        ) : (
+                          <div className="apDataText">N/A</div>
+                        )}
+                      </div>
 
-                      {typeof cardData["Exception"] != "undefined" && (
-                        <div className="col-lg-8">
-                          <div className="apDataLabel">Exception</div>
+                      <div className="col-lg-8">
+                        <div className="apDataLabel">Exception</div>
+                        {typeof cardData["Exception"] != "undefined" ? (
                           <div className="apDataText">
                             {cardData["Exception"]}
                           </div>
-                        </div>
-                      )}
+                        ) : (
+                          <div className="apDataText">N/A</div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -712,12 +729,27 @@ class RefundRow extends Component {
                       )}
                       <div className="col-4 col-lg-4">
                         <div className="d-flex align-items-center justify-center">
-                          <img
-                            src="https://www2.arccorp.com/globalassets/refunds/ap-check-icon.png"
-                            alt=""
-                            className="apInfoIcon apInfoCheck"
-                          />
-                          <div className="apInfoLabel apNDClabel">
+                          {ndcAirline ? (
+                            <img
+                              src="https://www2.arccorp.com/globalassets/refunds/ap-check-icon.png"
+                              alt=""
+                              className="apInfoIcon apInfoCheck"
+                            />
+                          ) : (
+                            <img
+                              src="https://www2.arccorp.com/globalassets/refunds/ap-close-icon.png"
+                              alt=""
+                              className="apInfoIcon apInfoClose"
+                            />
+                          )}
+
+                          <div
+                            className={
+                              +ndcAirline
+                                ? "apInfoLabel apNDClabel active"
+                                : "apInfoLabel apNDClabel"
+                            }
+                          >
                             NDC / Direct Connect
                           </div>
                         </div>

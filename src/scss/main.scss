@@ -450,8 +450,17 @@
   border-radius: 5px;
 }
 
+.apInfoClose {
+  background: #5d5e5e;
+  padding: 5px;
+  border-radius: 5px;
+}
+
 .apNDClabel {
-  color: #8cc088;
+  color: #5d5e5e;
+  &.active {
+    color: #8cc088;
+  }
 }
 
 .justify-center {
