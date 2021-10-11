@@ -105,7 +105,7 @@ class RefundRow extends Component {
 
     if (data["Numeric Code"]) {
       if (
-        data["Numeric Code"] === "001" ||
+        data["Numeric Code"] === "075" ||
         data["Numeric Code"] === "134" ||
         data["Numeric Code"] === "125" ||
         data["Numeric Code"] === "016"

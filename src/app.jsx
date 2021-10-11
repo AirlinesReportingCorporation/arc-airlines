@@ -286,7 +286,7 @@ class App extends Component {
           ndcShow = true;
         } else if (
           filterNDC == "YES" &&
-          (data["Numeric Code"] === "001" ||
+          (data["Numeric Code"] === "075" ||
             data["Numeric Code"] === "134" ||
             data["Numeric Code"] === "125" ||
             data["Numeric Code"] === "016")
@@ -296,7 +296,7 @@ class App extends Component {
           ndcShow = true;
 
           if (
-            data["Numeric Code"] === "001" ||
+            data["Numeric Code"] === "075" ||
             data["Numeric Code"] === "134" ||
             data["Numeric Code"] === "125" ||
             data["Numeric Code"] === "016"
