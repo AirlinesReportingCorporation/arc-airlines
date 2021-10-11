@@ -899,7 +899,7 @@ class App extends Component {
                       below.
                     </div>
                     <a
-                      href="https://www2.arccorp.com/products-participation/products/arc-custom-reports/"
+                      href="/"
                       className="ctaBtn ctaBtn--white  product-cta"
                     >
                       Download
