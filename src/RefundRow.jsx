@@ -427,6 +427,30 @@ class RefundRow extends Component {
                             )}
                           </div>
                         </div>
+                        <div className="row">
+                          <div className="col-lg-12">
+                            {data[
+                              "Refund or Ticket Validity Information Last Updated"
+                            ] &&
+                            data[
+                              "Refund or Ticket Validity Information Last Updated"
+                            ] ? (
+                              <div className="apDataLabel">
+                                <p>
+                                  {
+                                    data[
+                                      "Refund or Ticket Validity Information Last Updated"
+                                    ]
+                                  }
+                                </p>
+                              </div>
+                            ) : (
+                              <div className="apDataLabel">
+                                Updated January 1, 2021
+                              </div>
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
