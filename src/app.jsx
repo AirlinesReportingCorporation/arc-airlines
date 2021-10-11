@@ -873,9 +873,9 @@ class App extends Component {
             style={{ paddingBottom: "80px" }}
           >
             <div className="container">
-              <div className="callout-box teal">
-                <div className="row">
-                  <div className="col-lg-12">
+              <div className="row">
+                <div className="col-lg-12">
+                  <div className="callout-box teal">
                     <div
                       className="callout-box-title"
                       style={{
@@ -906,6 +906,57 @@ class App extends Component {
                     </a>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="container" style={{ marginBottom: "80px" }}>
+          <div className="row">
+            <div className="col-lg-6">
+              <img
+                className="lazy"
+                src="https://www2.arccorp.com/globalassets/refunds/ap-ndc-feature.png"
+                alt="Implement NDC with ARC"
+              />
+              <div className="underphoto-box">
+                <h3>Implement NDC with ARC</h3>
+                <p>
+                  Our secure and cost-effective settlement platform allows
+                  airlines to pursue a wide range of distribution strategies.
+                </p>
+                <a
+                  href="https://www2.arccorp.com/products-participation/distribution/"
+                  className="link-download"
+                >
+                  Learn More <i className="fas fa-chevron-right"></i>
+                </a>
+              </div>
+            </div>
+            <div className="col-lg-6">
+              <img
+                className="lazy"
+                src="https://www2.arccorp.com/globalassets/refunds/ap-podcast.png"
+                alt="Get Started"
+              />
+              <div className="underphoto-box">
+                <h3>Listen to ARC’s podcast</h3>
+                <p
+                  style={{
+                    maxWidth: "350px",
+                    marginLeft: "auto",
+                    marginRight: "auto"
+                  }}
+                >
+                  ARC Talk explores technology, ingenuity and creativity in air
+                  travel.{" "}
+                </p>
+                <a
+                  href="https://www2.arccorp.com/arc-talk-podcast"
+                  className="link-download"
+                >
+                  Listen Now <i className="fas fa-chevron-right"></i>
+                </a>
               </div>
             </div>
           </div>
