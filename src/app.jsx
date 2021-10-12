@@ -453,9 +453,13 @@ class App extends Component {
             <h1>Participating Airline Information</h1>
             <p>
               More than 200 airlines currently use ARC for ticket settlement
-              services, and information on each airline is listed below. To
-              download the list of participating airlines in an Excel
-              spreadsheet, use the “Export List” button.
+              services, and information on each airline is listed below. You can
+              also{" "}
+              <a href="#">
+                download the participating airline information in an Excel
+                spreadsheet
+              </a>
+              .
             </p>
             <p>
               <strong>Refunds & Processing Validity</strong>: ARC aims to make
