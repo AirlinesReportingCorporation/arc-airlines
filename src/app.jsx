@@ -835,7 +835,7 @@ class App extends Component {
                       airline information represented above, select the button
                       below.
                     </div>
-                    <a href="/" className="ctaBtn ctaBtn--white  product-cta">
+                    <a target="_blank" href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx" className="ctaBtn ctaBtn--white  product-cta">
                       Download
                     </a>
                   </div>
