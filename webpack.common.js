@@ -9,7 +9,7 @@ const extractSass = new MiniCssExtractPlugin({
 
 module.exports = {
   entry: {
-    "refunds": "./src/index.jsx"
+    "arc-airlines": "./src/index.jsx"
   },
   output: {
     filename: "[name].min.js",
