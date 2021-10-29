@@ -42,7 +42,8 @@ class App extends Component {
       activePayments: [],
       completeLoad: false,
       dataRows: <div></div>,
-      searchValue: ""
+      searchValue: "",
+      allData: []
     };
 
     this.setFilter = this.setFilter.bind(this);
@@ -128,92 +129,22 @@ class App extends Component {
   }
 
   setSort(val) {
-    var jsonData1 = this.state.jsonData;
+    var jsonData1 = this.state.allData;
 
     if (val == "asc") {
-      jsonData1.sort(propComparator("Name", 1));
+      jsonData1.sort(propComparator("Airline Name", 1));
     } else if (val == "code") {
-      jsonData1.sort(propComparator("Numeric Code", 1));
+      jsonData1.sort(propComparator(" Numeric", 1));
     } else if (val == "recent") {
-      jsonData1.sort(
-        propComparator("Refund or Ticket Validity Information Last Updated", 1)
-      );
+      jsonData1.sort(propComparator("Last Updated", 1));
     }
 
-    console.log(jsonData1);
-
-    console.log(val);
-
     this.setState({ sortType: val });
-
-    this.setState({ jsonData: jsonData1 });
+    this.setState({ allData: jsonData1 });
   }
 
   componentDidMount() {
     var e = this;
-    //https://www2.arccorp.com/globalassets/support--training/agency-support/credit-refund-acceptance/cc-acceptance-chart.xlsx
-    const refundcall = new Promise((resolve, reject) => {
-      axios({
-        method: "get",
-        url:
-          "https://www2.arccorp.com/globalassets/refunds/refunds.xlsx?" +
-          new Date().toLocaleString(),
-        responseType: "arraybuffer"
-      }).then(function(response) {
-        console.log("===== Refunds Chart Loaded ===== ");
-        var data = new Uint8Array(response.data);
-        var workbook = XLSX.read(data, { type: "array" });
-
-        var workbookData = workbook["Sheets"]["ParticipatingCarriers"];
-
-        //console.log(workbookData);
-
-        var json = XLSX.utils.sheet_to_json(workbookData, { raw: false });
-
-        var refundTypes = [];
-
-        e.setState({ jsonData: json });
-
-        //traverseEntireWorkBook
-        for (var key in workbookData) {
-          //value in cell
-          var val = workbookData[key].w;
-
-          var str = key.match(/[a-z]+|[^a-z]+/gi);
-
-          //console.log(val + ":" + str);
-        }
-
-        e.setSort("asc");
-        resolve(true);
-      });
-    });
-
-    const doc141call = new Promise((resolve, reject) => {
-      axios({
-        method: "get",
-        url:
-          "https://www2.arccorp.com/globalassets/forms/ops/doc141.xlsx?" +
-          new Date().toLocaleString(),
-        responseType: "arraybuffer"
-      }).then(function(response) {
-        console.log("===== Doc141 Chart Loaded ===== ");
-        var data = new Uint8Array(response.data);
-        var workbook = XLSX.read(data, { type: "array" });
-
-        var workbookData = workbook["Sheets"]["ET Matrix"];
-
-        //console.log(workbookData);
-
-        var json = XLSX.utils.sheet_to_json(workbookData, {
-          raw: false,
-          range: 1
-        });
-
-        e.setState({ doc141: json });
-        resolve(true);
-      });
-    });
 
     const profilecall = new Promise((resolve, reject) => {
       axios({
@@ -229,28 +160,34 @@ class App extends Component {
       });
     });
 
-    const cchartcall = new Promise((resolve, reject) => {
+    const allDataCall = new Promise((resolve, reject) => {
       axios({
         method: "get",
         url:
-          "https://www2.arccorp.com/globalassets/support--training/agency-support/credit-card-acceptance/cchart.xlsx?" +
+          "https://www2.arccorp.com/globalassets/airline-participation/airline-data2.xlsx?" +
           new Date().toLocaleString(),
         responseType: "arraybuffer"
       }).then(function(response) {
-        console.log("===== CC Chart Loaded =====");
+        console.log("===== All Airline Data Chart Loaded ===== ");
         var data = new Uint8Array(response.data);
         var workbook = XLSX.read(data, { type: "array" });
 
-        var workbookData = workbook["Sheets"]["CC Acceptance Chart"];
+        var workbookData = workbook["Sheets"]["Airlines"];
 
-        var json = XLSX.utils.sheet_to_json(workbookData);
+        var json = XLSX.utils.sheet_to_json(workbookData, {
+          raw: false,
+          range: 1
+        });
 
-        e.setState({ jsonCardData: json });
+        e.setState({ allData: json });
+
+        e.setSort("asc");
+
         resolve(true);
       });
     });
 
-    Promise.all([refundcall, doc141call, cchartcall, profilecall])
+    Promise.all([profilecall, allDataCall])
       .then(values => {
         e.completeLoadFunc();
       })
@@ -263,8 +200,11 @@ class App extends Component {
 
   renderRows() {
     var e = this;
+
+    //console.log(this.state.allData);
+
     if (e.state.completeLoad) {
-      var refundRowHTML = this.state.jsonData.map((data, i) => {
+      var refundRowHTML = this.state.allData.map((data, i) => {
         var comboTruth = false;
         var refundShow = false;
         var ticketShow = false;
@@ -278,18 +218,21 @@ class App extends Component {
 
         if (filter == "ALL") {
           refundShow = true;
-        } else if (data["Refunds"].indexOf(this.state.filter) > -1) {
-          refundShow = true;
+        } else if (data["Refunds"]) {
+          if (data["Refunds"].indexOf(this.state.filter) > -1) {
+            refundShow = true;
+          }
         }
 
         if (filterNDC == "ALL") {
           ndcShow = true;
         } else if (
           filterNDC == "YES" &&
-          (data["Numeric Code"] === "075" ||
-            data["Numeric Code"] === "134" ||
-            data["Numeric Code"] === "125" ||
-            data["Numeric Code"] === "016")
+          (data[" Numeric"] === "075" ||
+            data[" Numeric"] === "134" ||
+            data[" Numeric"] === "125" ||
+            data[" Numeric"] === "016" ||
+            data["NDC/Direct Connect"] === "Y")
         ) {
           ndcShow = true;
         } else if (filterNDC == "NO") {
@@ -309,22 +252,24 @@ class App extends Component {
           ticketShow = true;
         } else if (
           filterTicket == "13 Months" &&
-          data["Ticket Validity"] == "13 Months"
+          data["Processing Validity"] == "13 Months"
         ) {
           ticketShow = true;
         } else if (
           filterTicket == "> 13 Months" &&
-          data["Ticket Validity"] != "13 Months"
+          data["Processing Validity"] != "13 Months"
         ) {
           ticketShow = true;
         }
 
         var curSearchName =
-          data["Designator"] +
+          data[" Code"] +
           "-" +
-          data["Numeric Code"] +
+          data[" Numeric"] +
           "-" +
-          data["Name"].replace(/\s/g, "");
+          data["Airline Name"].replace(/\s/g, "");
+        //alldata
+        //data["Name"].replace(/\s/g, "");
 
         className =
           refundShow &&
@@ -333,25 +278,6 @@ class App extends Component {
           (e.state.searchValue == curSearchName || e.state.searchValue == "")
             ? "show"
             : "hide";
-
-        var cardRow = "";
-        //get cardData row that matches this
-
-        for (let index = 0; index < e.state.jsonCardData.length; index++) {
-          if (
-            e.state.jsonCardData[index]["Airline Code"].indexOf(
-              data["Numeric Code"]
-            ) > 0
-          ) {
-            cardRow = e.state.jsonCardData[index];
-          }
-        }
-
-        var doc141Row = findIndexArr(
-          e.state.doc141,
-          " Numeric",
-          data["Numeric Code"]
-        );
 
         var paymentFilterData = e.state.activePayments.length
           ? e.state.activePayments
@@ -363,8 +289,8 @@ class App extends Component {
           <div key={i} className={"col-lg-12 " + className}>
             <RefundRow
               data={data}
-              cardData={cardRow}
-              doc141Data={doc141Row}
+              //cardData={cardRow}
+              //doc141Data={doc141Row}
               paymentFilterList={paymentFilterData}
               profileData={this.state.profileData}
               filters="filter"
@@ -393,28 +319,28 @@ class App extends Component {
 
   render() {
     var filter = this.state.filter;
-    var cardData = this.state.jsonCardData;
+    //var cardData = this.state.jsonCardData;
     var e = this;
 
     var searchData = [];
 
     var searchPicked = "";
 
-    for (let i = 0; i < this.state.jsonData.length; i++) {
-      const element = this.state.jsonData[i];
+    for (let i = 0; i < this.state.allData.length; i++) {
+      const element = this.state.allData[i];
       searchData.push({
         name:
-          element["Designator"] +
+          element[" Code"] +
           "-" +
-          element["Numeric Code"] +
+          element[" Numeric"] +
           " " +
-          element["Name"],
+          element["Airline Name"],
         value:
-          element["Designator"] +
+          element[" Code"] +
           "-" +
-          element["Numeric Code"] +
+          element[" Numeric"] +
           "-" +
-          element["Name"].replace(/\s/g, "")
+          element["Airline Name"].replace(/\s/g, "")
       });
     }
 
@@ -669,7 +595,8 @@ class App extends Component {
                         : "")
                     }
                   >
-                    <i className="fas fa-caret-right"></i>> 13 Months
+                    <i className="fas fa-caret-right"></i>
+                    {"<"} 13 Months
                   </div>
                 </div>
               </div>
@@ -975,7 +902,8 @@ class App extends Component {
 
 function propComparator(val, inverse) {
   return function(a, b) {
-    if (val == "Name" || val == "Numeric Code") {
+    if (val == "Airline Name" || val == " Numeric") {
+      console.log(a);
       var x = a[val].toString().toLowerCase();
       var y = b[val].toString().toLowerCase();
 
@@ -987,7 +915,7 @@ function propComparator(val, inverse) {
       }
     }
 
-    if (val == "Refund or Ticket Validity Information Last Updated") {
+    if (val == "Last Updated") {
       var x = a[val]
         ? parseInt(moment(a[val].replace(/-/g, " ")).format("YYYYMMDD"))
         : 1;
