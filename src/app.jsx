@@ -455,7 +455,7 @@ class App extends Component {
               More than 200 airlines currently use ARC for ticket settlement
               services, and information on each airline is listed below. You can
               also{" "}
-              <a href="#">
+              <a href="/products-participation/carriers/carrier-participation/participating-carriers/ExportWithOpenXML">
                 download the participating airline information in an Excel
                 spreadsheet
               </a>
@@ -476,7 +476,7 @@ class App extends Component {
               <strong>EDIFACT Support</strong>: The EDIFACT Support section
               reflects the messaging capabilities of each airline. If you need
               access to the capabilities in one document, you can{" "}
-              <a href="#">
+              <a href="/products-participation/carriers/carrier-participation/participating-carriers/ExportWithOpenXML">
                 download the Participating Airline Information list
               </a>
               .
@@ -530,19 +530,19 @@ class App extends Component {
               This new webpage shows all the information about ARC participating
               airlines in one convenient place. If you prefer to use the
               previous{" "}
-              <a href="https://www2.arccorp.com/refunds">
+              <a href="https://www2.arccorp.com/refunds-archive">
                 Airline Refund and Exchange Information
               </a>
               ,{" "}
-              <a href="https://www2.arccorp.com/globalassets/forms/ops/doc141.pdf">
+              <a href="https://www2.arccorp.com/globalassets/forms/ops/doc141-archive.pdf">
                 Airline Ticket Matrix
               </a>{" "}
               ,{" "}
-              <a href="https://www2.arccorp.com/products-participation/airlines/airline-participation/participating-carriers/">
+              <a href="https://www2.arccorp.com/products-participation/airlines/airline-participation/participating-carriers-archive/">
                 Participating Airline
               </a>{" "}
-              and ,{" "}
-              <a href="https://www2.arccorp.com/support-training/airlines/payment-acceptance/">
+              and {" "}
+              <a href="https://www2.arccorp.com/support-training/airlines/payment-acceptance-archive/">
                 Payment Acceptance
               </a>{" "}
               pages, they’ll be available for a short period of time.
@@ -908,7 +908,7 @@ class App extends Component {
                       airline information represented above, select the button
                       below.
                     </div>
-                    <a href="/" className="ctaBtn ctaBtn--white  product-cta">
+                    <a href="/products-participation/carriers/carrier-participation/participating-carriers/ExportWithOpenXML" className="ctaBtn ctaBtn--white  product-cta">
                       Download
                     </a>
                   </div>
