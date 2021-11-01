@@ -354,7 +354,7 @@ class App extends Component {
                   className="product-sticky-title"
                   style={{ lineHeight: "20px" }}
                 >
-                  Participating Airlines
+                  Participating Airline Information
                 </div>
               </div>
               <div className="product-sticky-links d-flex align-items-center">
@@ -470,7 +470,7 @@ class App extends Component {
                 Airline Ticket Matrix
               </a>{" "}
               ,{" "}
-              <a href="https://www2.arccorp.com/products-participation/airlines/airline-participation/participating-carriers/">
+              <a href="https://www2.arccorp.com/products-participation/airlines/airline-participation/participating-carriers-archive">
                 Participating Airline
               </a>{" "}
               and{" "}
