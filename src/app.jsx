@@ -116,7 +116,7 @@ class App extends Component {
       e.setState({ activePayments: currentPayments });
     }
 
-    console.log(e.state.activePayments);
+    //console.log(e.state.activePayments);
   }
 
   setTicketFilter(val) {
@@ -125,7 +125,7 @@ class App extends Component {
 
   setNDCFilter(val) {
     this.setState({ filterNDC: val });
-    console.log(this.state.filterNDC);
+    //console.log(this.state.filterNDC);
   }
 
   setSort(val) {
@@ -283,7 +283,7 @@ class App extends Component {
           ? e.state.activePayments
           : "all";
 
-        console.log(paymentFilterData);
+        //console.log(paymentFilterData);
 
         return (
           <div key={i} className={"col-lg-12 " + className}>
@@ -913,7 +913,7 @@ class App extends Component {
 function propComparator(val, inverse) {
   return function(a, b) {
     if (val == "Airline Name" || val == " Numeric") {
-      console.log(a);
+      //console.log(a);
       var x = a[val].toString().toLowerCase();
       var y = b[val].toString().toLowerCase();
 
@@ -934,11 +934,11 @@ function propComparator(val, inverse) {
         : 1;
 
       if (x < y) {
-        console.log("before");
+        //console.log("before");
         return 1;
       }
       if (x > y) {
-        console.log("after");
+        //console.log("after");
         return -1;
       }
     }
