@@ -42,8 +42,7 @@ class App extends Component {
       activePayments: [],
       completeLoad: false,
       dataRows: <div></div>,
-      searchValue: "",
-      allData: []
+      searchValue: ""
     };
 
     this.setFilter = this.setFilter.bind(this);
@@ -116,7 +115,7 @@ class App extends Component {
       e.setState({ activePayments: currentPayments });
     }
 
-    //console.log(e.state.activePayments);
+    console.log(e.state.activePayments);
   }
 
   setTicketFilter(val) {
@@ -125,26 +124,96 @@ class App extends Component {
 
   setNDCFilter(val) {
     this.setState({ filterNDC: val });
-    //console.log(this.state.filterNDC);
+    console.log(this.state.filterNDC);
   }
 
   setSort(val) {
-    var jsonData1 = this.state.allData;
+    var jsonData1 = this.state.jsonData;
 
     if (val == "asc") {
-      jsonData1.sort(propComparator("Airline Name", 1));
+      jsonData1.sort(propComparator("Name", 1));
     } else if (val == "code") {
-      jsonData1.sort(propComparator(" Numeric", 1));
+      jsonData1.sort(propComparator("Numeric Code", 1));
     } else if (val == "recent") {
-      jsonData1.sort(propComparator("Last Updated", 1));
+      jsonData1.sort(
+        propComparator("Refund or Ticket Validity Information Last Updated", 1)
+      );
     }
 
+    console.log(jsonData1);
+
+    console.log(val);
+
     this.setState({ sortType: val });
-    this.setState({ allData: jsonData1 });
+
+    this.setState({ jsonData: jsonData1 });
   }
 
   componentDidMount() {
     var e = this;
+    //https://www2.arccorp.com/globalassets/support--training/agency-support/credit-refund-acceptance/cc-acceptance-chart.xlsx
+    const refundcall = new Promise((resolve, reject) => {
+      axios({
+        method: "get",
+        url:
+          "https://www2.arccorp.com/globalassets/refunds/refunds.xlsx?" +
+          new Date().toLocaleString(),
+        responseType: "arraybuffer"
+      }).then(function(response) {
+        console.log("===== Refunds Chart Loaded ===== ");
+        var data = new Uint8Array(response.data);
+        var workbook = XLSX.read(data, { type: "array" });
+
+        var workbookData = workbook["Sheets"]["ParticipatingCarriers"];
+
+        //console.log(workbookData);
+
+        var json = XLSX.utils.sheet_to_json(workbookData, { raw: false });
+
+        var refundTypes = [];
+
+        e.setState({ jsonData: json });
+
+        //traverseEntireWorkBook
+        for (var key in workbookData) {
+          //value in cell
+          var val = workbookData[key].w;
+
+          var str = key.match(/[a-z]+|[^a-z]+/gi);
+
+          //console.log(val + ":" + str);
+        }
+
+        e.setSort("asc");
+        resolve(true);
+      });
+    });
+
+    const doc141call = new Promise((resolve, reject) => {
+      axios({
+        method: "get",
+        url:
+          "https://www2.arccorp.com/globalassets/forms/ops/doc141.xlsx?" +
+          new Date().toLocaleString(),
+        responseType: "arraybuffer"
+      }).then(function(response) {
+        console.log("===== Doc141 Chart Loaded ===== ");
+        var data = new Uint8Array(response.data);
+        var workbook = XLSX.read(data, { type: "array" });
+
+        var workbookData = workbook["Sheets"]["ET Matrix"];
+
+        //console.log(workbookData);
+
+        var json = XLSX.utils.sheet_to_json(workbookData, {
+          raw: false,
+          range: 1
+        });
+
+        e.setState({ doc141: json });
+        resolve(true);
+      });
+    });
 
     const profilecall = new Promise((resolve, reject) => {
       axios({
@@ -160,34 +229,28 @@ class App extends Component {
       });
     });
 
-    const allDataCall = new Promise((resolve, reject) => {
+    const cchartcall = new Promise((resolve, reject) => {
       axios({
         method: "get",
         url:
-          "https://www2.arccorp.com/globalassets/airline-participation/airline-data2.xlsx?" +
+          "https://www2.arccorp.com/globalassets/support--training/agency-support/credit-card-acceptance/cchart.xlsx?" +
           new Date().toLocaleString(),
         responseType: "arraybuffer"
       }).then(function(response) {
-        console.log("===== All Airline Data Chart Loaded ===== ");
+        console.log("===== CC Chart Loaded =====");
         var data = new Uint8Array(response.data);
         var workbook = XLSX.read(data, { type: "array" });
 
-        var workbookData = workbook["Sheets"]["Airlines"];
+        var workbookData = workbook["Sheets"]["CC Acceptance Chart"];
 
-        var json = XLSX.utils.sheet_to_json(workbookData, {
-          raw: false,
-          range: 1
-        });
+        var json = XLSX.utils.sheet_to_json(workbookData);
 
-        e.setState({ allData: json });
-
-        e.setSort("asc");
-
+        e.setState({ jsonCardData: json });
         resolve(true);
       });
     });
 
-    Promise.all([profilecall, allDataCall])
+    Promise.all([refundcall, doc141call, cchartcall, profilecall])
       .then(values => {
         e.completeLoadFunc();
       })
@@ -200,11 +263,8 @@ class App extends Component {
 
   renderRows() {
     var e = this;
-
-    //console.log(this.state.allData);
-
     if (e.state.completeLoad) {
-      var refundRowHTML = this.state.allData.map((data, i) => {
+      var refundRowHTML = this.state.jsonData.map((data, i) => {
         var comboTruth = false;
         var refundShow = false;
         var ticketShow = false;
@@ -218,21 +278,18 @@ class App extends Component {
 
         if (filter == "ALL") {
           refundShow = true;
-        } else if (data["Refunds"]) {
-          if (data["Refunds"].indexOf(this.state.filter) > -1) {
-            refundShow = true;
-          }
+        } else if (data["Refunds"].indexOf(this.state.filter) > -1) {
+          refundShow = true;
         }
 
         if (filterNDC == "ALL") {
           ndcShow = true;
         } else if (
           filterNDC == "YES" &&
-          (data[" Numeric"] === "075" ||
-            data[" Numeric"] === "134" ||
-            data[" Numeric"] === "125" ||
-            data[" Numeric"] === "016" ||
-            data["NDC/Direct Connect"] === "Y")
+          (data["Numeric Code"] === "075" ||
+            data["Numeric Code"] === "134" ||
+            data["Numeric Code"] === "125" ||
+            data["Numeric Code"] === "016")
         ) {
           ndcShow = true;
         } else if (filterNDC == "NO") {
@@ -252,24 +309,22 @@ class App extends Component {
           ticketShow = true;
         } else if (
           filterTicket == "13 Months" &&
-          data["Processing Validity"] == "13 Months"
+          data["Ticket Validity"] == "13 Months"
         ) {
           ticketShow = true;
         } else if (
           filterTicket == "> 13 Months" &&
-          data["Processing Validity"] != "13 Months"
+          data["Ticket Validity"] != "13 Months"
         ) {
           ticketShow = true;
         }
 
         var curSearchName =
-          data[" Code"] +
+          data["Designator"] +
           "-" +
-          data[" Numeric"] +
+          data["Numeric Code"] +
           "-" +
-          data["Airline Name"].replace(/\s/g, "");
-        //alldata
-        //data["Name"].replace(/\s/g, "");
+          data["Name"].replace(/\s/g, "");
 
         className =
           refundShow &&
@@ -279,18 +334,37 @@ class App extends Component {
             ? "show"
             : "hide";
 
+        var cardRow = "";
+        //get cardData row that matches this
+
+        for (let index = 0; index < e.state.jsonCardData.length; index++) {
+          if (
+            e.state.jsonCardData[index]["Airline Code"].indexOf(
+              data["Numeric Code"]
+            ) > 0
+          ) {
+            cardRow = e.state.jsonCardData[index];
+          }
+        }
+
+        var doc141Row = findIndexArr(
+          e.state.doc141,
+          " Numeric",
+          data["Numeric Code"]
+        );
+
         var paymentFilterData = e.state.activePayments.length
           ? e.state.activePayments
           : "all";
 
-        //console.log(paymentFilterData);
+        console.log(paymentFilterData);
 
         return (
           <div key={i} className={"col-lg-12 " + className}>
             <RefundRow
               data={data}
-              //cardData={cardRow}
-              //doc141Data={doc141Row}
+              cardData={cardRow}
+              doc141Data={doc141Row}
               paymentFilterList={paymentFilterData}
               profileData={this.state.profileData}
               filters="filter"
@@ -319,28 +393,28 @@ class App extends Component {
 
   render() {
     var filter = this.state.filter;
-    //var cardData = this.state.jsonCardData;
+    var cardData = this.state.jsonCardData;
     var e = this;
 
     var searchData = [];
 
     var searchPicked = "";
 
-    for (let i = 0; i < this.state.allData.length; i++) {
-      const element = this.state.allData[i];
+    for (let i = 0; i < this.state.jsonData.length; i++) {
+      const element = this.state.jsonData[i];
       searchData.push({
         name:
-          element[" Code"] +
+          element["Designator"] +
           "-" +
-          element[" Numeric"] +
+          element["Numeric Code"] +
           " " +
-          element["Airline Name"],
+          element["Name"],
         value:
-          element[" Code"] +
+          element["Designator"] +
           "-" +
-          element[" Numeric"] +
+          element["Numeric Code"] +
           "-" +
-          element["Airline Name"].replace(/\s/g, "")
+          element["Name"].replace(/\s/g, "")
       });
     }
 
@@ -354,7 +428,7 @@ class App extends Component {
                   className="product-sticky-title"
                   style={{ lineHeight: "20px" }}
                 >
-                  Participating Airline Information
+                  Participating Airlines
                 </div>
               </div>
               <div className="product-sticky-links d-flex align-items-center">
@@ -381,10 +455,7 @@ class App extends Component {
               More than 200 airlines currently use ARC for ticket settlement
               services, and information on each airline is listed below. You can
               also{" "}
-              <a
-                target="_blank"
-                href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx"
-              >
+              <a href="#">
                 download the participating airline information in an Excel
                 spreadsheet
               </a>
@@ -405,10 +476,7 @@ class App extends Component {
               <strong>EDIFACT Support</strong>: The EDIFACT Support section
               reflects the messaging capabilities of each airline. If you need
               access to the capabilities in one document, you can{" "}
-              <a
-                target="_blank"
-                href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx"
-              >
+              <a href="#">
                 download the Participating Airline Information list
               </a>
               .
@@ -462,19 +530,19 @@ class App extends Component {
               This new webpage shows all the information about ARC participating
               airlines in one convenient place. If you prefer to use the
               previous{" "}
-              <a href="https://www2.arccorp.com/refunds-archive">
+              <a href="https://www2.arccorp.com/refunds">
                 Airline Refund and Exchange Information
               </a>
               ,{" "}
-              <a href="https://www2.arccorp.com/globalassets/forms/ops/doc141-archive.pdf">
+              <a href="https://www2.arccorp.com/globalassets/forms/ops/doc141.pdf">
                 Airline Ticket Matrix
               </a>{" "}
               ,{" "}
-              <a href="https://www2.arccorp.com/products-participation/airlines/airline-participation/participating-carriers-archive">
+              <a href="https://www2.arccorp.com/products-participation/airlines/airline-participation/participating-carriers/">
                 Participating Airline
               </a>{" "}
-              and{" "}
-              <a href="https://www2.arccorp.com/support-training/airlines/payment-acceptance-archive/">
+              and ,{" "}
+              <a href="https://www2.arccorp.com/support-training/airlines/payment-acceptance/">
                 Payment Acceptance
               </a>{" "}
               pages, they’ll be available for a short period of time.
@@ -601,8 +669,7 @@ class App extends Component {
                         : "")
                     }
                   >
-                    <i className="fas fa-caret-right"></i>
-                    {"<"} 13 Months
+                    <i className="fas fa-caret-right"></i>{">"} 13 Months
                   </div>
                 </div>
               </div>
@@ -841,11 +908,7 @@ class App extends Component {
                       airline information represented above, select the button
                       below.
                     </div>
-                    <a
-                      target="_blank"
-                      href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx"
-                      className="ctaBtn ctaBtn--white  product-cta"
-                    >
+                    <a href="/" className="ctaBtn ctaBtn--white  product-cta">
                       Download
                     </a>
                   </div>
@@ -912,8 +975,7 @@ class App extends Component {
 
 function propComparator(val, inverse) {
   return function(a, b) {
-    if (val == "Airline Name" || val == " Numeric") {
-      //console.log(a);
+    if (val == "Name" || val == "Numeric Code") {
       var x = a[val].toString().toLowerCase();
       var y = b[val].toString().toLowerCase();
 
@@ -925,7 +987,7 @@ function propComparator(val, inverse) {
       }
     }
 
-    if (val == "Last Updated") {
+    if (val == "Refund or Ticket Validity Information Last Updated") {
       var x = a[val]
         ? parseInt(moment(a[val].replace(/-/g, " ")).format("YYYYMMDD"))
         : 1;
@@ -934,11 +996,11 @@ function propComparator(val, inverse) {
         : 1;
 
       if (x < y) {
-        //console.log("before");
+        console.log("before");
         return 1;
       }
       if (x > y) {
-        //console.log("after");
+        console.log("after");
         return -1;
       }
     }
