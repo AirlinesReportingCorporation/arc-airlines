@@ -197,7 +197,7 @@ class RefundRow extends Component {
                       )) || (
                         <div className="ml-auto d-flex align-items-center">
                           <div className="apUpdated">
-                            <span>Latest Updates:</span> January 1, 2021
+                            <span>Latest Updates:</span> November 1, 2021
                           </div>
                         </div>
                       )}
