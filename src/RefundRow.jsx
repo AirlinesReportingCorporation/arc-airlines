@@ -670,7 +670,7 @@ class RefundRow extends Component {
                       </div>
                       <div
                         className={
-                          findVal(payments, "TP")
+                          findVal(payments, "PayPal")
                             ? "apPaymentLabel active"
                             : "apPaymentLabel"
                         }
