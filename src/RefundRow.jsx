@@ -244,7 +244,7 @@ class RefundRow extends Component {
                                 <span>Updated:</span>
                                 {
                                   data[
-                                    "Refund or Ticket Validity Information Last Updated"
+                                    "Last Updated2"
                                   ]
                                 }
                               </span>
@@ -252,7 +252,7 @@ class RefundRow extends Component {
                           )) || (
                             <div className="mr-1">
                               <div className="apUpdated">
-                                <span>Updated:</span> January 1, 2021
+                                <span>Updated:</span> November 1, 2021
                               </div>
                             </div>
                           )}
@@ -437,23 +437,23 @@ class RefundRow extends Component {
                         <div className="row">
                           <div className="col-lg-12">
                             {data[
-                              "Refund or Ticket Validity Information Last Updated"
+                              "Last Updated2"
                             ] &&
                             data[
-                              "Refund or Ticket Validity Information Last Updated"
+                              "Last Updated2"
                             ] ? (
                               <div className="apDataLabel">
-                                <p>
+                                <p>Updated 
                                   {
                                     data[
-                                      "Refund or Ticket Validity Information Last Updated"
+                                      "Last Updated2"
                                     ]
                                   }
                                 </p>
                               </div>
                             ) : (
                               <div className="apDataLabel">
-                                Updated January 1, 2021
+                                Updated November 1, 2021
                               </div>
                             )}
                           </div>
