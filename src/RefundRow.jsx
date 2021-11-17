@@ -184,20 +184,20 @@ class RefundRow extends Component {
                         <div className="airlinePartName">{data["Airline Name"]}</div>
                       </div>
                       {(data[
-                        "Refund or Ticket Validity Information Last Updated"
+                        "Latest Updates"
                       ] && (
                         <div className="ml-auto apUpdated d-flex align-items-center">
                           <span>Latest Updates:</span>
                           {
                             data[
-                              "Refund or Ticket Validity Information Last Updated"
+                              "Latest Updates"
                             ]
                           }
                         </div>
                       )) || (
                         <div className="ml-auto d-flex align-items-center">
                           <div className="apUpdated">
-                            <span>Latest Updates:</span> January 1, 2021
+                            <span>Latest Updates:</span> November 1, 2021
                           </div>
                         </div>
                       )}
