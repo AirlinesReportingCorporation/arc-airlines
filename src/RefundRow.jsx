@@ -67,7 +67,8 @@ class RefundRow extends Component {
     var profI = findIndex(
       profileData,
       "arc_CarrierCodeNumber",
-      this.props.data["Numeric Code"]
+      //alldata
+      this.props.data[" Numeric"]
     );
 
     if (profileData[profI]) {
@@ -89,13 +90,13 @@ class RefundRow extends Component {
 
   render() {
     var data = this.props.data;
-    var cardData = this.props.cardData;
-    var doc141Data = this.props.doc141Data;
+    var cardData = data;
+    var doc141Data = data;
 
     var payments = "";
 
-    if (cardData["Payment Type Accepted"]) {
-      payments = cardData["Payment Type Accepted"].split("\n");
+    if (data["Accepted Payments"]) {
+      payments = data["Accepted Payments"].split("\n");
     }
 
     var paymentFiltered = 0;
@@ -103,12 +104,9 @@ class RefundRow extends Component {
 
     var ndcAirline = false;
 
-    if (data["Numeric Code"]) {
+    if (data["NDC/Direct Connect"]) {
       if (
-        data["Numeric Code"] === "075" ||
-        data["Numeric Code"] === "134" ||
-        data["Numeric Code"] === "125" ||
-        data["Numeric Code"] === "016"
+        data["NDC/Direct Connect"] === "Y"
       ) {
         ndcAirline = true;
       }
@@ -135,13 +133,15 @@ class RefundRow extends Component {
 
     var refundClass = "refundRegular";
 
-    if (
-      data["Refunds"].indexOf("Managing Directly") > -1 ||
-      data["Instructions 1"] ||
-      data["Instructions 2"] ||
-      data["Instructions 3"]
-    ) {
-      refundClass = "refundDownload";
+    if (data["Refunds"]) {
+      if (
+        data["Refunds"].indexOf("Managing Directly") > -1 ||
+        data["Instructions 1"] ||
+        data["Instructions 2"] ||
+        data["Instructions 3"]
+      ) {
+        refundClass = "refundDownload";
+      }
     }
 
     var restrictionsTitle = data["Restrictions Link Title 1"];
@@ -177,11 +177,11 @@ class RefundRow extends Component {
                   <div className="col-11">
                     <div className="d-flex flex-column flex-lg-row">
                       <div className="d-flex align-items-center">
-                        <div className="apDesignator">{data["Designator"]}</div>
-                        <div className="apCode">{data["Numeric Code"]}</div>
+                        <div className="apDesignator">{data[" Code"]}</div>
+                        <div className="apCode">{data[" Numeric"]}</div>
                       </div>
                       <div className="">
-                        <div className="airlinePartName">{data["Name"]}</div>
+                        <div className="airlinePartName">{data["Airline Name"]}</div>
                       </div>
                       {(data[
                         "Refund or Ticket Validity Information Last Updated"
@@ -197,7 +197,7 @@ class RefundRow extends Component {
                       )) || (
                         <div className="ml-auto d-flex align-items-center">
                           <div className="apUpdated">
-                            <span>Latest Updates:</span> November 1, 2021
+                            <span>Latest Updates:</span> January 1, 2021
                           </div>
                         </div>
                       )}
@@ -397,7 +397,14 @@ class RefundRow extends Component {
                           <div className="col-lg-12">
                             <div className="d-flex align-items-center">
                               <div className="apProcessing">
-                                {data["Ticket Validity"].replace("Months", "")}
+                                {data["Processing Validity"] &&
+                                  data["Processing Validity"].replace(
+                                    "Months",
+                                    ""
+                                  )
+                                //alldata
+                                //data["Ticket Validity"].replace("Months", "")
+                                }
                               </div>
                               <div className="apProcessingText">Months</div>
                             </div>
@@ -482,7 +489,7 @@ class RefundRow extends Component {
                               <div
                                 className={
                                   doc141Data[
-                                    "1 Supports \r\nIAR \r\nET \r\nVoid?"
+                                    "1IAR \r\nET \r\nVoid"
                                   ] === "Y"
                                     ? "apEdiCir"
                                     : "apEdiCirRed"
@@ -498,7 +505,7 @@ class RefundRow extends Component {
                               <div
                                 className={
                                   doc141Data[
-                                    "1 Supports \r\nIAR EMD\r\nVoid?"
+                                    "1IAR EMD\r\nVoid"
                                   ] === "Y"
                                     ? "apEdiCir"
                                     : "apEdiCirRed"
@@ -516,7 +523,7 @@ class RefundRow extends Component {
                               <div
                                 className={
                                   doc141Data[
-                                    "1 Supports \r\nIAR \r\nET \r\nRefund?"
+                                    "1IAR \r\nET \r\nRefund"
                                   ] === "Y"
                                     ? "apEdiCir"
                                     : "apEdiCirRed"
@@ -532,7 +539,7 @@ class RefundRow extends Component {
                               <div
                                 className={
                                   doc141Data[
-                                    "1 Supports \r\nIAR EMD\r\nRefund?"
+                                    "1IAR EMD\r\nRefund"
                                   ] === "Y"
                                     ? "apEdiCir"
                                     : "apEdiCirRed"
@@ -550,7 +557,7 @@ class RefundRow extends Component {
                               <div
                                 className={
                                   doc141Data[
-                                    " Supports \r\nIAR ET\r\nCancel Refund?"
+                                    " 1IAR ET\r\nCancel Refund"
                                   ] === "Y"
                                     ? "apEdiCir"
                                     : "apEdiCirRed"
@@ -566,7 +573,7 @@ class RefundRow extends Component {
                               <div
                                 className={
                                   doc141Data[
-                                    " Supports \r\nIAR EMD\r\nCancel Refund?"
+                                    " \r\n1IAR EMD \r\nCancel Refund"
                                   ] === "Y"
                                     ? "apEdiCir"
                                     : "apEdiCirRed"
@@ -708,8 +715,8 @@ class RefundRow extends Component {
                     <div className="row">
                       <div className="col-lg-4">
                         <div className="apDataLabel">Restriction</div>
-                        {cardData["Code"] ? (
-                          <div className="apDataText">{cardData["Code"]}</div>
+                        {data["Restriction"] ? (
+                          <div className="apDataText">{data["Restriction"]}</div>
                         ) : (
                           <div className="apDataText">N/A</div>
                         )}
@@ -737,7 +744,7 @@ class RefundRow extends Component {
                       ) : (
                         ""
                       )}
-                      {this.state.profileData && (
+                      {this.state.profileData["AppointmentType"] && (
                         <div className="col-4 col-lg-4">
                           <div className="d-flex align-items-center justify-center">
                             <img
