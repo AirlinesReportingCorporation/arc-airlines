@@ -388,7 +388,7 @@ class App extends Component {
               also{" "}
               <a
                 target="_blank"
-                href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx"
+                href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx?123"
               >
                 download the participating airline information in an Excel
                 spreadsheet

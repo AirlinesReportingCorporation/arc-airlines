@@ -136,7 +136,7 @@ class RefundRow extends Component {
     if (data["Refunds"]) {
       if (
         data["Refunds"].indexOf("Managing Directly") > -1 ||
-        data["Instructions 1"] ||
+        data["Refund Instructions"] ||
         data["Instructions 2"] ||
         data["Instructions 3"]
       ) {
@@ -237,14 +237,14 @@ class RefundRow extends Component {
                         <div className="d-flex align-items-center">
                           <h3>Refunds</h3>
                           {(data[
-                            "Refund or Ticket Validity Information Last Updated"
+                            "Last Updated"
                           ] && (
                             <div className="mr-1">
                               <span className="apUpdated">
                                 <span>Updated:</span>
                                 {
                                   data[
-                                    "Last Updated2"
+                                    "Last Updated"
                                   ]
                                 }
                               </span>
@@ -301,14 +301,14 @@ class RefundRow extends Component {
                           </div>
                         </div>
                         <div className="row">
-                          {data["Instructions 1"] ||
+                          {data["Refund Instructions"] ||
                           data["Instructions 2"] ||
                           data["Instructions 3"] ? (
                             <div className="col-lg-12">
                               <div className="apDataLabel">Instructions</div>
-                              {data["Instructions 1"] && (
+                              {data["Refund Instructions"] && (
                                 <div className="apDataText">
-                                  {data["Instructions 1"]
+                                  {data["Refund Instructions"]
                                     .split(" ")
                                     .map((item, i) => {
                                       if (item.indexOf("http") > -1) {
@@ -437,16 +437,16 @@ class RefundRow extends Component {
                         <div className="row">
                           <div className="col-lg-12">
                             {data[
-                              "Last Updated2"
+                              "Last Updated"
                             ] &&
                             data[
-                              "Last Updated2"
+                              "Last Updated"
                             ] ? (
                               <div className="apDataLabel">
                                 <p>Updated 
                                   {
                                     data[
-                                      "Last Updated2"
+                                      "Last Updated"
                                     ]
                                   }
                                 </p>
@@ -551,7 +551,7 @@ class RefundRow extends Component {
                             </div>
                           </div>
                         </div>
-                        <div className="row">
+                        <div className="row apEdiBorder">
                           <div className="col-lg-6">
                             <div className="apEdiItem">
                               <div
@@ -584,6 +584,25 @@ class RefundRow extends Component {
                               </div>
                             </div>
                           </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-lg-12">
+                            <div className="apEdiItem">
+                              <div
+                                className={
+                                  doc141Data[
+                                    "2Accepts Automated MCOs?"
+                                  ] === "N"
+                                    ? "apEdiCirRed"
+                                    : "apEdiCir"
+                                }
+                              ></div>
+                              <div className="apEdiLabel">
+                                <sup>2</sup>Accepts Automated MCOs
+                              </div>
+                            </div>
+                          </div>
+                          
                         </div>
 
                         <div className="apEdiSup">
@@ -870,14 +889,14 @@ class RefundRow extends Component {
             <div className={"airlinePartRowInfo" + ""}>
               <div className="container-fluid">
                 <div className="row no-gutters">
-                  {(data["Instructions 1"] ||
+                  {(data["Refund Instructions"] ||
                     data["Instructions 2"] ||
                     data["Instructions 3"]) && (
                     <div className="col-6">
                       <div className="airlinePartLabel">Instructions</div>
-                      {data["Instructions 1"] && (
+                      {data["Refund Instructions"] && (
                         <div className="instructionsContainer">
-                          {data["Instructions 1"].split(" ").map((item, i) => {
+                          {data["Refund Instructions"].split(" ").map((item, i) => {
                             if (item.indexOf("http") > -1) {
                               item = (
                                 <a href={item} target="_blank">
