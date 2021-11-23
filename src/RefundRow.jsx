@@ -241,7 +241,7 @@ class RefundRow extends Component {
                           ] && (
                             <div className="mr-1">
                               <span className="apUpdated">
-                                <span>Updated:</span>
+                                <span>Updated:</span>&nbsp;
                                 {
                                   data[
                                     "Last Updated"
@@ -443,7 +443,7 @@ class RefundRow extends Component {
                               "Last Updated"
                             ] ? (
                               <div className="apDataLabel">
-                                <p>Updated 
+                                <p>Updated&nbsp;
                                   {
                                     data[
                                       "Last Updated"
