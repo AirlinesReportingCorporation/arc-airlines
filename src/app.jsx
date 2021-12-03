@@ -148,7 +148,7 @@ class App extends Component {
 
     const profilecall = new Promise((resolve, reject) => {
       axios({
-        method: "get",
+        method: "get", 
         url:
           "https://participating-airlines.netlify.app/GetCarriers.json?" +
           new Date().toLocaleString(),
