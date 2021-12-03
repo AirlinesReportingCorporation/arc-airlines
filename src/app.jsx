@@ -43,7 +43,7 @@ class App extends Component {
       completeLoad: false,
       dataRows: <div></div>,
       searchValue: "",
-      allData: []
+      allData: [],
     };
 
     this.setFilter = this.setFilter.bind(this);
@@ -106,7 +106,7 @@ class App extends Component {
       var currentPayments = e.state.activePayments;
       currentPayments.splice(inArrayIndex, 1);
       e.setState({
-        activePayments: currentPayments
+        activePayments: currentPayments,
       });
     }
     //if not in array add to array
@@ -150,9 +150,9 @@ class App extends Component {
       axios({
         method: "get",
         url:
-          "https://www2.arccorp.com/products-participation/airlines/airline-participation/participating-carriers/GetCarriers?" +
+          "https://participating-airlines.netlify.app/GetCarriers.json?" +
           new Date().toLocaleString(),
-        responseType: "json"
+        responseType: "json",
       }).then(function(response) {
         console.log("===== Profile Chart Loaded ===== ");
         e.setState({ profileData: response.data });
@@ -166,7 +166,7 @@ class App extends Component {
         url:
           "https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx?" +
           new Date().toLocaleString(),
-        responseType: "arraybuffer"
+        responseType: "arraybuffer",
       }).then(function(response) {
         console.log("===== All Airline Data Chart Loaded ===== ");
         var data = new Uint8Array(response.data);
@@ -176,7 +176,7 @@ class App extends Component {
 
         var json = XLSX.utils.sheet_to_json(workbookData, {
           raw: false,
-          range: 1
+          range: 1,
         });
 
         e.setState({ allData: json });
@@ -188,10 +188,10 @@ class App extends Component {
     });
 
     Promise.all([profilecall, allDataCall])
-      .then(values => {
+      .then((values) => {
         e.completeLoadFunc();
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error.message);
       });
 
@@ -264,7 +264,7 @@ class App extends Component {
 
         //is not a valid airline
         var validAirline = data[" Code"] && data[" Numeric"];
-        
+
         var curSearchName =
           data[" Code"] +
           "-" +
@@ -278,7 +278,7 @@ class App extends Component {
           refundShow &&
           ticketShow &&
           ndcShow &&
-          validAirline && 
+          validAirline &&
           (e.state.searchValue == curSearchName || e.state.searchValue == "")
             ? "show"
             : "hide";
@@ -345,7 +345,7 @@ class App extends Component {
           "-" +
           element[" Numeric"] +
           "-" +
-          element["Airline Name"].replace(/\s/g, "")
+          element["Airline Name"].replace(/\s/g, ""),
       });
     }
 
@@ -388,7 +388,7 @@ class App extends Component {
               also{" "}
               <a
                 target="_blank"
-                href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx"
+                href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx?123"
               >
                 download the participating airline information in an Excel
                 spreadsheet
@@ -461,7 +461,7 @@ class App extends Component {
                 fontSize: "12px",
                 borderRadius: "8px",
                 padding: "20px",
-                lineHeight: "1.5"
+                lineHeight: "1.5",
               }}
             >
               This new webpage shows all the information about ARC participating
@@ -829,7 +829,7 @@ class App extends Component {
                       style={{
                         maxWidth: "500px",
                         marginLeft: "auto",
-                        marginRight: "auto"
+                        marginRight: "auto",
                       }}
                     >
                       Download an Excel list of all airline information
@@ -839,7 +839,7 @@ class App extends Component {
                       style={{
                         maxWidth: "700px",
                         marginLeft: "auto",
-                        marginRight: "auto"
+                        marginRight: "auto",
                       }}
                     >
                       If you need an Excel spreadsheet that contains all the
@@ -894,7 +894,7 @@ class App extends Component {
                   style={{
                     maxWidth: "350px",
                     marginLeft: "auto",
-                    marginRight: "auto"
+                    marginRight: "auto",
                   }}
                 >
                   ARC Talk explores technology, ingenuity and creativity in air
