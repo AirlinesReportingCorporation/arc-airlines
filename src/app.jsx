@@ -148,7 +148,7 @@ class App extends Component {
 
     const profilecall = new Promise((resolve, reject) => {
       axios({
-        method: "get", 
+        method: "get",
         url:
           "https://participating-airlines.netlify.app/GetCarriers.json?" +
           new Date().toLocaleString(),
@@ -164,8 +164,7 @@ class App extends Component {
       axios({
         method: "get",
         url:
-          "https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx?" +
-          new Date().toLocaleString(),
+          "https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx?",
         responseType: "arraybuffer",
       }).then(function(response) {
         console.log("===== All Airline Data Chart Loaded ===== ");
@@ -455,35 +454,7 @@ class App extends Component {
               </small>
             </p>
 
-            <p
-              style={{
-                border: "2px solid #ddd",
-                fontSize: "12px",
-                borderRadius: "8px",
-                padding: "20px",
-                lineHeight: "1.5",
-              }}
-            >
-              This new webpage shows all the information about ARC participating
-              airlines in one convenient place. If you prefer to use the
-              previous{" "}
-              <a href="https://www2.arccorp.com/refunds-archive">
-                Airline Refund and Exchange Information
-              </a>
-              ,{" "}
-              <a href="https://www2.arccorp.com/globalassets/forms/ops/doc141-archive.pdf">
-                Airline Ticket Matrix
-              </a>{" "}
-              ,{" "}
-              <a href="https://www2.arccorp.com/products-participation/airlines/airline-participation/participating-carriers-archive">
-                Participating Airline
-              </a>{" "}
-              and{" "}
-              <a href="https://www2.arccorp.com/support-training/airlines/payment-acceptance-archive/">
-                Payment Acceptance
-              </a>{" "}
-              pages, they’ll be available for a short period of time.
-            </p>
+            
           </div>
         </div>
 

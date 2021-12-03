@@ -35,8 +35,6 @@ class RefundRow extends Component {
       toggle: false,
       modalShow: false,
       filterActive: true,
-      profileData: [],
-      fullProfileData: []
     };
 
     this.clickToggle = this.clickToggle.bind(this);
@@ -59,39 +57,14 @@ class RefundRow extends Component {
     }
   }
 
-  componentWillMount() {
-    var e = this;
-    var profileData = this.props.profileData;
-    //console.log(profileData);
-
-    var profI = findIndex(
-      profileData,
-      "arc_CarrierCodeNumber",
-      //alldata
-      this.props.data[" Numeric"]
-    );
-
-    if (profileData[profI]) {
-      var accountid = profileData[profI]["AccountId"];
-      e.setState({ fullProfileData: profileData[profI] });
-
-      axios({
-        method: "get",
-        url:
-          "https://www2.arccorp.com/products-participation/airlines/airline-participation/participating-carriers/GetCarrierDetail?accountid=" +
-          accountid,
-        responseType: "json"
-      }).then(function(response) {
-        //console.log("===== Individual Profile Loaded ===== ");
-        e.setState({ profileData: response.data });
-      });
-    }
-  }
+  componentWillMount() {}
 
   render() {
     var data = this.props.data;
     var cardData = data;
     var doc141Data = data;
+    var profileData = data;
+    var fullProfileData = data;
 
     var payments = "";
 
@@ -105,9 +78,7 @@ class RefundRow extends Component {
     var ndcAirline = false;
 
     if (data["NDC/Direct Connect"]) {
-      if (
-        data["NDC/Direct Connect"] === "Y"
-      ) {
+      if (data["NDC/Direct Connect"] === "Y") {
         ndcAirline = true;
       }
     }
@@ -162,7 +133,7 @@ class RefundRow extends Component {
           <MyVerticallyCenteredModal
             show={this.state.modalShow}
             onHide={this.setModalShow.bind(this, false)}
-            data={this.state.profileData}
+            data={profileData}
           />
           <div
             className={
@@ -181,18 +152,14 @@ class RefundRow extends Component {
                         <div className="apCode">{data[" Numeric"]}</div>
                       </div>
                       <div className="">
-                        <div className="airlinePartName">{data["Airline Name"]}</div>
+                        <div className="airlinePartName">
+                          {data["Airline Name"]}
+                        </div>
                       </div>
-                      {(data[
-                        "Latest Updates"
-                      ] && (
+                      {(data["Latest Updates"] && (
                         <div className="ml-auto apUpdated d-flex align-items-center">
                           <span>Latest Updates:</span>
-                          {
-                            data[
-                              "Latest Updates"
-                            ]
-                          }
+                          {data["Latest Updates"]}
                         </div>
                       )) || (
                         <div className="ml-auto d-flex align-items-center">
@@ -236,17 +203,11 @@ class RefundRow extends Component {
                       <div className="apSectionTop">
                         <div className="d-flex align-items-center">
                           <h3>Refunds</h3>
-                          {(data[
-                            "Last Updated"
-                          ] && (
+                          {(data["Last Updated"] && (
                             <div className="mr-1">
                               <span className="apUpdated">
                                 <span>Updated:</span>&nbsp;
-                                {
-                                  data[
-                                    "Last Updated"
-                                  ]
-                                }
+                                {data["Last Updated"]}
                               </span>
                             </div>
                           )) || (
@@ -436,19 +397,11 @@ class RefundRow extends Component {
                         </div>
                         <div className="row">
                           <div className="col-lg-12">
-                            {data[
-                              "Last Updated"
-                            ] &&
-                            data[
-                              "Last Updated"
-                            ] ? (
+                            {data["Last Updated"] && data["Last Updated"] ? (
                               <div className="apDataLabel">
-                                <p>Updated&nbsp;
-                                  {
-                                    data[
-                                      "Last Updated"
-                                    ]
-                                  }
+                                <p>
+                                  Updated&nbsp;
+                                  {data["Last Updated"]}
                                 </p>
                               </div>
                             ) : (
@@ -488,9 +441,7 @@ class RefundRow extends Component {
                             <div className="apEdiItem">
                               <div
                                 className={
-                                  doc141Data[
-                                    "1IAR \r\nET \r\nVoid"
-                                  ] === "Y"
+                                  doc141Data["1IAR \r\nET \r\nVoid"] === "Y"
                                     ? "apEdiCir"
                                     : "apEdiCirRed"
                                 }
@@ -504,9 +455,7 @@ class RefundRow extends Component {
                             <div className="apEdiItem">
                               <div
                                 className={
-                                  doc141Data[
-                                    "1IAR EMD\r\nVoid"
-                                  ] === "Y"
+                                  doc141Data["1IAR EMD\r\nVoid"] === "Y"
                                     ? "apEdiCir"
                                     : "apEdiCirRed"
                                 }
@@ -522,9 +471,7 @@ class RefundRow extends Component {
                             <div className="apEdiItem">
                               <div
                                 className={
-                                  doc141Data[
-                                    "1IAR \r\nET \r\nRefund"
-                                  ] === "Y"
+                                  doc141Data["1IAR \r\nET \r\nRefund"] === "Y"
                                     ? "apEdiCir"
                                     : "apEdiCirRed"
                                 }
@@ -538,9 +485,7 @@ class RefundRow extends Component {
                             <div className="apEdiItem">
                               <div
                                 className={
-                                  doc141Data[
-                                    "1IAR EMD\r\nRefund"
-                                  ] === "Y"
+                                  doc141Data["1IAR EMD\r\nRefund"] === "Y"
                                     ? "apEdiCir"
                                     : "apEdiCirRed"
                                 }
@@ -556,9 +501,8 @@ class RefundRow extends Component {
                             <div className="apEdiItem">
                               <div
                                 className={
-                                  doc141Data[
-                                    " 1IAR ET\r\nCancel Refund"
-                                  ] === "Y"
+                                  doc141Data[" 1IAR ET\r\nCancel Refund"] ===
+                                  "Y"
                                     ? "apEdiCir"
                                     : "apEdiCirRed"
                                 }
@@ -590,9 +534,7 @@ class RefundRow extends Component {
                             <div className="apEdiItem">
                               <div
                                 className={
-                                  doc141Data[
-                                    "2Accepts Automated MCOs?"
-                                  ] === "N"
+                                  doc141Data["2Accepts Automated MCOs?"] === "N"
                                     ? "apEdiCirRed"
                                     : "apEdiCir"
                                 }
@@ -602,7 +544,6 @@ class RefundRow extends Component {
                               </div>
                             </div>
                           </div>
-                          
                         </div>
 
                         <div className="apEdiSup">
@@ -735,7 +676,9 @@ class RefundRow extends Component {
                       <div className="col-lg-4">
                         <div className="apDataLabel">Restriction</div>
                         {data["Restriction"] ? (
-                          <div className="apDataText">{data["Restriction"]}</div>
+                          <div className="apDataText">
+                            {data["Restriction"]}
+                          </div>
                         ) : (
                           <div className="apDataText">N/A</div>
                         )}
@@ -758,12 +701,12 @@ class RefundRow extends Component {
                 <div className="apInfo">
                   <div className="apInfoContainer">
                     <div className="row align-items-center">
-                      {!this.state.fullProfileData["arc_CarrierPolicy"] ? (
+                      {!fullProfileData["Airline Policy"] ? (
                         <div className="offset-lg-2"></div>
                       ) : (
                         ""
                       )}
-                      {this.state.profileData["AppointmentType"] && (
+                      {data["Appointment Type"] && (
                         <div className="col-4 col-lg-4">
                           <div className="d-flex align-items-center justify-center">
                             <img
@@ -772,7 +715,7 @@ class RefundRow extends Component {
                               className="apInfoIcon"
                             />
                             <div className="apInfoLabel">
-                              {this.state.profileData["AppointmentType"]}
+                              {data["Appointment Type"]}
                             </div>
                           </div>
                         </div>
@@ -805,7 +748,7 @@ class RefundRow extends Component {
                         </div>
                       </div>
                       <div className="col-4 col-lg-4">
-                        {this.state.fullProfileData["arc_CarrierPolicy"] && (
+                        {fullProfileData["Airline Policy"] && (
                           <div className="d-flex align-items-center justify-left">
                             <img
                               src="https://www2.arccorp.com/globalassets/refunds/ap-info-icon.png"
@@ -814,7 +757,7 @@ class RefundRow extends Component {
                             />
                             <a
                               href={
-                                this.state.fullProfileData["arc_CarrierPolicy"]
+                                fullProfileData["Airline Policy"]
                               }
                               target="_blank"
                               className="apInfoLabel apInfoLink"
@@ -896,16 +839,18 @@ class RefundRow extends Component {
                       <div className="airlinePartLabel">Instructions</div>
                       {data["Refund Instructions"] && (
                         <div className="instructionsContainer">
-                          {data["Refund Instructions"].split(" ").map((item, i) => {
-                            if (item.indexOf("http") > -1) {
-                              item = (
-                                <a href={item} target="_blank">
-                                  Click here
-                                </a>
-                              );
-                            }
-                            return <span key={i}>{item} </span>;
-                          })}
+                          {data["Refund Instructions"]
+                            .split(" ")
+                            .map((item, i) => {
+                              if (item.indexOf("http") > -1) {
+                                item = (
+                                  <a href={item} target="_blank">
+                                    Click here
+                                  </a>
+                                );
+                              }
+                              return <span key={i}>{item} </span>;
+                            })}
                         </div>
                       )}
 
@@ -1002,7 +947,7 @@ function MyVerticallyCenteredModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          {props.data && <div>{profData["Name"]}</div>}
+          {props.data && <div>{profData["Airline Name"]}</div>}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -1015,11 +960,9 @@ function MyVerticallyCenteredModal(props) {
           <div className="col-md-6">
             {props.data && (
               <div>
-                {profData["CarrierCode"] +
+                {profData[" Code"] +
                   "/" +
-                  profData["CarrierNumber"] +
-                  "-" +
-                  profData["CarrierCheckDigit"]}
+                  profData[" Numeric"]}
               </div>
             )}
           </div>
@@ -1031,7 +974,7 @@ function MyVerticallyCenteredModal(props) {
             </div>
           </div>
           <div className="col-md-6">
-            {props.data && <div>{profData["AppointmentType"]}</div>}
+            {props.data && <div>{profData["Appointment Type"]}</div>}
           </div>
         </div>
         <div className="row modal-row">
@@ -1054,7 +997,7 @@ function MyVerticallyCenteredModal(props) {
             {props.data && (
               <div
                 dangerouslySetInnerHTML={{
-                  __html: profData["AddressComposite"]
+                  __html: profData["Address"],
                 }}
               ></div>
             )}
@@ -1094,7 +1037,7 @@ function MyVerticallyCenteredModal(props) {
             <div className="modal-instructions-body">
               <div
                 dangerouslySetInnerHTML={{
-                  __html: profData["AdditionalInstructions"]
+                  __html: profData["AdditionalInstructions"],
                 }}
               ></div>
             </div>
