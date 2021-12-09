@@ -387,15 +387,13 @@ class App extends Component {
               More than 200 airlines currently use ARC for ticket settlement
               services, and information on each airline is listed below. You can
               also{" "}
-              <a
-                target="_blank"
-                href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx?123"
-              >
+              <a href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx?123">
                 download the participating airline information in an Excel
                 spreadsheet
               </a>
               .
             </p>
+
             <p>
               <strong>Refunds & Processing Validity</strong>: ARC aims to make
               it as easy as possible for travel agencies and airlines to manage
@@ -435,6 +433,17 @@ class App extends Component {
               </a>
               .
             </p>
+
+            <div className="bg-teal type-color-white text-center" style={{ background: "#189bb0", padding: "1.5rem", marginBottom: "2rem" }}>
+              <h3 className="type-color-white ">Download an Excel list of all airline information</h3>
+              <p style={{maxWidth: "650px", margin: "1rem auto "}}>If you need an Excel spreadsheet that contains all the airline information represented above, select the button below.</p>
+              <a
+                href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx?125"
+                className="ctaBtn ctaBtn--white"
+              >
+                Download
+              </a>
+            </div>
 
             <p style={{ lineHeight: "16px" }}>
               <small>
