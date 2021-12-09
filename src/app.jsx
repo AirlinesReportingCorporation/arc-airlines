@@ -332,20 +332,22 @@ class App extends Component {
 
     for (let i = 0; i < this.state.allData.length; i++) {
       const element = this.state.allData[i];
-      searchData.push({
-        name:
-          element[" Code"] +
-          "-" +
-          element[" Numeric"] +
-          " " +
-          element["Airline Name"],
-        value:
-          element[" Code"] +
-          "-" +
-          element[" Numeric"] +
-          "-" +
-          element["Airline Name"].replace(/\s/g, ""),
-      });
+      if (element[" Code"] && element[" Numeric"]) {
+        searchData.push({
+          name:
+            element[" Code"] +
+            "-" +
+            element[" Numeric"] +
+            " " +
+            element["Airline Name"],
+          value:
+            element[" Code"] +
+            "-" +
+            element[" Numeric"] +
+            "-" +
+            element["Airline Name"].replace(/\s/g, ""),
+        });
+      }
     }
 
     return (
@@ -453,8 +455,6 @@ class App extends Component {
                 and/or refunded.
               </small>
             </p>
-
-            
           </div>
         </div>
 
