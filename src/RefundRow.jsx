@@ -115,14 +115,14 @@ class RefundRow extends Component {
       }
     }
 
-    var restrictionsTitle = data["Restrictions Link Title 1"];
+    var restrictionsTitle = data["Restrictions"];
 
     //if there's a link but no title
     if (
-      (data["Restrictions Link Title 1"] == "" ||
-        data["Restrictions Link Title 1"] == undefined) &&
-      data["Restrictions Link URL 1"] !== "" &&
-      data["Restrictions Link URL 1"] !== undefined
+      (data["Restrictions"] == "" ||
+        data["Restrictions"] == undefined) &&
+      data["Restrictions Link"] !== "" &&
+      data["Restrictions Link"] !== undefined
     ) {
       retrictionsTitle = "Link";
     }
@@ -374,8 +374,8 @@ class RefundRow extends Component {
                         <div className="row">
                           <div className="col-lg-12">
                             <div className="apDataLabel">Restriction</div>
-                            {data["Restrictions Link Title 1"] &&
-                            data["Restrictions Link URL 1"] ? (
+                            {data["Restrictions"] &&
+                            data["Restrictions Link"] ? (
                               <div className="apDataText">
                                 <p>
                                   {" "}
@@ -384,9 +384,9 @@ class RefundRow extends Component {
                                   )}
                                   <a
                                     target="_blank"
-                                    href={data["Restrictions Link URL 1"]}
+                                    href={data["Restrictions Link"]}
                                   >
-                                    {data["Restrictions Link Title 1"]}
+                                    {data["Restrictions"]}
                                   </a>
                                 </p>
                               </div>
@@ -800,8 +800,8 @@ class RefundRow extends Component {
                       Processing Validity:
                     </span>
 
-                    {(data["Restrictions Link Title 1"] ||
-                      data["Restrictions Link URL 1"]) && (
+                    {(data["Restrictions"] ||
+                      data["Restrictions Link"]) && (
                       <div
                         onClick={
                           refundClass == "refundDownload"
@@ -905,8 +905,8 @@ class RefundRow extends Component {
                     </div>
                   )}
 
-                  {data["Restrictions Link Title 1"] &&
-                    data["Restrictions Link URL 1"] && (
+                  {data["Restrictions"] &&
+                    data["Restrictions Link"] && (
                       <div className="col-6">
                         <div className="airlinePartLabel">Restrictions</div>
                         <div className="instructionsContainer">
@@ -917,9 +917,9 @@ class RefundRow extends Component {
                             )}
                             <a
                               target="_blank"
-                              href={data["Restrictions Link URL 1"]}
+                              href={data["Restrictions Link"]}
                             >
-                              {data["Restrictions Link Title 1"]}
+                              {data["Restrictions"]}
                             </a>
                           </p>
                         </div>
