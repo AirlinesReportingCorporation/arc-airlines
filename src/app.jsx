@@ -164,7 +164,8 @@ class App extends Component {
       axios({
         method: "get",
         url:
-          "https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx?",
+          "https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx?" +
+          new Date().toLocaleString(),
         responseType: "arraybuffer",
       }).then(function(response) {
         console.log("===== All Airline Data Chart Loaded ===== ");
@@ -420,9 +421,21 @@ class App extends Component {
               .
             </p>
 
-            <div className="bg-teal type-color-white text-center" style={{ background: "#189bb0", padding: "1.5rem", marginBottom: "2rem" }}>
-              <h3 className="type-color-white ">Download an Excel list of all airline information</h3>
-              <p style={{maxWidth: "650px", margin: "1rem auto "}}>If you need an Excel spreadsheet that contains all the airline information represented above, select the button below.</p>
+            <div
+              className="bg-teal type-color-white text-center"
+              style={{
+                background: "#189bb0",
+                padding: "1.5rem",
+                marginBottom: "2rem",
+              }}
+            >
+              <h3 className="type-color-white ">
+                Download an Excel list of all airline information
+              </h3>
+              <p style={{ maxWidth: "650px", margin: "1rem auto " }}>
+                If you need an Excel spreadsheet that contains all the airline
+                information represented above, select the button below.
+              </p>
               <a
                 href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx?125"
                 className="ctaBtn ctaBtn--white"
