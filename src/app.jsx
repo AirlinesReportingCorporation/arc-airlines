@@ -385,13 +385,7 @@ class App extends Component {
             <h1>Participating Airline Information</h1>
             <p>
               More than 200 airlines currently use ARC for ticket settlement
-              services, and information on each airline is listed below. You can
-              also{" "}
-              <a href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx?123">
-                download the participating airline information in an Excel
-                spreadsheet
-              </a>
-              .
+              services, and information on each airline is listed below.
             </p>
 
             <p>
@@ -407,15 +401,7 @@ class App extends Component {
             </p>
             <p>
               <strong>EDIFACT Support</strong>: The EDIFACT Support section
-              reflects the messaging capabilities of each airline. If you need
-              access to the capabilities in one document, you can{" "}
-              <a
-                target="_blank"
-                href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx"
-              >
-                download the Participating Airline Information list
-              </a>
-              .
+              reflects the messaging capabilities of each airline.
             </p>
             <p>
               <strong>NDC/Direct Connect</strong>: Use the filters below to view
