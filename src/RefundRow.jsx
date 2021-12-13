@@ -119,8 +119,7 @@ class RefundRow extends Component {
 
     //if there's a link but no title
     if (
-      (data["Restrictions"] == "" ||
-        data["Restrictions"] == undefined) &&
+      (data["Restrictions"] == "" || data["Restrictions"] == undefined) &&
       data["Restrictions Link"] !== "" &&
       data["Restrictions Link"] !== undefined
     ) {
@@ -380,13 +379,23 @@ class RefundRow extends Component {
                                 <p>
                                   {" "}
                                   {data["Restrictions Text"] && (
-                                    <div>{data["Restrictions Text"]}</div>
+                                    <div>
+                                      {data["Restrictions Link"] != "" &&
+                                      data["Restrictions Text"].indexOf("N/A") >
+                                        -1
+                                        ? "Link"
+                                        : data["Restrictions Text"]}
+                                    </div>
                                   )}
                                   <a
                                     target="_blank"
                                     href={data["Restrictions Link"]}
                                   >
-                                    {data["Restrictions"]}
+                                    {data["Restrictions Link"] != "" &&
+                                    data["Restrictions"].indexOf("N/A") >
+                                      -1
+                                      ? "Link"
+                                      : data["Restrictions"]}
                                   </a>
                                 </p>
                               </div>
@@ -756,9 +765,7 @@ class RefundRow extends Component {
                               className="apInfoIcon apInfoPolicy"
                             />
                             <a
-                              href={
-                                fullProfileData["Airline Policy"]
-                              }
+                              href={fullProfileData["Airline Policy"]}
                               target="_blank"
                               className="apInfoLabel apInfoLink"
                             >
@@ -800,8 +807,7 @@ class RefundRow extends Component {
                       Processing Validity:
                     </span>
 
-                    {(data["Restrictions"] ||
-                      data["Restrictions Link"]) && (
+                    {(data["Restrictions"] || data["Restrictions Link"]) && (
                       <div
                         onClick={
                           refundClass == "refundDownload"
@@ -905,26 +911,27 @@ class RefundRow extends Component {
                     </div>
                   )}
 
-                  {data["Restrictions"] &&
-                    data["Restrictions Link"] && (
-                      <div className="col-6">
-                        <div className="airlinePartLabel">Restrictions</div>
-                        <div className="instructionsContainer">
-                          <p>
-                            {" "}
-                            {data["Restrictions Text"] && (
-                              <div>{data["Restrictions Text"]}</div>
-                            )}
-                            <a
-                              target="_blank"
-                              href={data["Restrictions Link"]}
-                            >
-                              {data["Restrictions"]}
-                            </a>
-                          </p>
-                        </div>
+                  {data["Restrictions"] && data["Restrictions Link"] && (
+                    <div className="col-6">
+                      <div className="airlinePartLabel">Restrictions</div>
+                      <div className="instructionsContainer">
+                        <p>
+                          {" "}
+                          {data["Restrictions Text"] && (
+                            <div>
+                              {data["Restrictions Link"] != "" &&
+                              data["Restrictions Text"] == "N/A"
+                                ? "Link"
+                                : data["Restrictions Text"]}
+                            </div>
+                          )}
+                          <a target="_blank" href={data["Restrictions Link"]}>
+                            {data["Restrictions"]}
+                          </a>
+                        </p>
                       </div>
-                    )}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -959,11 +966,7 @@ function MyVerticallyCenteredModal(props) {
           </div>
           <div className="col-md-6">
             {props.data && (
-              <div>
-                {profData[" Code"] +
-                  "/" +
-                  profData[" Numeric"]}
-              </div>
+              <div>{profData[" Code"] + "/" + profData[" Numeric"]}</div>
             )}
           </div>
         </div>
