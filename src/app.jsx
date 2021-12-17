@@ -150,7 +150,7 @@ class App extends Component {
       axios({
         method: "get",
         url:
-          "https://participating-airlines.netlify.app/GetCarriers.json?" +
+          "https://www2.arccorp.com/globalassets/airline-participation/getcarriers.json?" +
           new Date().toLocaleString(),
         responseType: "json",
       }).then(function(response) {
