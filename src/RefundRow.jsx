@@ -406,11 +406,11 @@ class RefundRow extends Component {
                         </div>
                         <div className="row">
                           <div className="col-lg-12">
-                            {data["Last Updated"] && data["Last Updated"] ? (
+                            {data["Last Updated2"] && data["Last Updated2"] ? (
                               <div className="apDataLabel">
                                 <p>
                                   Updated&nbsp;
-                                  {data["Last Updated"]}
+                                  {data["Last Updated2"]}
                                 </p>
                               </div>
                             ) : (
