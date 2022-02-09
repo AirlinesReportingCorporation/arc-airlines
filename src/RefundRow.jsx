@@ -392,8 +392,7 @@ class RefundRow extends Component {
                                     href={data["Restrictions Link"]}
                                   >
                                     {data["Restrictions Link"] != "" &&
-                                    data["Restrictions"].indexOf("N/A") >
-                                      -1
+                                    data["Restrictions"].indexOf("N/A") > -1
                                       ? "Link"
                                       : data["Restrictions"]}
                                   </a>
@@ -945,6 +944,8 @@ class RefundRow extends Component {
 function MyVerticallyCenteredModal(props) {
   var profData = props.data;
 
+  console.log(profData["Additional Instructions"]);
+
   return (
     <Modal
       {...props}
@@ -1032,17 +1033,21 @@ function MyVerticallyCenteredModal(props) {
             )}
           </div>
         </div>
-        {props.data && profData["AdditionalInstructions"] ? (
-          <div className="row modal-row text-center">
-            <div className="modal-instructions">
-              Additional Airline Instructions
+        {props.data && profData["Additional Instructions"] ? (
+          <div className="row modal-row modal-row-instructions">
+            <div className="col-md-6">
+              <div className="text-right">
+                <strong>Additional Airline Instructions</strong>
+              </div>
             </div>
-            <div className="modal-instructions-body">
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: profData["AdditionalInstructions"],
-                }}
-              ></div>
+            <div className="col-md-6">
+              <div className="modal-instructions-body">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: profData["Additional Instructions"],
+                  }}
+                ></div>
+              </div>
             </div>
           </div>
         ) : (
