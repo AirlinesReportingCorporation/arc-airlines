@@ -896,8 +896,9 @@ class App extends Component {
 
 function propComparator(val, inverse) {
   return function(a, b) {
-    if (val == "Airline Name" || val == " Numeric") {
-      //console.log(a);
+    var validAirline =
+      a[" Code"] && a[" Numeric"] && b[" Code"] && b[" Numeric"];
+    if ((val == "Airline Name" || val == " Numeric") && validAirline) {
       var x = a[val].toString().toLowerCase();
       var y = b[val].toString().toLowerCase();
 
