@@ -556,7 +556,7 @@ class RefundRow extends Component {
 
                         <div className="apEdiSup">
                           <sup>1</sup>An Electronic Settlement Authorization
-                          Code (ESAC) is provided by 1all ticketing Airlines and
+                          Code (ESAC) is provided by all ticketing Airlines and
                           is required for voids and refunds.
                         </div>
 
