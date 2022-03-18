@@ -161,6 +161,11 @@
   font-family: SourceSansPro-Regular, Arial, Helvetica, sans-serif;
   transition: 0.5s;
   overflow: hidden;
+  
+
+  &:hover {
+    background: #dddddd;
+  }
 }
 
 .apDesignator,
@@ -260,6 +265,11 @@
   position: relative;
   z-index: 5;
   padding: 35px;
+  cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+  }
 
   .col-11 {
     flex: 0 0 95%;

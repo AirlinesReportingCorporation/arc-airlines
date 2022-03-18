@@ -41,7 +41,10 @@ class RefundRow extends Component {
     this.setModalShow = this.setModalShow.bind(this);
   }
 
-  setModalShow(val) {
+  setModalShow(e) {
+    if (e && e.stopPropagation) {
+      e.stopPropagation();
+    }
     if (this.state.modalShow == false) {
       this.setState({ modalShow: true });
     } else {
@@ -129,11 +132,6 @@ class RefundRow extends Component {
     return (
       <div>
         <div>
-          <MyVerticallyCenteredModal
-            show={this.state.modalShow}
-            onHide={this.setModalShow.bind(this, false)}
-            data={profileData}
-          />
           <div
             className={
               "airlinePartRow" +
@@ -142,7 +140,10 @@ class RefundRow extends Component {
             }
           >
             <div className="airlinePartRowTop">
-              <div className="airlinePartRowStart container-fluid">
+              <div
+                className="airlinePartRowStart container-fluid"
+                onClick={this.clickToggle}
+              >
                 <div className="row align-items-center">
                   <div className="col-11">
                     <div className="d-flex flex-column flex-lg-row">
@@ -168,16 +169,21 @@ class RefundRow extends Component {
                         </div>
                       )}
                       <div
-                        onClick={this.setModalShow.bind(this, true)}
+                        onClick={this.setModalShow}
                         className="apProfile d-flex align-items-center"
                       >
                         Airline Profile <i className="fas fa-chevron-right"></i>
+                        <MyVerticallyCenteredModal
+                          show={this.state.modalShow}
+                          onHide={this.setModalShow}
+                          data={profileData}
+                        />
                       </div>
                     </div>
                   </div>
                   <div className="col-1">
                     <div>
-                      <div className="apExpand" onClick={this.clickToggle}>
+                      <div className="apExpand">
                         <i
                           className={
                             "fas" +
