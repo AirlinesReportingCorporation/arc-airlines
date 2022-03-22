@@ -407,13 +407,13 @@ class App extends Component {
                 marginBottom: "2rem",
               }}
             >
-              <h3 className="type-color-white ">
-                Download an Excel list of all airline information
+              <h3
+                className="type-color-white "
+                style={{ maxWidth: "500px", margin: "0 auto 15px" }}
+              >
+                Download an Excel spreadsheet containing all ARC-participating
+                airline information.
               </h3>
-              <p style={{ maxWidth: "650px", margin: "1rem auto " }}>
-                If you need an Excel spreadsheet that contains all the airline
-                information represented above, select the button below.
-              </p>
               <a
                 href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx?125"
                 className="ctaBtn ctaBtn--white"
