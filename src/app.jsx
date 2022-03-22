@@ -385,40 +385,18 @@ class App extends Component {
           <div className="airlinePartJumbo">
             <h1>Participating Airline Information</h1>
             <p>
-              More than 200 airlines currently use ARC for ticket settlement
-              services, and information on each airline is listed below.
+              More than 240 airlines depend on ARC for ticket settlement
+              services with travel agencies and CTDs. Use the filters below to
+              sort and view the information you want to see, including:
             </p>
 
             <p>
-              <strong>Refunds & Processing Validity</strong>: ARC aims to make
-              it as easy as possible for travel agencies and airlines to manage
-              refunds. Use the filters below to view airline refund policies and
-              processing validity. (Processing validity refers to the period of
-              time that refunds and exchanges can be processed through ARC’s
-              settlement system, IAR. Before processing any refund or exchange,
-              agents should review the ticket’s fare rules, as well as any
-              ticket validity extension that may have been offered by the
-              airline.)
-            </p>
-            <p>
-              <strong>EDIFACT Support</strong>: The EDIFACT Support section
-              reflects the messaging capabilities of each airline.
-            </p>
-            <p>
-              <strong>NDC/Direct Connect</strong>: Use the filters below to view
-              airlines participating in NDC/Direct Connect, which gives agencies
-              direct access to fares.
-            </p>
-            <p style={{ marginBottom: "45px" }}>
-              <strong>Accepted Payment</strong>: Each airline determines which
-              forms of payment to accept and then works with the Global
-              Distribution Systems and ARC to support those payments. If you
-              have any questions about payment acceptance through ARC, please
-              contact the Payment Services team at{" "}
-              <a href="mailto:CreditCardServices@arccorp.com">
-                CreditCardServices@arccorp.com
-              </a>
-              .
+              <ul>
+                <li>Refund & exchange ticket-processing validity</li>
+                <li>EDIFACT support</li>
+                <li>Payment acceptance</li>
+                <li>NDC/Direct Connect participation</li>
+              </ul>
             </p>
 
             <div
@@ -443,26 +421,6 @@ class App extends Component {
                 Download
               </a>
             </div>
-
-            <p style={{ lineHeight: "16px" }}>
-              <small>
-                <strong>Please note:</strong> This page is updated based on
-                information ARC receives from individual airlines and global
-                distribution systems. It may not be comprehensive and is subject
-                to change without notice. For specific airline policies and
-                guidelines, please visit the airline’s website or contact the
-                airline directly. ARC uses reasonable care in compiling and
-                presenting the hyperlinks, but ARC gives no guarantee,
-                representation, or warranty that the content behind any of the
-                hyperlinks is complete, accurate, error- or virus-free, or up to
-                date. The information contained behind any hyperlink may not be
-                the sole source of information from the airline and may not
-                include all fare rules/ticketing rules. ARC recommends travel
-                agents take care to read all information published by the
-                airline and all rules for the fares being booked, ticketed
-                and/or refunded.
-              </small>
-            </p>
           </div>
         </div>
 
@@ -790,6 +748,32 @@ class App extends Component {
             style={{ maxWidth: "1170px", margin: "0 auto", overflow: "hidden" }}
           >
             <div className="row no-gutters">{this.renderRows()}</div>
+          </div>
+        </div>
+
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12">
+              <p style={{ lineHeight: "16px" }}>
+                <small>
+                  <strong>Please note:</strong> This page is updated based on
+                  information ARC receives from individual airlines and global
+                  distribution systems. It may not be comprehensive and is
+                  subject to change without notice. For specific airline
+                  policies and guidelines, please visit the airline’s website or
+                  contact the airline directly. ARC uses reasonable care in
+                  compiling and presenting the hyperlinks, but ARC gives no
+                  guarantee, representation, or warranty that the content behind
+                  any of the hyperlinks is complete, accurate, error- or
+                  virus-free, or up to date. The information contained behind
+                  any hyperlink may not be the sole source of information from
+                  the airline and may not include all fare rules/ticketing
+                  rules. ARC recommends travel agents take care to read all
+                  information published by the airline and all rules for the
+                  fares being booked, ticketed and/or refunded.
+                </small>
+              </p>
+            </div>
           </div>
         </div>
 

@@ -595,7 +595,15 @@ class RefundRow extends Component {
                           <div className="airlineTooltipText">
                             Payments accepted by the airline are shown in bright
                             green text. Payment options in gray are not
-                            accepted.
+                            accepted. Each airline determines which forms of
+                            payment to accept and then works with the Global
+                            Distribution Systems and ARC to support those
+                            payments. If you have any questions about payment
+                            acceptance through ARC, please contact the Payment
+                            Services team at{" "}
+                            <a href="mailto:CreditCardServices@arccorp.com">
+                              CreditCardServices@arccorp.com
+                            </a>
                           </div>
                         </div>
                       </div>
