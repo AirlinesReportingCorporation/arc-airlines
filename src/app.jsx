@@ -390,7 +390,7 @@ class App extends Component {
               sort and view the information you want to see, including:
             </p>
 
-            <p>
+            <p style={{ marginBottom: "60px" }}>
               <ul>
                 <li>Refund & exchange ticket-processing validity</li>
                 <li>EDIFACT support</li>
@@ -400,16 +400,16 @@ class App extends Component {
             </p>
 
             <div
-              className="bg-teal type-color-white text-center"
+              className="bg-teal type-color-white text-center airlineBorderRadius"
               style={{
                 background: "#189bb0",
                 padding: "1.5rem",
-                marginBottom: "2rem",
+                marginBottom: "1rem",
               }}
             >
               <h3
                 className="type-color-white "
-                style={{ maxWidth: "500px", margin: "0 auto 15px" }}
+                style={{ maxWidth: "500px", margin: "15px auto 30px" }}
               >
                 Download an Excel spreadsheet containing all ARC-participating
                 airline information.
@@ -417,6 +417,7 @@ class App extends Component {
               <a
                 href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx?125"
                 className="ctaBtn ctaBtn--white"
+                style={{ marginBottom: "1rem" }}
               >
                 Download
               </a>
@@ -786,7 +787,7 @@ class App extends Component {
             <div className="container">
               <div className="row">
                 <div className="col-lg-12">
-                  <div className="callout-box teal">
+                  <div className="callout-box teal airlineBorderRadius">
                     <div
                       className="callout-box-title"
                       style={{

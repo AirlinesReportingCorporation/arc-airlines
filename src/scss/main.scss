@@ -73,6 +73,10 @@
   }
 }
 
+.airlineBorderRadius {
+  border-radius: 10px;
+}
+
 .airlinePartJumboContainer {
   padding: 40px 0 40px;
   //box-shadow: 6px 10px 40px rgba(150, 150, 150, 0.3);
@@ -86,8 +90,8 @@
     font-family: SourceSansPro-Bold, Arial, Helvetica, sans-serif;
     text-align: left;
     line-height: 1.1;
-    margin-top: 50px;
-    margin-bottom: 70px;
+    margin-top: 45px;
+    margin-bottom: 60px;
     max-width: 1170px;
     font-size: 48px;
     color: #414042;
