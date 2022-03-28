@@ -68,6 +68,7 @@ class App extends Component {
     this.setState({ filterTicket: "ALL" });
     this.setSort("asc");
     this.setState({ searchValue: "" });
+    this.setState({ filterNDC: "ALL" });
 
     document.getElementsByClassName("select-search__input").value = "";
   }
@@ -409,7 +410,10 @@ class App extends Component {
             <p>
               Download an Excel spreadsheet containing all ARC-participating
               airline information.{" "}
-              <a className="airlinePartDownloadLink" href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx?125">
+              <a
+                className="airlinePartDownloadLink"
+                href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx?125"
+              >
                 Download
               </a>
             </p>
