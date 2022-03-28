@@ -184,12 +184,11 @@ class RefundRow extends Component {
                   <div className="col-1">
                     <div>
                       <div className="apExpand">
-                        <i
+                        <div
                           className={
-                            "fas" +
-                            (this.state.toggle ? " fa-minus" : " fa-plus")
+                            this.state.toggle ? "ap-close" : " ap-open"
                           }
-                        ></i>
+                        ></div>
                       </div>
                     </div>
                   </div>
@@ -723,11 +722,6 @@ class RefundRow extends Component {
                 <div className="apInfo">
                   <div className="apInfoContainer">
                     <div className="row align-items-center">
-                      {!fullProfileData["Airline Policy"] ? (
-                        <div className="offset-lg-2"></div>
-                      ) : (
-                        ""
-                      )}
                       {data["Appointment Type"] && (
                         <div className="col-4 col-lg-4">
                           <div className="d-flex align-items-center justify-center">
@@ -770,7 +764,7 @@ class RefundRow extends Component {
                         </div>
                       </div>
                       <div className="col-4 col-lg-4">
-                        {fullProfileData["Airline Policy"] && (
+                        {fullProfileData["Airline Policy"] ? (
                           <div className="d-flex align-items-center justify-left">
                             <img
                               src="https://www2.arccorp.com/globalassets/refunds/ap-info-icon.png"
@@ -785,6 +779,17 @@ class RefundRow extends Component {
                               Airline Policy{" "}
                               <i className="fas fa-chevron-right"></i>
                             </a>
+                          </div>
+                        ) : (
+                          <div className="d-flex align-items-center justify-left">
+                            <img
+                              src="https://www2.arccorp.com/globalassets/refunds/ap-info-icon.png"
+                              alt=""
+                              className="apInfoIcon apInfoPolicy gray"
+                            />
+                            <span className="apInfoLabel apInfoLink gray">
+                              Airline Policy
+                            </span>
                           </div>
                         )}
                       </div>

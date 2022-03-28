@@ -390,7 +390,7 @@ class App extends Component {
               sort and view the information you want to see, including:
             </p>
 
-            <p style={{ marginBottom: "60px" }}>
+            <p>
               <ul>
                 <li>Refund & exchange ticket-processing validity</li>
                 <li>EDIFACT support</li>
@@ -398,30 +398,21 @@ class App extends Component {
                 <li>NDC/Direct Connect participation</li>
               </ul>
             </p>
+          </div>
+        </div>
 
-            <div
-              className="bg-teal type-color-white text-center airlineBorderRadius"
-              style={{
-                background: "#189bb0",
-                padding: "1.5rem",
-                marginBottom: "1rem",
-              }}
-            >
-              <h3
-                className="type-color-white "
-                style={{ maxWidth: "500px", margin: "15px auto 30px" }}
-              >
-                Download an Excel spreadsheet containing all ARC-participating
-                airline information.
-              </h3>
-              <a
-                href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx?125"
-                className="ctaBtn ctaBtn--white"
-                style={{ marginBottom: "1rem" }}
-              >
+        <div
+          class="airlineDownloadContainer"
+          style={{ borderTop: "1px solid #d4d4d4" }}
+        >
+          <div className="airlinePartJumbo">
+            <p>
+              Download an Excel spreadsheet containing all ARC-participating
+              airline information.{" "}
+              <a className="airlinePartDownloadLink" href="https://www2.arccorp.com/globalassets/airline-participation/airline-data.xlsx?125">
                 Download
               </a>
-            </div>
+            </p>
           </div>
         </div>
 
