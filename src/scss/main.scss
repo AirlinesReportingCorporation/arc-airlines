@@ -187,6 +187,8 @@
   font-family: SourceSansPro-Regular, Arial, Helvetica, sans-serif;
   transition: 0.5s;
   overflow: hidden;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 
   &:hover {
     background: #dddddd;
@@ -335,6 +337,8 @@
   padding-right: 30px;
   padding-left: 30px;
   padding-bottom: 30px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 
   &.show {
     display: block;
