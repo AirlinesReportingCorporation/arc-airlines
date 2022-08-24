@@ -553,7 +553,7 @@ class RefundRow extends Component {
                                 }
                               ></div>
                               <div className="apEdiLabel">
-                                <sup>2</sup>Accepts Automated MCOs
+                                Accepts Automated MCOs
                               </div>
                             </div>
                           </div>
