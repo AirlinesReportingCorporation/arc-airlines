@@ -158,13 +158,13 @@ class RefundRow extends Component {
                       </div>
                       {(data["Latest Updates"] && (
                         <div className="ml-auto apUpdated d-flex align-items-center">
-                          <span>Latest Updates:</span>
+                          <span>Latest Updates: {" "}</span>
                           {data["Latest Updates"]}
                         </div>
                       )) || (
                         <div className="ml-auto d-flex align-items-center">
                           <div className="apUpdated">
-                            <span>Latest Updates:</span> November 1, 2021
+                            <span>Latest Updates: {" "}</span>November 1, 2021
                           </div>
                         </div>
                       )}
