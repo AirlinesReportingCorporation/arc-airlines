@@ -20,8 +20,6 @@ function urlify(text) {
   return text.replace(urlRegex, function(url) {
     return '<a href="' + url + '">' + url + "</a>";
   });
-  // or alternatively
-  // return text.replace(urlRegex, '<a href="$1">$1</a>')
 }
 
 function findIndex(arr, key, val) {
@@ -281,19 +279,13 @@ class RefundRow extends Component {
                               <div className="apDataLabel">Instructions</div>
                               {data["Refund Instructions"] && (
                                 <div className="apDataText">
-                                  {data["Refund Instructions"]
-                                    .split(" ")
-                                    .map((item, i) => {
-                                      item = urlify(item);
-                                      return (
-                                        <span
-                                          key={i}
-                                          dangerouslySetInnerHTML={{
-                                            __html: item,
-                                          }}
-                                        ></span>
-                                      );
-                                    })}
+                                  <span
+                                    dangerouslySetInnerHTML={{
+                                      __html: urlify(
+                                        data["Refund Instructions"]
+                                      ),
+                                    }}
+                                  ></span>
                                 </div>
                               )}
 
