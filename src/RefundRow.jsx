@@ -15,6 +15,15 @@ function findVal(arr, val) {
   return false;
 }
 
+function urlify(text) {
+  var urlRegex = /(https?:\/\/[^\s]+)/g;
+  return text.replace(urlRegex, function(url) {
+    return '<a href="' + url + '">' + url + "</a>";
+  });
+  // or alternatively
+  // return text.replace(urlRegex, '<a href="$1">$1</a>')
+}
+
 function findIndex(arr, key, val) {
   if (arr) {
     for (let i = 0; i < arr.length; i++) {
@@ -158,13 +167,13 @@ class RefundRow extends Component {
                       </div>
                       {(data["Latest Updates"] && (
                         <div className="ml-auto apUpdated d-flex align-items-center">
-                          <span>Latest Updates: {" "}</span>
+                          <span>Latest Updates: </span>
                           {data["Latest Updates"]}
                         </div>
                       )) || (
                         <div className="ml-auto d-flex align-items-center">
                           <div className="apUpdated">
-                            <span>Latest Updates: {" "}</span>November 1, 2021
+                            <span>Latest Updates: </span>November 1, 2021
                           </div>
                         </div>
                       )}
@@ -210,8 +219,7 @@ class RefundRow extends Component {
                           {(data["Last Updated"] && (
                             <div className="mr-1">
                               <span className="apUpdated">
-                                <span>Updated:</span>{" "}
-                                {data["Last Updated"]}
+                                <span>Updated:</span> {data["Last Updated"]}
                               </span>
                             </div>
                           )) || (
@@ -276,14 +284,15 @@ class RefundRow extends Component {
                                   {data["Refund Instructions"]
                                     .split(" ")
                                     .map((item, i) => {
-                                      if (item.indexOf("http") > -1) {
-                                        item = (
-                                          <a href={item} target="_blank">
-                                            Click here
-                                          </a>
-                                        );
-                                      }
-                                      return <span key={i}>{item} </span>;
+                                      item = urlify(item);
+                                      return (
+                                        <span
+                                          key={i}
+                                          dangerouslySetInnerHTML={{
+                                            __html: item,
+                                          }}
+                                        ></span>
+                                      );
                                     })}
                                 </div>
                               )}
@@ -412,10 +421,7 @@ class RefundRow extends Component {
                           <div className="col-lg-12">
                             {data["Last Updated2"] && data["Last Updated2"] ? (
                               <div className="apDataLabel">
-                                <p>
-                                Updated{" "}
-                                  {data["Last Updated2"]}
-                                </p>
+                                <p>Updated {data["Last Updated2"]}</p>
                               </div>
                             ) : (
                               <div className="apDataLabel">
