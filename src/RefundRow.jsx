@@ -679,7 +679,7 @@ class RefundRow extends Component {
                             : "apPaymentLabel"
                         }
                       >
-                        UnionPay (UP)
+                        UnionPay INT'L (UP)
                       </div>
                       <div
                         className={

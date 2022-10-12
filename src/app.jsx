@@ -695,7 +695,7 @@ class App extends Component {
                             "UnionPay"
                           )}
                         />
-                        UnionPay (UP)
+                        UnionPay INT'L (UP)
                       </label>
                     </div>
                   </div>
