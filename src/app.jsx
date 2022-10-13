@@ -698,6 +698,21 @@ class App extends Component {
                         UnionPay INT'L (UP)
                       </label>
                     </div>
+                    <div className="airlinePartFilterItem">
+                      <label htmlFor="card-8">
+                        <input
+                          className="cardType"
+                          name="card-8"
+                          id="card-8"
+                          type="checkbox"
+                          onClick={this.toggleActivePayments.bind(
+                            this,
+                            "Alipay"
+                          )}
+                        />
+                        Alipay (TP)
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>

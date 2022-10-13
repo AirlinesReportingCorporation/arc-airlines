@@ -690,6 +690,15 @@ class RefundRow extends Component {
                       >
                         VISA (VI)
                       </div>
+                      <div
+                        className={
+                          findVal(payments, "Alipay")
+                            ? "apPaymentLabel active"
+                            : "apPaymentLabel"
+                        }
+                      >
+                        Alipay (TP)
+                      </div>
                     </div>
                     <div className="row">
                       <div className="col-lg-4">
