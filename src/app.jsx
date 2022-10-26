@@ -527,7 +527,7 @@ class App extends Component {
                       (this.state.filterTicket == "13 Months" ? " active" : "")
                     }
                   >
-                    <i className="fas fa-caret-right"></i>
+                    <i className="fas fa-caret-left"></i>
                     13 Months
                   </div>
                   <div
