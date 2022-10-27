@@ -641,6 +641,18 @@ class App extends Component {
                         />
                         Diners Club Int'l (DC)
                       </label>
+                      <div className="airlinePartFilterItem">
+                      <label htmlFor="card-4">
+                        <input
+                          className="cardType"
+                          name="card-4"
+                          id="card-4"
+                          type="checkbox"
+                          onClick={this.toggleActivePayments.bind(this, "Uplift")}
+                        />
+                        Uplift (TP)
+                      </label>
+                    </div>
                     </div>
                   </div>
                   <div className="col-lg-6">
