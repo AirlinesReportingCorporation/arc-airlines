@@ -508,7 +508,7 @@ class App extends Component {
                 </div>
               </div>
               <div className="col-lg-2">
-                <div className="airlinePartLabel">Processing Validty</div>
+                <div className="airlinePartLabel">Processing Validity</div>
                 <div className="airlinePartFilterGroup">
                   <div
                     onClick={this.setTicketFilter.bind(this, "ALL")}
@@ -540,7 +540,7 @@ class App extends Component {
                     }
                   >
                     <i className="fas fa-caret-right"></i>
-                    {"<"} 13 Months
+                    {">"} 13 Months
                   </div>
                 </div>
               </div>

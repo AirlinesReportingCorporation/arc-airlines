@@ -4,7 +4,7 @@ const common = require("./webpack.common.js");
 
 module.exports = merge(common, {
   mode: "development",
-  devtool: "inline-source-map",
+  //devtool: 'inline-source-map',
   devServer: {
     client: {
       overlay: {
@@ -15,7 +15,7 @@ module.exports = merge(common, {
     static: {
       directory: path.join(__dirname, "src")
     },
-    
+
     compress: true,
     hot: true,
     open: true
